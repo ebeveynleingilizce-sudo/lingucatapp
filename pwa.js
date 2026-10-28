@@ -13,14 +13,14 @@ var installed=displayMode.matches||navigator.standalone===true||rememberedInstal
 function rememberInstalled(value){installed=value;try{if(value)localStorage.setItem(installKey,'1');else localStorage.removeItem(installKey);}catch(e){}renderInstall();}
 var promo=document.createElement('button');promo.id='installPromo';promo.type='button';promo.className='pwa-install-promo';promo.hidden=true;
 promo.setAttribute('aria-label','LinguCat uygulamasını yükle');
-promo.innerHTML='<span class="pwa-install-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3v11m-4-4 4 4 4-4M5 15v5h14v-5"/></svg></span><span class="pwa-install-copy"><b>Uygulamayı Yükle</b><small>Ücretsiz · Ana ekranına ekle</small></span><span class="pwa-install-arrow" aria-hidden="true">↗</span>';
+promo.innerHTML='<span class="pwa-install-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3v11m-4-4 4 4 4-4M5 15v5h14v-5"/></svg></span><span class="pwa-install-copy"><b>Uygulamayı İndir</b><small>Ücretsiz · Ana ekranına ekle</small></span><span class="pwa-install-arrow" aria-hidden="true">↗</span>';
 function renderInstall(){
  var inApp=displayMode.matches||navigator.standalone===true,available=window.isSecureContext&&location.protocol!=='file:'&&!installed&&!inApp;
- promo.hidden=!(available&&(deferred||!nativeInstallSupported));
+ promo.hidden=!available;
  install.hidden=!(available&&deferred);
  var brand=document.querySelector('#accountGate .account-brand');if(brand)brand.classList.toggle('has-install-promo',!promo.hidden&&promo.parentNode===brand);
 }
-function mountPromo(){var gate=document.getElementById('accountGate'),host=gate&&!gate.hidden?gate.querySelector('.account-brand'):document.querySelector('#hub .adventure-hero');if(host&&promo.parentNode!==host)host.appendChild(promo);renderInstall();}
+function mountPromo(){var gate=document.getElementById('accountGate'),host=gate&&!gate.hidden?gate:document.querySelector('#hub .adventure-hero');if(host&&promo.parentNode!==host)host.appendChild(promo);renderInstall();}
 async function requestInstall(){
  if(installed||displayMode.matches||navigator.standalone===true){renderInstall();return;}
  if(!deferred){showInstallHelp();return;}

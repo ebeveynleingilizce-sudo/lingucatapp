@@ -115,3 +115,43 @@
 .app-share-feedback input{display:block;width:100%;margin-top:8px;padding:8px;border:1px solid #5a719e;border-radius:8px;background:#08162d;color:#8ee2f4;font-size:12px}
 .app-share-feedback button{position:absolute;right:5px;top:5px;min-height:30px;width:30px;padding:0;border:0;background:none;color:#c7d6ee;font-size:22px;cursor:pointer}
 @media(max-height:450px) and (orientation:landscape){.account-gate #accountGuest.account-guest-button{min-width:210px;min-height:40px;padding:8px 15px}.app-share-button,.account-gate .app-share-button{width:36px;height:36px;min-height:36px;padding:8px}.account-gate .app-share-login{top:8px;right:8px}}
+
+/* Keep the same centered form and guest control across phone and desktop. */
+.account-gate{display:flex;flex-direction:column;align-items:center}
+.account-layout{flex:none;margin-block:auto;justify-items:center}
+.account-gate[data-mode=register] .account-layout,.account-gate[data-mode=profile] .account-layout{transform:none}
+.account-gate #accountGuest.account-guest-button{width:300px;min-width:0;max-width:100%;min-height:54px;border-radius:18px;padding:12px 22px;background:linear-gradient(110deg,#222345e8,#102a42e8);border:1px solid #8e88c45c;font-size:14px;color:#dce3ff;justify-content:center;gap:16px}
+.account-gate>.pwa-install-promo{position:fixed;top:max(16px,env(safe-area-inset-top));left:max(16px,env(safe-area-inset-left));z-index:2;min-height:44px}
+.account-gate[data-mode=register] .account-google,.account-gate[data-mode=register] .account-divider,.account-gate[data-mode=register] .account-options{display:none}
+@media(max-width:600px){
+.account-gate{padding:56px 14px 12px}
+.account-layout{width:100%;gap:8px;transform:none}
+.account-brand.has-install-promo{display:flex;width:auto;gap:0}
+.account-brand>img,.account-brand.has-install-promo>img{height:44px;width:44px;margin-bottom:-5px}
+.account-brand>div>span{font-size:34px}
+.account-brand p{font-size:10px;margin-top:3px}
+.account-card{width:min(100%,540px);padding:15px 18px 12px}
+.account-intro{margin-bottom:10px}.account-intro h1{font-size:22px}
+.account-role{margin-bottom:10px}.account-role button{min-height:40px}
+.account-google{height:44px}.account-divider{margin-block:9px}
+.account-gate #accountGuest.account-guest-button{width:300px;min-height:50px;border-radius:17px;font-size:13px}
+.account-gate>.pwa-install-promo{top:max(10px,env(safe-area-inset-top));left:14px;min-height:36px;padding:5px 10px;gap:7px;border-radius:11px}
+.account-gate>.pwa-install-promo .pwa-install-copy small,.account-gate>.pwa-install-promo .pwa-install-arrow{display:none}
+.account-gate>.pwa-install-promo .pwa-install-copy b{font-size:11px}
+.account-gate>.pwa-install-promo .pwa-install-icon{width:24px;height:24px;border-radius:7px}
+.account-gate>.pwa-install-promo svg{width:17px;height:17px}
+.account-gate[data-mode=register] #accountProfileFields:not([hidden]){display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 10px}
+.account-gate #accountProfileFields .account-avatars,.account-gate #accountProfileFields .account-check{grid-column:1/-1}
+.account-gate #accountProfileFields>label:not(.account-check){min-width:0}
+.account-gate #accountProfileFields input,.account-gate #accountProfileFields select{font-size:16px}
+}
+@media(max-width:600px) and (max-height:740px){
+.account-gate{padding-top:50px;padding-bottom:8px}.account-layout{gap:6px}
+.account-brand>img{height:30px;width:34px}.account-brand>div>span{font-size:29px}.account-brand p{font-size:9px}
+.account-card{padding:12px 16px 8px}.account-intro{margin-bottom:8px}.account-intro h1{font-size:20px}
+.account-role{margin-bottom:8px}.account-divider{margin-block:7px}
+.account-gate #accountCredentials>label{margin-bottom:8px}.account-options{margin-bottom:6px}.account-switch{margin-top:3px}
+.account-gate #accountGuest.account-guest-button{min-height:46px;padding-block:10px}
+}
+@media(max-width:600px){.account-layout{grid-template-columns:minmax(0,1fr)}.account-minor-actions{min-width:0}.account-gate #accountGuest.account-guest-button{width:min(300px,100%)}}
+@media(max-width:600px) and (max-height:620px){.account-layout{gap:4px}.account-brand>img{height:24px;width:28px}.account-brand>div>span{font-size:26px}.account-brand p{display:none}.account-card{padding-block:9px}.account-intro{margin-bottom:6px}.account-role{margin-bottom:6px}.account-role button{min-height:36px}.account-gate .account-google{height:40px;min-height:40px}.account-gate #accountCredentials input{height:44px;min-height:44px}.account-gate #accountSubmit{height:44px;min-height:44px}}

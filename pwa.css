@@ -5,7 +5,7 @@ html,body{background:#10172F;overflow:hidden;height:100%;margin:0}
 #appSettings [hidden]{display:none!important}
 #pwaHelp{display:none;position:fixed;top:5vh;left:5vw;right:5vw;bottom:5vh;box-sizing:border-box;width:90vw;max-width:760px;max-height:90vh;overflow:auto;background:#10172F;color:white;border:1px solid #a78bfa;border-radius:18px;padding:24px;z-index:12000;margin:auto}
 #pwaHelp[open]{display:block}#pwaHelp::backdrop{background:#000b}#pwaHelp p{font-size:15px;line-height:1.5}
-button:focus,a:focus{outline:2px solid #67e8f9;outline-offset:2px}
+button:focus-visible,a:focus-visible{outline:2px solid #67e8f9;outline-offset:2px}
 .app-main{overflow:hidden!important}
 @supports(padding:env(safe-area-inset-left)){.app-topbar{padding-left:max(2%,env(safe-area-inset-left));padding-right:max(2%,env(safe-area-inset-right))}.app-main{padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-right);box-sizing:border-box}}
 @media(prefers-reduced-motion:reduce){.tab-screen{animation:none!important}}
@@ -22,3 +22,6 @@ button:focus,a:focus{outline:2px solid #67e8f9;outline-offset:2px}
 @media(max-height:550px) and (orientation:landscape){.account-brand.has-install-promo{gap:7px}.account-brand>.pwa-install-promo{margin:4px 0 0;min-height:46px;padding:6px 10px}.account-brand.has-install-promo>img{height:58px;width:50px}#hub .adventure-hero>.pwa-install-promo{top:10px;right:14px;min-height:44px;padding:6px 10px}.pwa-install-copy b{font-size:12px}.pwa-install-copy small{font-size:9px}.pwa-install-icon{width:30px;height:30px}}
 @media(display-mode:standalone){#installPromo,#installApp{display:none!important}}
 @media(prefers-reduced-motion:reduce){.pwa-install-promo,.account-gate .pwa-install-promo{transition:none;transform:none}}
+
+/* Pointer clicks do not draw a keyboard navigation ring. */
+button:focus:not(:focus-visible),a:focus:not(:focus-visible),[role=button]:focus:not(:focus-visible){outline:none!important}
