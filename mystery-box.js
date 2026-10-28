@@ -9,6 +9,7 @@
   function close() { dialog.close(); }
   dialog.querySelector('button').onclick = close;
   dialog.addEventListener('close', function () {
+    if(window.LinguWorkspace)window.LinguWorkspace.leaveGame(dialog);
     if(window.LinguFX)window.LinguFX.stop();frame.removeAttribute('src');
     document.body.style.overflow = oldOverflow;
     if (previousFocus) previousFocus.focus();
@@ -24,6 +25,7 @@
     document.body.style.overflow = 'hidden';
     frame.src = 'games/mystery-box/index.html' + (window.LinguFX&&!window.LinguFX.state().enabled?'?muted=1':'');
     dialog.showModal();
+    if(window.LinguWorkspace)window.LinguWorkspace.enterGame(dialog);
   }
   function card(container, catalog) {
     if (container.querySelector('[data-standalone-game="mystery-box"]')) return;

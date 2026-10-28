@@ -19,6 +19,21 @@ function frame(root,header,content,kind){
  content.parentNode.insertBefore(status,content);
 }
 window.addEventListener('message',function(event){var entry=mysteryStatus,d=event.data;if(!entry||event.source!==entry.frame.contentWindow||!entry.root.open||!d||d.type!=='lingucat:workspace-status'||d.game!=='mystery-box'||!isFinite(d.completed)||d.completed<0||d.completed>10||!isFinite(d.score))return;var finished=d.completed===10;entry.label.textContent=d.completed+' / 10 nesne';entry.score.textContent=d.score+' puan';entry.state.textContent=finished?'Tamamlandı':d.started?'Oyun devam ediyor':'Hazır mısın?';entry.track.setAttribute('aria-valuenow',String(d.completed));entry.fill.style.width=(d.completed*10)+'%';entry.view.update([{icon:'♧',title:'Oyuna Başla',note:'Nesneleri sırayla keşfet.',done:!!d.started,active:!d.started,action:function(){entry.frame.focus();}},{icon:'⌕',title:'İpuçlarını Oku',note:'İngilizce soruları incele.',done:finished,active:d.started&&!finished,action:function(){entry.frame.focus();}},{icon:'▤',title:'Nesneyi Bul',note:d.completed+' / 10 nesne tamamlandı.',done:finished,action:function(){entry.frame.focus();}},{icon:'🏆',title:'Sonucunu Gör',note:'Puanın soldaki oyun alanında.',done:finished,disabled:!finished,action:function(){entry.frame.focus();}}],d.completed+' / 10');});
-window.LinguWorkspace={shell:shell,word:word,match:match,frame:frame};
+// Request browser fullscreen during the game-card click; viewport filling also
+// works when the browser does not support or allow the Fullscreen API.
+function enterGame(root){
+ root.dataset.gameActive='true';
+ if(document.fullscreenElement||!document.documentElement.requestFullscreen)return;
+ try{document.documentElement.requestFullscreen().then(function(){
+  if(root.dataset.gameActive==='true')root.dataset.ownsFullscreen='true';
+  else if(document.fullscreenElement===document.documentElement)document.exitFullscreen().catch(function(){});
+ }).catch(function(){});}catch(e){}
+}
+function leaveGame(root){
+ delete root.dataset.gameActive;
+ if(root.dataset.ownsFullscreen==='true'&&document.fullscreenElement===document.documentElement){document.exitFullscreen().catch(function(){});}
+ delete root.dataset.ownsFullscreen;
+}
+window.LinguWorkspace={shell:shell,word:word,match:match,frame:frame,enterGame:enterGame,leaveGame:leaveGame};
 var mystery=document.querySelector('.mystery-dialog');if(mystery)frame(mystery,mystery.querySelector('.mystery-toolbar'),mystery.querySelector('iframe'),'mystery');match();
 }());

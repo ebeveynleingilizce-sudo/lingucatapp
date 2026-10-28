@@ -13,9 +13,9 @@ function openBattle(button){
  var back=document.createElement('button');back.className='outline';back.textContent='← Oyunlar';back.onclick=closeBattle;
  bar.appendChild(title);bar.appendChild(back);active.appendChild(bar);
  var frame=document.createElement('iframe');frame.title='English Battle Arena · İngilizce soru savaşı';frame.src='games/battle-arena/game.html';frame.allow='autoplay; fullscreen';active.appendChild(frame);
- if(window.LinguWorkspace)window.LinguWorkspace.frame(active,bar,frame,'battle');document.body.appendChild(active);document.body.style.overflow='hidden';back.focus();
+ if(window.LinguWorkspace)window.LinguWorkspace.frame(active,bar,frame,'battle');document.body.appendChild(active);document.body.style.overflow='hidden';back.focus();if(window.LinguWorkspace)window.LinguWorkspace.enterGame(active);
 }
-function closeBattle(){if(active){if(window.LinguFX)window.LinguFX.play('back');active.remove();active=null;document.body.style.overflow='';if(trigger)trigger.focus();}}
+function closeBattle(){if(active){if(window.LinguWorkspace)window.LinguWorkspace.leaveGame(active);if(window.LinguFX)window.LinguFX.play('back');active.remove();active=null;document.body.style.overflow='';if(trigger)trigger.focus();}}
 function card(box){if(!box||box.querySelector('[data-battle-arena]'))return;
  var button=document.createElement('button');button.className='catalog-game battle-game-card';button.setAttribute('data-battle-arena','true');
  var art=document.createElement('span');art.className='battle-art';art.setAttribute('aria-hidden','true');

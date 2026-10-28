@@ -116,3 +116,11 @@
 @media(max-width:600px){.framed-game.shared-workspace .battle-topbar strong{font-size:18px}}
 
 .mr.shared-workspace{z-index:10002}
+
+/* Imported games own the viewport; only a floating return control stays visible. */
+.framed-game.shared-workspace{inset:0;top:0;width:100%;height:100vh;height:100dvh;max-width:none;max-height:none;margin:0;padding:0;z-index:10004;background:#091327}
+.framed-game.shared-workspace .workspace-shell{position:relative;display:block;width:100%;height:100%;max-width:none;margin:0;padding:0}
+.framed-game.shared-workspace iframe.workspace-content{position:absolute;inset:0;display:block;width:100%;height:100%;margin:0;padding:0;border:0;border-radius:0;box-shadow:none}
+.framed-game.shared-workspace .workspace-header{position:absolute;z-index:2;top:max(10px,env(safe-area-inset-top));left:max(10px,env(safe-area-inset-left));width:auto;padding:0;pointer-events:none;border:0;background:none}
+.framed-game.shared-workspace .workspace-header>div,.framed-game.shared-workspace .workspace-header>strong,.framed-game.shared-workspace .game-status,.framed-game.shared-workspace .workspace-footer,.framed-game.shared-workspace .workspace-tasks{display:none}
+.framed-game.shared-workspace .workspace-header>button{pointer-events:auto;min-height:36px;height:auto;padding:7px 13px;background:#101b30dd;border:1px solid #aab8d444;box-shadow:0 3px 12px #0003;font-size:12px}
