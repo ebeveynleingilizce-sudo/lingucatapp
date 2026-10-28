@@ -22,25 +22,30 @@ export function errorMessage(e){const code=(e.code||'').replace('auth/','').repl
 // Fit the complete opening screen to the visible phone viewport, including
 // browser toolbars. Let focused form fields scroll when the keyboard is open.
 function fitMobileGate(gate){
- const layout=gate.querySelector('.account-layout');let pending=0;
+ const layout=gate.querySelector('.account-layout');let pending=0,fullHeight=innerHeight;
  function schedule(){cancelAnimationFrame(pending);pending=requestAnimationFrame(fit);}
+ function reset(){layout.style.zoom='';schedule();}
  function fit(){
-  const mobile=matchMedia('(max-width:900px)').matches;
-  const typing=gate.contains(document.activeElement)&&document.activeElement.matches('input:not([type=checkbox]):not([type=radio]),select,textarea');
+  const mobile=matchMedia('(max-width:1100px), (max-height:800px)').matches;
+  const viewport=window.visualViewport;
+  if(!gate.contains(document.activeElement)||!document.activeElement.matches('input,select,textarea'))fullHeight=innerHeight;
+  const keyboard=viewport&&viewport.height<fullHeight*.75;
+  const typing=keyboard&&gate.contains(document.activeElement)&&document.activeElement.matches('input:not([type=checkbox]):not([type=radio]),select,textarea');
   gate.classList.toggle('account-keyboard-active',typing);
   if(!mobile){layout.style.zoom='';return;}
   if(typing)return;
-  const viewport=window.visualViewport;
   const height=Math.min(innerHeight,viewport?viewport.height:innerHeight);
   const style=getComputedStyle(gate);
   const available=height-parseFloat(style.paddingTop)-parseFloat(style.paddingBottom)-2;
-  const scale=Math.min(1,available/Math.max(1,layout.offsetHeight));
+  const current=parseFloat(layout.style.zoom)||1;
+  const scale=Math.min(current,current*available/Math.max(1,layout.getBoundingClientRect().height));
   if(Math.abs((parseFloat(layout.style.zoom)||1)-scale)>.002)layout.style.zoom=String(scale);
   gate.scrollTop=0;
  }
  new ResizeObserver(schedule).observe(layout);
- new MutationObserver(schedule).observe(gate,{attributes:true,attributeFilter:['hidden','data-mode']});
- window.addEventListener('resize',schedule);
+ new MutationObserver(reset).observe(gate,{attributes:true,attributeFilter:['hidden','data-mode']});
+ new MutationObserver(reset).observe(gate.querySelector('#accountStatus'),{childList:true,characterData:true,subtree:true});
+ window.addEventListener('resize',reset);
  if(window.visualViewport)window.visualViewport.addEventListener('resize',schedule);
  gate.addEventListener('focusin',schedule);gate.addEventListener('focusout',schedule);
  schedule();
