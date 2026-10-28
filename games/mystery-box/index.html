@@ -3848,7 +3848,7 @@ function playAgain() {
 function showFinalScore() {
     if (!lingucatRewardReported && roundHistory.length === 10 && new Set(roundHistory.map(r => r.object)).size === 10 && window.parent !== window) {
         lingucatRewardReported = true;
-        window.parent.postMessage({type:'lingucat:game-complete',game:'mystery-box',completed:10,score:score,difficulty:difficulty}, '*');
+        window.parent.postMessage({type:'lingucat:game-complete',game:'mystery-box',rounds:roundHistory.map(function(r){return {object:r.object,points:r.points};}),completed:10,score:score,difficulty:difficulty}, '*');
     }
 
 

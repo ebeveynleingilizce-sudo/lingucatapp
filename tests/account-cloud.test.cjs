@@ -1,0 +1,24 @@
+const {test}=require('node:test'),assert=require('node:assert/strict');
+process.env.FIRESTORE_EMULATOR_HOST='127.0.0.1:8080';process.env.FIREBASE_AUTH_EMULATOR_HOST='127.0.0.1:9099';
+const adminRequire=require('node:module').createRequire(require.resolve('../functions/package.json'));const {initializeApp}=adminRequire('firebase-admin/app'),{getFirestore}=adminRequire('firebase-admin/firestore'),{getAuth}=adminRequire('firebase-admin/auth');initializeApp({projectId:'demo-lingucat'});const db=getFirestore();
+async function account(prefix){const email=prefix+'-'+Date.now()+'-'+Math.random().toString(36).slice(2)+'@example.test',password='Only-Emulator-123!';const r=await fetch('http://127.0.0.1:9099/identitytoolkit.googleapis.com/v1/accounts:signUp?key=demo-key',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,password,returnSecureToken:true})});const d=await r.json();assert(d.localId);await getAuth().updateUser(d.localId,{emailVerified:true});return {...await login(email,password),uid:d.localId,email,password};}
+async function login(email,password){const r=await fetch('http://127.0.0.1:9099/identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=demo-key',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,password,returnSecureToken:true})});return r.json();}
+async function api(user,action,data={}){const r=await fetch('http://127.0.0.1:5001/demo-lingucat/europe-west1/cloudApi',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+user.idToken},body:JSON.stringify({data:{...data,action}})});return r.json();}
+test('secure account, approval, classroom, shared progress and deletion lifecycle',{timeout:120000},async()=>{
+ const teacher=await account('teacher'),student=await account('student'),outsider=await account('outsider');
+ for(const [u,role]of [[teacher,'teacher'],[student,'student'],[outsider,'teacher']]){const p=await api(u,'profile',{displayName:'Test '+role,requestedRole:role,grade:4,avatar:'lili',noticeAccepted:true,role:'admin'});assert.equal(p.result.created,true);}
+ assert.equal((await api(teacher,'dashboard')).result.role,'student');assert.equal((await api(teacher,'createClass',{name:'Test Sınıf',grade:4})).error.status,'PERMISSION_DENIED');
+ await db.doc('userRoles/'+teacher.uid).set({role:'teacher'});await db.doc('userRoles/'+outsider.uid).set({role:'teacher'});
+ const cl=(await api(teacher,'createClass',{name:'Test Sınıf',grade:4})).result;assert(cl.id&&cl.code);
+ assert.equal((await api(student,'joinClass',{code:'INVALID'})).result.error,'Sınıf kodu bulunamadı.');assert.equal((await api(student,'joinClass',{code:cl.code})).result.joined,true);assert.equal((await api(student,'joinClass',{code:cl.code})).result.joined,true);
+ assert.equal((await api(teacher,'report',{classId:cl.id})).result.students.length,1);assert.equal((await api(outsider,'report',{classId:cl.id})).error.status,'PERMISSION_DENIED');
+ assert((await api(teacher,'assign',{classId:cl.id,activity:'match-rush',note:'Birlikte öğrenelim.'})).result.id);assert.equal((await api(student,'dashboard')).result.assignments.length,1);
+ const event={kind:'match',questionId:'cat',answerId:'cat',eventId:'same-event',xp:999999};const first=await api(student,'attempt',event);assert.equal(first.result.gain,100);assert.equal((await api(student,'attempt',event)).result.duplicate,true);assert.equal((await api(student,'attempt',{...event,eventId:'replay'})).result.gain,0);
+ await api(student,'attempt',{...event,questionId:'dog',answerId:'cat',eventId:'wrong'});assert.equal((await api(student,'attempt',{...event,questionId:'dog',answerId:'dog',eventId:'second'})).result.gain,50);
+ const secondDevice=await login(student.email,student.password),synced=(await api(secondDevice,'dashboard')).result;assert.equal(synced.stats.xp,150);assert.equal(synced.progress.find(x=>x.id==='match-cat').xp,100);
+ const report=(await api(teacher,'report',{classId:cl.id})).result.students[0];assert.equal(report.stats.xp,150);assert.equal(report.email,undefined);
+ assert.equal((await api(student,'createClass',{name:'Sahte',grade:4})).error.status,'PERMISSION_DENIED');
+ await api(teacher,'removeMember',{classId:cl.id,uid:student.uid});assert.equal((await api(teacher,'report',{classId:cl.id})).result.students.length,0);assert.equal((await api(student,'dashboard')).result.stats.xp,150);
+ assert.equal((await api(student,'deleteAccount')).result.deleted,true);assert.equal((await db.doc('userStats/'+student.uid).get()).exists,false);assert.equal((await db.collection('progress/'+student.uid+'/activities').get()).size,0);
+ console.log('Verified: teacher approval, secure joins, assignments, reports, XP dedupe, second-device sync, independent progress, emulator-only account deletion.');
+});

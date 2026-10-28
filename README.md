@@ -24,3 +24,7 @@ Yerel sunucu internet gerektirmez. Battle Arena'nın 3D dosyalarını yükleyebi
 Statik dosyaları klasör yapısını koruyarak bir web sunucusunda yayınlayın. PWA için HTTPS kullanın. Uygulama dosyalarını değiştirdikten sonra `python tools/build-pwa.py` ile önbellek sürümünü güncelleyin.
 
 Video ve 3D oyun dosyaları depoya dahildir. Geçici çıktılar, ekran görüntüleri ve eski yedekler dahil edilmez.
+
+## Kullanıcı hesapları ve sınıflar
+
+Google veya e-posta ile giriş, öğrenci profili, onaylı öğretmen sınıfları ve Firebase üzerinde doğrulanan ilerleme eklendi. [Kurulum, güvenlik modeli ve testler](FIREBASE_SETUP_TR.md). Misafir modu yalnızca bu tarayıcıda saklanır; hesaba ait kayıtlar kullanıcıya göre ayrılır.
