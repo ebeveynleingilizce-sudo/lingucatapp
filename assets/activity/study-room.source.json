@@ -1,0 +1,7 @@
+{
+  "tool": "built-in image_gen",
+  "prompt": "Create a wide 16:9 decorative background asset for LinguCat English learning app, stylized-concept polished cozy 3D storybook illustration. ONLY THE EMPTY ROOM BACKGROUND, no user interface, no text, no letters, no buttons, no logos. A dim quiet cozy study room at dusk: tall window on left with muted blue purple evening sky, a few stacked books at bottom left, modest wooden shelves on right with books and a tiny music-note ornament, small warm amber desk lamp far right. A small sleeping black kitten with subtle pink collar at bottom right, unobtrusive. Central 70 percent should be open dark navy / desaturated purple shadowed wall with soft indistinct details, suitable for overlaying readable educational question cards. Warm amber peripheral light, low contrast and low saturation, gently soft focus, no bright spots, no busy sparkles, no visible people. Camera wide enough to show room as an atmospheric environment rather than object closeups. This is a background illustration asset, not a screen mockup. Save generated asset for use in current workspace.",
+  "asset": "study-room.webp",
+  "bytes": 72270,
+  "note": "WebP optimization; original generated PNG preserved."
+}

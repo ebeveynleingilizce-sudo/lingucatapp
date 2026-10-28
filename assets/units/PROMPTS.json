@@ -1,0 +1,39 @@
+{
+  "mode": "built-in image_gen",
+  "style": "Premium stylized 3D unit cover art, 16:9, no text or UI",
+  "reference": "User-provided six-panel screen reference",
+  "subjects": [
+    [
+      "school",
+      "A cheerful magical school courtyard, orange backpack, stacked books and pencils, warm morning light, castle school in distance, blue and orange palette."
+    ],
+    [
+      "routines",
+      "A beautiful chunky cream alarm clock on a bedside table, sunrise through window, cozy bedroom, orange sunshine and teal details."
+    ],
+    [
+      "freetime",
+      "Purple and blue wireless game controller, glowing colorful buttons, playful floating music and sports props, magical purple game room."
+    ],
+    [
+      "holidays",
+      "Small tropical island, palm trees, crystal turquoise water, beach umbrella and tiny sailboat, warm golden sunlight, magical adventure."
+    ],
+    [
+      "food",
+      "Delicious stylized pizza, apple, orange juice and bread on a sunny kitchen table, warm orange and coral palette, premium appetizing 3D."
+    ],
+    [
+      "nature",
+      "Beautiful lush tiny planet garden with rounded trees, a winding stream, vibrant green leaves and golden sunlight, magical environmental world."
+    ],
+    [
+      "technology",
+      "Elegant blue laptop and headphones on a clean desk, cyan holographic sparkle, beautiful twilight blue purple lighting, friendly futuristic learning."
+    ],
+    [
+      "places",
+      "A magical small city at sunset, warm-window castle school, cafe, library, shops, winding cobbled streets, blue and orange cinematic palette."
+    ]
+  ]
+}

@@ -1,0 +1,100 @@
+{
+  "license": "CC0",
+  "author": "Kenney",
+  "url": "https://kenney.nl/assets/medals",
+  "archive": "../kenney_medals.zip",
+  "files": {
+    "story-explorer.svg": {
+      "source": "Vector/medals_vector.svg",
+      "column": 2,
+      "viewBoxRow": 156.5,
+      "changes": "viewport extraction and gold gradient"
+    },
+    "story-explorer.png": {
+      "source": "story-explorer.svg",
+      "derivative": "rendered 240x480 PNG fallback"
+    },
+    "rhythm-star.svg": {
+      "source": "Vector/medals_vector.svg",
+      "column": 6,
+      "viewBoxRow": 156.5,
+      "changes": "viewport extraction and gold gradient"
+    },
+    "rhythm-star.png": {
+      "source": "rhythm-star.svg",
+      "derivative": "rendered 240x480 PNG fallback"
+    },
+    "word-hunter.svg": {
+      "source": "Vector/medals_vector.svg",
+      "column": 8,
+      "viewBoxRow": 156.5,
+      "changes": "viewport extraction and gold gradient"
+    },
+    "word-hunter.png": {
+      "source": "word-hunter.svg",
+      "derivative": "rendered 240x480 PNG fallback"
+    },
+    "listening-master.svg": {
+      "source": "Vector/medals_vector.svg",
+      "column": 5,
+      "viewBoxRow": 156.5,
+      "changes": "viewport extraction and gold gradient"
+    },
+    "listening-master.png": {
+      "source": "listening-master.svg",
+      "derivative": "rendered 240x480 PNG fallback"
+    },
+    "grammar-hero.svg": {
+      "source": "Vector/medals_vector.svg",
+      "column": 2,
+      "viewBoxRow": 156.5,
+      "changes": "viewport extraction and gold gradient"
+    },
+    "grammar-hero.png": {
+      "source": "grammar-hero.svg",
+      "derivative": "rendered 240x480 PNG fallback"
+    },
+    "perfect-round.svg": {
+      "source": "Vector/medals_vector.svg",
+      "column": 6,
+      "viewBoxRow": 156.5,
+      "changes": "viewport extraction and gold gradient"
+    },
+    "perfect-round.png": {
+      "source": "perfect-round.svg",
+      "derivative": "rendered 240x480 PNG fallback"
+    },
+    "completion.svg": {
+      "source": "Vector/medals_vector.svg",
+      "column": 2,
+      "viewBoxRow": 156.5,
+      "changes": "viewport extraction and gold gradient"
+    },
+    "completion.png": {
+      "source": "completion.svg",
+      "derivative": "rendered 240x480 PNG fallback"
+    },
+    "level-up.svg": {
+      "source": "Vector/medals_vector.svg",
+      "column": 8,
+      "viewBoxRow": 156.5,
+      "changes": "viewport extraction and gold gradient"
+    },
+    "level-up.png": {
+      "source": "level-up.svg",
+      "derivative": "rendered 240x480 PNG fallback"
+    }
+  },
+  "vectorSource": "Vector/medals_vector.svg",
+  "derivativeChanges": "Individual SVG viewports extracted; brand gold gradient added. High-resolution PNG fallbacks rendered from the SVGs.",
+  "vectorColumns": {
+    "story-explorer": 2,
+    "rhythm-star": 6,
+    "word-hunter": 8,
+    "listening-master": 5,
+    "grammar-hero": 2,
+    "perfect-round": 6,
+    "completion": 2,
+    "level-up": 8
+  }
+}

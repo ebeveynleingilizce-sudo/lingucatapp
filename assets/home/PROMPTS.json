@@ -1,0 +1,34 @@
+{
+  "mode": "built-in image_gen",
+  "reference": "design-reference.png",
+  "prompts": [
+    [
+      "hero",
+      "Wide 2.7:1 cinematic hero artwork ONLY, recreate the top hero scene from reference: exact same curly brown-haired bespectacled teenage girl burgundy jacket, two dark-haired teenage boys (one with sunglasses), black kitten Lili with huge amber eyes pink collar heart pendant, seated on stone wall on RIGHT 65%, magical castle at dusk with warm golden windows. LEFT 38% dark navy low-detail castle scenery, free of characters, for live HTML heading overlay. Keep reference character identities, premium stylized 3D animation quality, blue twilight/purple/amber palette. No text, no letters, no typography, no buttons, no UI, no cards, no border. Single continuous landscape scene."
+    ],
+    [
+      "stories",
+      "Single portrait 4:5 category artwork ONLY. Faithfully recreate the reference first purple story card illustration: same dark-haired teenage boy in navy hoodie looking at viewer, enchanted warm-window castle behind, dusk blue/purple cinematic 3D stylized animation. Face in upper-middle, lower quarter dark navy for live HTML labels. No text, no letters, no icons, no borders or UI."
+    ],
+    [
+      "songs",
+      "Single portrait 4:5 category artwork ONLY. Faithfully recreate reference second magenta song card art: exact same smiling curly brown-haired teenage girl with round glasses and burgundy jacket, reaching toward viewer, purple pink concert lasers and music stage behind, premium cinematic 3D animation quality. Head fully in frame, lower quarter dark navy for live HTML labels. No text, no letters, no musical symbols, no UI or border."
+    ],
+    [
+      "games",
+      "Single portrait 4:5 category artwork ONLY. Faithfully recreate reference third golden game card art: Lili black kitten with enormous amber eyes, pink collar and golden heart pendant, sitting in magical floating island adventure world with golden treasure chest and warm tropical light. Preserve kitten identity premium 3D animation aesthetic. Full kitten in upper 75%, bottom quarter dark navy/golden shade for live HTML labels. No text no letters no symbols no UI or border."
+    ],
+    [
+      "words",
+      "Single portrait 4:5 category artwork ONLY. Faithfully recreate reference fourth turquoise vocabulary card art: beautiful chunky cream vocabulary flashcards with illustrated yellow sun (NO writing), blue headphones, magical warm-lit library, teal edge light and shallow cinematic focus, premium stylized 3D animation. Props in upper 75%, bottom quarter dark navy for live HTML labels. No text no letters no UI no border."
+    ],
+    [
+      "profile",
+      "Single portrait 4:5 category artwork ONLY. Faithfully recreate reference fifth blue profile card art: same dark-haired teenage boy in navy hoodie smiling, glowing gold crown and stylized blue gold achievement badges floating beside him in magical dark blue game environment. No fake progress numbers, no charts, no text no letters no UI no border. Premium stylized cinematic 3D, lower quarter dark navy for live HTML labels."
+    ],
+    [
+      "lili",
+      "Extract and redraw Lili mascot as a single isolated transparent-background head and shoulders app mascot. Match reference BLACK kitten with huge amber eyes, small pink nose, pink ear interiors and pink collar with gold heart. Front facing friendly curious expression. Premium polished stylized 3D animation. Centered with padding. No text, no logo wordmark, no UI, no background. Real alpha transparency."
+    ]
+  ]
+}

@@ -1,0 +1,212 @@
+{
+  "schemaVersion": 1,
+  "id": "mysterious-student",
+  "title": "The Mysterious Student",
+  "level": "A1–A2 · Simple Present",
+  "description": "An old sketchbook. A quiet student. A friendship waiting to happen. Watch Noah’s story, then look closer.",
+  "videoDuration": 49.733333,
+  "expressions": [
+    "Every day, Noah goes to the library.",
+    "He always carries that old notebook.",
+    "What does he do in there?",
+    "I draw pictures.",
+    "Because I’m shy.",
+    "Do you want to join us?",
+    "Yes, I’d love to!"
+  ],
+  "questions": [
+    {
+      "id": "library",
+      "type": "multiple",
+      "prompt": "Where does Noah go every day?",
+      "hint": "Başlangıçtaki anlatımı hatırla.",
+      "scene": {
+        "label": "Sessiz öğrenci",
+        "start": 3.5,
+        "end": 9.833
+      },
+      "feedback": "Anlatıcı “Every day, Noah goes to the library.” diyor. “Every day”, her gün yapılan bir alışkanlığı anlatır.",
+      "options": [
+        "To the library",
+        "To the gym",
+        "To the cafeteria",
+        "To the park"
+      ],
+      "answer": 0
+    },
+    {
+      "id": "speaker-leo",
+      "type": "speaker",
+      "prompt": "Who says “Does he have any friends?”",
+      "hint": "Konuşan karakterin sesine dikkat et.",
+      "scene": {
+        "label": "Koridordaki konuşma",
+        "start": 9.833,
+        "end": 15.4
+      },
+      "feedback": "Bu soruyu Leo soruyor. Emma defterden söz ettikten sonra Leo’nun sesini duyuyoruz.",
+      "options": [
+        "NOAH",
+        "EMMA",
+        "LEO",
+        "NARRATOR"
+      ],
+      "answer": 2
+    },
+    {
+      "id": "notebook",
+      "type": "multiple",
+      "prompt": "What does Noah always carry?",
+      "hint": "Noah’ın ellerindeki nesneye dikkat et.",
+      "scene": {
+        "label": "Eski çizim defteri",
+        "start": 9.833,
+        "end": 15.4
+      },
+      "feedback": "Noah eski bir çizim defteri taşıyor. “Always”, bir şeyin her zaman yapıldığını anlatır.",
+      "options": [
+        "A football",
+        "An old sketchbook",
+        "A camera",
+        "A guitar"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "drawings",
+      "type": "multiple",
+      "prompt": "What does Noah do in the library?",
+      "hint": "Noah’ın cevabını dikkatle dinle.",
+      "scene": {
+        "label": "Çizimlerin keşfi",
+        "start": 20.567,
+        "end": 24.1
+      },
+      "feedback": "Noah “I draw pictures.” diyor. Aynı cümleyi “he” ile kurarken fiile -s ekleriz: “He draws pictures.”",
+      "options": [
+        "He plays chess.",
+        "He draws pictures.",
+        "He sings songs.",
+        "He plays basketball."
+      ],
+      "answer": 1
+    },
+    {
+      "id": "shy",
+      "type": "speaker",
+      "prompt": "Who says “Because I’m shy”?",
+      "hint": "Kendi duygusunu açıklayan karakteri bul.",
+      "scene": {
+        "label": "Noah’ın sırrı",
+        "start": 25.867,
+        "end": 31.867
+      },
+      "feedback": "Noah neden resimlerini göstermediğini açıklıyor. “Because”, bir sebep belirtmek için kullanılır.",
+      "options": [
+        "EMMA",
+        "LEO",
+        "NOAH",
+        "NARRATOR"
+      ],
+      "answer": 2
+    },
+    {
+      "id": "does",
+      "type": "grammar",
+      "prompt": "Complete the question: “What ___ he do in there?”",
+      "hint": "“He” ile kullanılan yardımcı fiili düşün.",
+      "scene": {
+        "label": "Kütüphane kapısında",
+        "start": 15.4,
+        "end": 20.567
+      },
+      "feedback": "Geniş zaman sorularında “he”, “she” ve “it” ile “does” kullanılır. Ana fiil yalın kalır: “What does he do?”",
+      "options": [
+        "do",
+        "does",
+        "is",
+        "are"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "truth",
+      "type": "boolean",
+      "prompt": "Noah refuses Emma’s invitation to join the art club.",
+      "hint": "Noah’ın davete verdiği cevabı dinle.",
+      "scene": {
+        "label": "Davet ve kabul",
+        "start": 31.867,
+        "end": 38.633
+      },
+      "feedback": "İfade yanlış. Noah daveti kabul ediyor: “Yes, I’d love to!” Bu, bir davete sıcak bir şekilde evet demektir.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "sequence",
+      "type": "order",
+      "prompt": "Rebuild the story in the right order.",
+      "hint": "Oklarla olayları başlangıçtan sona sırala.",
+      "scene": {
+        "label": "Meraktan arkadaşlığa",
+        "start": 9.833,
+        "end": 41.733
+      },
+      "feedback": "Önce Noah yalnızdır. Arkadaşları çizimlerini keşfeder, Emma onu kulübe davet eder ve birlikte arkadaş olurlar.",
+      "options": [
+        "Emma invites Noah to the art club.",
+        "Noah spends time alone.",
+        "His friends discover his drawings.",
+        "The students become friends."
+      ],
+      "answer": [
+        1,
+        2,
+        0,
+        3
+      ]
+    },
+    {
+      "id": "friends",
+      "type": "multiple",
+      "prompt": "What changes for Noah at the end?",
+      "hint": "Anlatıcının son cümlesini hatırla.",
+      "scene": {
+        "label": "Yeni bir arkadaşlık",
+        "start": 38.633,
+        "end": 41.733
+      },
+      "feedback": "Anlatıcı “Now Noah has two new friends.” diyor. Noah sanat sayesinde iki yeni arkadaş ediniyor.",
+      "options": [
+        "He loses his sketchbook.",
+        "He makes two new friends.",
+        "He leaves the school.",
+        "He stops drawing."
+      ],
+      "answer": 1
+    },
+    {
+      "id": "carries",
+      "type": "grammar",
+      "prompt": "Choose the correct sentence about Noah.",
+      "hint": "“Noah” yerine “he” kullanıldığını düşün.",
+      "scene": {
+        "label": "Bir günlük alışkanlık",
+        "start": 9.833,
+        "end": 15.4
+      },
+      "feedback": "Olumlu geniş zaman cümlelerinde “he”, “she” ve “it” ile fiile -s veya -es eklenir. “Carry”, “carries” olur.",
+      "options": [
+        "He always carry a notebook.",
+        "He always carries a notebook.",
+        "He always carrying a notebook.",
+        "He always are carry a notebook."
+      ],
+      "answer": 1
+    }
+  ]
+}

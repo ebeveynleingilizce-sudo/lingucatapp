@@ -1,0 +1,11 @@
+html,body{background:#10172F;overflow:hidden;height:100%;margin:0}
+#appSplash{position:fixed;top:0;right:0;bottom:0;left:0;z-index:11000;display:flex;align-items:center;justify-content:center;flex-direction:column;background:#10172F;color:white;gap:12px;pointer-events:none}
+#appSplash strong{font-size:36px}#appSplash span{color:#cdd5f2}
+#appSettings{max-height:calc(100vh - 85px);max-height:calc(100dvh - 85px);overflow-y:auto}
+#appSettings [hidden]{display:none!important}
+#pwaHelp{display:none;position:fixed;top:5vh;left:5vw;right:5vw;bottom:5vh;box-sizing:border-box;width:90vw;max-width:760px;max-height:90vh;overflow:auto;background:#10172F;color:white;border:1px solid #a78bfa;border-radius:18px;padding:24px;z-index:12000;margin:auto}
+#pwaHelp[open]{display:block}#pwaHelp::backdrop{background:#000b}#pwaHelp p{font-size:15px;line-height:1.5}
+button:focus,a:focus{outline:2px solid #67e8f9;outline-offset:2px}
+.app-main{overflow:hidden!important}
+@supports(padding:env(safe-area-inset-left)){.app-topbar{padding-left:max(2%,env(safe-area-inset-left));padding-right:max(2%,env(safe-area-inset-right))}.app-main{padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-right);box-sizing:border-box}}
+@media(prefers-reduced-motion:reduce){.tab-screen{animation:none!important}}

@@ -1,0 +1,4293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><script src="../../audio-assets.js"></script><script src="../../sound-manager.js"></script>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Mystery Object</title>
+
+
+<style>
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #eee8ff;
+}
+
+
+/* =========================================================
+   SCREEN SYSTEM
+========================================================= */
+
+#gameWrapper {
+    position: fixed;
+    inset: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    overflow: hidden;
+
+    padding: 10px;
+}
+
+.game {
+    position: relative;
+
+    width: 900px;
+
+    background: white;
+
+    border-radius: 25px;
+
+    padding: 22px 30px 20px;
+
+    box-shadow:
+        0 15px 40px rgba(90, 50, 130, 0.15);
+
+    overflow: hidden;
+
+    flex: 0 0 auto;
+
+    transform-origin: center center;
+}
+
+
+/* =========================================================
+   SCREEN BUTTONS
+========================================================= */
+
+#screenControls {
+    position: fixed;
+
+    top: 12px;
+    right: 12px;
+
+    z-index: 999999;
+
+    display: flex;
+    gap: 8px;
+}
+
+#screenControls button {
+    border: none;
+
+    border-radius: 12px;
+
+    padding: 10px 15px;
+
+    background: white;
+    color: #6f2889;
+
+    font-size: 14px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 3px 12px rgba(0, 0, 0, 0.15);
+
+    transition: 0.2s;
+}
+
+#screenControls button:hover {
+    background: #f4efff;
+    transform: translateY(-1px);
+}
+
+#screenControls button:active {
+    transform: scale(0.96);
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+h1 {
+    margin: 0;
+
+    text-align: center;
+
+    color: #6f2889;
+
+    font-size: 36px;
+}
+
+.object-counter {
+    position: absolute;
+
+    top: 18px;
+    right: 22px;
+
+    background: #f0ebff;
+    color: #6f2889;
+
+    padding: 7px 12px;
+
+    border-radius: 20px;
+
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.object-navigation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin: 8px 0 0;
+}
+
+.object-navigation button {
+    border: 1px solid #ddd7e9;
+    border-radius: 999px;
+    padding: 6px 13px;
+    background: #faf9fc;
+    color: #77717f;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.object-navigation button:hover:not(:disabled) {
+    background: #f0ebf7;
+    color: #604c72;
+    border-color: #cfc4dc;
+}
+
+.object-navigation button:disabled {
+    opacity: 0.4;
+    cursor: default;
+}
+
+.top-bar {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 12px;
+
+    margin-top: 12px;
+
+    flex-wrap: wrap;
+}
+
+.score,
+.timer {
+    min-width: 125px;
+
+    text-align: center;
+
+    padding: 8px 15px;
+
+    border-radius: 13px;
+
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.score {
+    background: #e8f8ed;
+    color: #28864a;
+}
+
+.timer {
+    background: #f1edff;
+    color: #6f2889;
+}
+
+
+/* =========================================================
+   MYSTERY BOX
+========================================================= */
+
+.box-area {
+    height: 180px;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+}
+
+.gift {
+    position: relative;
+
+    width: 150px;
+    height: 120px;
+
+    animation:
+        floatGift 2.8s ease-in-out infinite;
+}
+
+.gift-body {
+    position: absolute;
+
+    left: 10px;
+    bottom: 0;
+
+    width: 130px;
+    height: 85px;
+
+    background: #8d45a6;
+
+    border-radius: 8px;
+
+    box-shadow:
+        0 10px 20px rgba(111, 40, 137, 0.25);
+}
+
+.gift-lid {
+    position: absolute;
+
+    left: 4px;
+    top: 22px;
+
+    width: 142px;
+    height: 27px;
+
+    background: #6f2889;
+
+    border-radius: 7px;
+
+    z-index: 3;
+}
+
+.gift-ribbon-vertical {
+    position: absolute;
+
+    left: 61px;
+    top: 20px;
+
+    width: 28px;
+    height: 100px;
+
+    background: #61ce70;
+
+    z-index: 4;
+}
+
+.gift-ribbon-horizontal {
+    position: absolute;
+
+    left: 8px;
+    top: 48px;
+
+    width: 134px;
+    height: 18px;
+
+    background: #61ce70;
+
+    z-index: 2;
+}
+
+.bow-left,
+.bow-right {
+    position: absolute;
+
+    top: 0;
+
+    width: 48px;
+    height: 32px;
+
+    background: #61ce70;
+
+    border-radius: 50%;
+
+    z-index: 5;
+}
+
+.bow-left {
+    left: 30px;
+
+    transform: rotate(25deg);
+}
+
+.bow-right {
+    right: 30px;
+
+    transform: rotate(-25deg);
+}
+
+@keyframes floatGift {
+
+    0%,
+    100% {
+        transform:
+            translateY(0)
+            rotate(-1deg);
+    }
+
+    50% {
+        transform:
+            translateY(-10px)
+            rotate(1deg);
+    }
+}
+
+
+/* =========================================================
+   BOX INSTRUCTION
+========================================================= */
+
+.box-instruction {
+    text-align: center;
+
+    color: #666;
+
+    font-size: 18px;
+    font-weight: bold;
+
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+
+/* =========================================================
+   QUESTIONS
+========================================================= */
+
+.question-area {
+    margin-top: 3px;
+}
+
+.question-title {
+    text-align: center;
+
+    color: #555;
+
+    font-size: 20px;
+    font-weight: bold;
+
+    margin-bottom: 10px;
+}
+
+.questions {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 8px;
+}
+
+.question-card {
+    display: flex;
+    align-items: stretch;
+    gap: 5px;
+    min-width: 0;
+}
+
+.question-card .question-btn {
+    flex: 1;
+    min-width: 0;
+}
+
+.translation-btn {
+    flex: 0 0 auto;
+    border: 0;
+    border-radius: 10px;
+    padding: 8px 11px;
+    background: #ffe9a8;
+    color: #694800;
+    font-size: 14px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.translation-btn:hover {
+    background: #ffdc78;
+    transform: translateY(-1px);
+}
+
+.translation-dialog {
+    width: min(380px, calc(100vw - 32px));
+    border: 0;
+    border-radius: 20px;
+    padding: 24px;
+    color: #3d2855;
+    text-align: center;
+    box-shadow: 0 18px 60px #24103f55;
+}
+
+.translation-dialog::backdrop {
+    background: #1d123b77;
+    backdrop-filter: blur(3px);
+}
+
+.translation-dialog-title {
+    margin: 0 0 8px;
+    color: #7b2c98;
+    font-size: 18px;
+}
+
+.translation-dialog-english {
+    margin: 0;
+    color: #6c6472;
+    font-size: 17px;
+}
+
+.translation-dialog-turkish {
+    margin: 8px 0 20px;
+    font-size: 28px;
+    font-weight: 800;
+}
+
+.translation-dialog-close {
+    border: 0;
+    border-radius: 12px;
+    padding: 10px 22px;
+    background: #793091;
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.question-btn {
+    border: none;
+
+    border-radius: 12px;
+
+    padding: 11px 12px;
+
+    background: #f2edff;
+    color: #6f2889;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.question-btn:hover {
+    transform: translateY(-2px);
+
+    background: #e5dbff;
+}
+
+.question-btn.used {
+    opacity: 0.45;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   ANSWER
+========================================================= */
+
+.answer {
+    height: 180px;
+    min-height: 0;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    margin-top: 7px;
+}
+
+.answer-text {
+    font-size: 26px;
+
+    font-weight: bold;
+}
+
+.answer-text.yes {
+    color: #38a955;
+
+    animation:
+        yesAnimation 0.4s ease;
+}
+
+.answer-text.no {
+    color: #e64c4c;
+
+    animation:
+        noAnimation 0.35s ease;
+}
+
+@keyframes yesAnimation {
+
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+
+    70% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes noAnimation {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-7px);
+    }
+
+    50% {
+        transform: translateX(7px);
+    }
+
+    75% {
+        transform: translateX(-5px);
+    }
+}
+
+
+/* =========================================================
+   KNOW BUTTON
+========================================================= */
+
+.know-btn {
+    display: block;
+
+    margin: 10px auto 0;
+
+    border: none;
+
+    border-radius: 14px;
+
+    padding: 11px 27px;
+
+    background: #61ce70;
+
+    color: white;
+
+    font-size: 17px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.know-btn:hover {
+    transform: scale(1.04);
+
+    background: #4fba60;
+}
+
+
+/* =========================================================
+   GUESS AREA
+========================================================= */
+
+.guess-area {
+    display: none;
+
+    margin-top: 15px;
+}
+
+.guesses {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 8px;
+
+    width: 100%;
+}
+
+.guess-btn {
+    width: 100%;
+
+    border: none;
+
+    border-radius: 12px;
+
+    background: #f2edff;
+
+    color: #6f2889;
+
+    padding: 11px 8px;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.guess-btn:hover {
+    background: #e2d7ff;
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   RESULT
+========================================================= */
+
+.result-area {
+    display: none;
+
+    text-align: center;
+
+    margin-top: 15px;
+}
+
+.result-message {
+    font-size: 22px;
+
+    font-weight: bold;
+
+    margin-bottom: 10px;
+}
+
+.result-message.correct {
+    color: #38a955;
+}
+
+.result-message.wrong {
+    color: #e64c4c;
+}
+
+
+/* =========================================================
+   WRONG SHAKE
+========================================================= */
+
+.result-message.wrong-shake {
+    animation:
+        wrongShake 0.5s ease-in-out;
+}
+
+@keyframes wrongShake {
+
+    0% {
+        transform: translateX(0);
+    }
+
+    15% {
+        transform: translateX(-12px);
+    }
+
+    30% {
+        transform: translateX(12px);
+    }
+
+    45% {
+        transform: translateX(-10px);
+    }
+
+    60% {
+        transform: translateX(10px);
+    }
+
+    75% {
+        transform: translateX(-6px);
+    }
+
+    90% {
+        transform: translateX(6px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+
+/* =========================================================
+   REVEALED OBJECT
+========================================================= */
+
+.revealed-object {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+}
+
+.revealed-object img {
+    width: 160px;
+    height: 160px;
+
+    object-fit: contain;
+}
+
+.revealed-object img.animate-object {
+    animation:
+        objectReveal 0.7s ease both,
+        objectWiggle 2.2s ease-in-out 0.7s infinite;
+}
+
+.object-name {
+    margin-top: 5px;
+
+    font-size: 25px;
+
+    font-weight: bold;
+
+    color: #6f2889;
+}
+
+
+/* =========================================================
+   WIFE SURPRISE
+========================================================= */
+
+.surprise {
+    display: none;
+
+    position: fixed;
+
+    top: 50%;
+    right: 12px;
+
+    transform: translateY(-50%);
+
+    z-index: 99999;
+
+    pointer-events: none;
+}
+
+.surprise.show {
+    display: block;
+}
+
+.surprise img {
+    height:
+        min(500px, 80vh);
+
+    width: auto;
+
+    max-width: min(75vw, calc(100vw - 24px));
+    max-height: calc(100vh - 24px);
+
+    object-fit: contain;
+
+    display: block;
+}
+
+.surprise.animate img {
+    animation:
+        wifeSurprise 2.5s ease-in-out forwards;
+}
+
+@keyframes wifeSurprise {
+
+    0% {
+        opacity: 0;
+
+        transform:
+            translateX(110%)
+            scale(0.7)
+            rotate(8deg);
+    }
+
+    18% {
+        opacity: 1;
+
+        transform:
+            translateX(-12px)
+            scale(1.05)
+            rotate(-3deg);
+    }
+
+    35% {
+        opacity: 1;
+
+        transform:
+            translateX(0)
+            scale(1)
+            rotate(2deg);
+    }
+
+    65% {
+        opacity: 1;
+
+        transform:
+            translateX(0)
+            scale(1)
+            rotate(-1deg);
+    }
+
+    100% {
+        opacity: 0;
+
+        transform:
+            translateX(110%)
+            scale(0.7)
+            rotate(8deg);
+    }
+}
+
+
+/* =========================================================
+   OBJECT ANIMATIONS
+========================================================= */
+
+@keyframes objectReveal {
+
+    0% {
+        transform: scale(0.3);
+
+        opacity: 0;
+    }
+
+    60% {
+        transform: scale(1.15);
+    }
+
+    100% {
+        transform: scale(1);
+
+        opacity: 1;
+    }
+}
+
+@keyframes objectWiggle {
+
+    0%,
+    100% {
+        transform:
+            rotate(0deg)
+            translateY(0);
+    }
+
+    25% {
+        transform:
+            rotate(-3deg)
+            translateY(-3px);
+    }
+
+    50% {
+        transform:
+            rotate(3deg)
+            translateY(0);
+    }
+
+    75% {
+        transform:
+            rotate(-2deg)
+            translateY(-2px);
+    }
+}
+
+
+/* =========================================================
+   ROUND COMPLETE MODAL
+========================================================= */
+
+.round-modal {
+    position: absolute;
+
+    inset: 0;
+
+    display: none;
+
+    justify-content: center;
+    align-items: center;
+
+    padding: 14px;
+
+    overflow-y: auto;
+
+    background:
+        rgba(238, 232, 255, 0.90);
+
+    border-radius: 25px;
+
+    z-index: 100;
+}
+
+.round-modal.show {
+    display: flex;
+}
+
+.round-window {
+    width:
+        min(90%, 430px);
+
+    max-height: 100%;
+
+    overflow-y: auto;
+
+    background: white;
+
+    border-radius: 25px;
+
+    padding: 20px 22px 18px;
+
+    text-align: center;
+
+    box-shadow:
+        0 20px 50px rgba(80, 40, 110, 0.22);
+
+    animation:
+        roundAppear 0.4s ease;
+}
+
+.round-icon {
+    font-size: 42px;
+
+    line-height: 1;
+
+    margin-bottom: 5px;
+}
+
+.round-title {
+    color: #6f2889;
+
+    font-size: 29px;
+
+    font-weight: 900;
+
+    margin-bottom: 6px;
+}
+
+.round-number {
+    color: #777;
+
+    font-size: 17px;
+
+    font-weight: bold;
+
+    margin-bottom: 12px;
+}
+
+.round-object-image {
+    display: block;
+
+    width: 84px;
+    height: 84px;
+
+    margin: 0 auto 8px;
+
+    object-fit: contain;
+}
+
+.round-object-image.animate-object {
+    animation:
+        objectReveal 0.7s ease both,
+        objectWiggle 2.2s ease-in-out 0.7s infinite;
+}
+
+.round-stats {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 8px;
+
+    margin-bottom: 10px;
+}
+
+.round-stat {
+    background: #f7f4ff;
+
+    border-radius: 14px;
+
+    padding: 8px 7px;
+}
+
+.round-stat span {
+    display: block;
+
+    color: #777;
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+    margin-bottom: 4px;
+}
+
+.round-stat strong {
+    display: block;
+
+    color: #6f2889;
+
+    font-size: 21px;
+}
+
+.round-total {
+    background: #e8f8ed;
+
+    color: #28864a;
+
+    border-radius: 14px;
+
+    padding: 11px;
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+    margin-bottom: 12px;
+}
+
+.round-total strong {
+    font-size: 22px;
+}
+
+.round-next-btn {
+    border: none;
+
+    border-radius: 14px;
+
+    background: #61ce70;
+
+    color: white;
+
+    padding: 11px 22px;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.round-next-btn:hover {
+    background: #4fba60;
+
+    transform: scale(1.04);
+}
+
+@keyframes roundAppear {
+
+    from {
+        opacity: 0;
+
+        transform:
+            scale(0.82)
+            translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            scale(1)
+            translateY(0);
+    }
+}
+
+
+/* =========================================================
+   FINAL SCORE
+========================================================= */
+
+.final-score {
+    display: none;
+
+    text-align: center;
+
+    padding: 18px 15px 20px;
+
+    animation:
+        finalAppear 0.5s ease;
+}
+
+.final-score-title {
+    font-size: 28px;
+
+    font-weight: 900;
+
+    color: #6f2889;
+
+    margin-bottom: 6px;
+}
+
+.final-score-label {
+    font-size: 17px;
+
+    color: #777;
+
+    font-weight: bold;
+
+    margin-bottom: 2px;
+}
+
+.final-score-number {
+    font-size: 52px;
+
+    line-height: 1;
+
+    font-weight: 900;
+
+    color: #61ce70;
+
+    margin-bottom: 14px;
+}
+
+.final-history {
+    width: 100%;
+
+    max-width: 620px;
+
+    margin: 10px auto 0;
+
+    display: grid;
+
+    grid-template-columns: 1fr;
+
+    gap: 4px;
+}
+
+.final-history-heading,
+.final-history-item {
+    display: grid;
+
+    grid-template-columns:
+        1.2fr 1fr 1fr;
+
+    align-items: center;
+
+    gap: 5px;
+
+    text-align: left;
+}
+
+.final-history-heading {
+    padding: 3px 10px;
+
+    color: #777;
+
+    font-size: 11px;
+
+    font-weight: 900;
+}
+
+.final-history-item {
+    background: #f7f4ff;
+
+    border-radius: 9px;
+
+    padding: 7px 10px;
+
+    color: #555;
+
+    font-size: 13px;
+
+    font-weight: bold;
+}
+
+.final-history-item span:nth-child(1) {
+    color: #6f2889;
+}
+
+.final-history-item span:nth-child(2) {
+    color: #777;
+}
+
+.final-history-item span:nth-child(3) {
+    color: #28864a;
+}
+
+@keyframes finalAppear {
+
+    from {
+        opacity: 0;
+
+        transform: scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+
+        transform: scale(1);
+    }
+}
+
+
+/* =========================================================
+   RESTART
+========================================================= */
+
+.restart-btn {
+    position: absolute;
+
+    top: 18px;
+    left: 22px;
+
+    z-index: 5;
+
+    display: block;
+
+    margin: 0;
+
+    border: none;
+
+    border-radius: 13px;
+
+    color: white;
+
+    padding: 8px 13px;
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+
+    background: #e95b5b;
+}
+
+.restart-btn:hover {
+    background: #d94747;
+
+    transform: scale(1.03);
+}
+
+.game-signature {
+    position: absolute;
+    bottom: 7px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 12px;
+    border: 1px solid #eadff0;
+    border-radius: 999px;
+    background: linear-gradient(110deg, #fbf7ff, #fffaf1);
+    color: #80728a;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+    pointer-events: none;
+    box-shadow: 0 2px 8px #4b2d5d12;
+}
+
+.game-signature strong {
+    color: #71358b;
+    font-weight: 800;
+}
+
+.game-signature .signature-star {
+    color: #d0a33c;
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   START OVERLAY
+========================================================= */
+
+.start-overlay {
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        rgba(238, 232, 255, 0.92);
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    z-index: 50;
+}
+
+.start-window {
+    width:
+        min(90%, 430px);
+
+    background: white;
+
+    border-radius: 25px;
+
+    padding: 30px 25px;
+
+    text-align: center;
+
+    box-shadow:
+        0 20px 50px rgba(80, 40, 110, 0.2);
+
+    animation:
+        startAppear 0.5s ease;
+}
+
+.start-icon {
+    font-size: 60px;
+
+    margin-bottom: 4px;
+}
+
+.start-window h2 {
+    margin: 0;
+
+    color: #6f2889;
+
+    font-size: 30px;
+}
+
+.start-window p {
+    color: #666;
+
+    line-height: 1.5;
+
+    font-size: 16px;
+
+    margin:
+        10px 0 20px;
+}
+
+.difficulty-label {
+    margin: 0 0 8px;
+    color: #746b7c;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.difficulty-options {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 18px;
+}
+
+.difficulty-description {
+    margin: -10px 0 16px;
+    color: #8b8291;
+    font-size: 12px;
+}
+
+.difficulty-option {
+    flex: 1 1 0;
+    min-width: 0;
+    border: 2px solid #e7e1ee;
+    border-radius: 13px;
+    padding: 9px 3px;
+    background: #fbfaff;
+    color: #675c70;
+    font-size: 12px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.difficulty-option:hover {
+    border-color: #c9b6d6;
+    background: #f7f1fb;
+}
+
+.difficulty-option.selected {
+    border-color: #8b55a0;
+    background: #f2e8f7;
+    color: #6f2889;
+    box-shadow: 0 3px 10px #6f288922;
+}
+
+.start-button {
+    border: none;
+
+    border-radius: 15px;
+
+    background: #61ce70;
+
+    color: white;
+
+    padding: 14px 26px;
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.start-button:hover {
+    transform: scale(1.05);
+
+    background: #4fba60;
+}
+
+@keyframes startAppear {
+
+    from {
+        transform: scale(0.8);
+
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+
+        opacity: 1;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 650px) {
+
+    #gameWrapper {
+        padding: 5px;
+    }
+
+    .game {
+        width: 900px;
+
+        padding:
+            18px 16px 18px;
+
+        border-radius: 18px;
+    }
+
+    h1 {
+        font-size: 30px;
+
+        margin-top: 30px;
+    }
+
+    .object-counter {
+        top: 12px;
+        right: 12px;
+
+        font-size: 12px;
+
+        padding:
+            6px 9px;
+    }
+
+    .questions {
+        grid-template-columns: 1fr;
+    }
+
+    .guesses {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .box-area {
+        height: 165px;
+    }
+
+    .answer {
+        height: 165px;
+        min-height: 0;
+    }
+
+    .score,
+    .timer {
+        min-width: 110px;
+
+        font-size: 15px;
+    }
+
+    .surprise {
+        right: 0;
+    }
+
+    .surprise img {
+        height:
+            min(420px, 70vh);
+
+        max-width: 70vw;
+    }
+
+    #screenControls {
+        top: 7px;
+        right: 7px;
+
+        gap: 5px;
+    }
+
+    #screenControls button {
+        padding:
+            7px 9px;
+
+        font-size: 11px;
+    }
+
+    .final-history {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* =========================================================
+   SHORT SCREEN
+========================================================= */
+
+@media (max-height: 800px) {
+
+    .game {
+        padding:
+            15px 25px 14px;
+    }
+
+    h1 {
+        font-size: 31px;
+    }
+
+    .top-bar {
+        margin-top: 7px;
+    }
+
+    .box-area {
+        height: 140px;
+    }
+
+    .box-instruction {
+        margin-top: 0;
+
+        margin-bottom: 6px;
+    }
+
+    .question-title {
+        margin-bottom: 7px;
+    }
+
+    .question-btn {
+        padding:
+            8px 10px;
+    }
+
+    .answer {
+        height: 140px;
+        min-height: 0;
+    }
+
+    .restart-btn {
+        margin-top: 0;
+    }
+
+    .final-score {
+        padding:
+            10px 12px 12px;
+    }
+
+    .final-score-number {
+        font-size: 45px;
+    }
+
+    .final-history {
+        gap: 4px;
+    }
+
+    .final-history-item {
+        padding:
+            5px 8px;
+
+        font-size: 12px;
+    }
+}
+
+
+/* =========================================================
+   MOBILE ROTATE MESSAGE
+========================================================= */
+
+#rotateMessage {
+    display: none;
+
+    position: fixed;
+    inset: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    z-index: 99999999;
+
+    background: #eee8ff;
+
+    justify-content: center;
+    align-items: center;
+
+    flex-direction: column;
+
+    text-align: center;
+
+    padding: 25px;
+
+    color: #6f2889;
+}
+
+.rotate-icon {
+    font-size: 72px;
+
+    margin-bottom: 18px;
+
+    animation:
+        rotatePhone 1.8s ease-in-out infinite;
+}
+
+.rotate-title {
+    font-size: 29px;
+
+    font-weight: 900;
+
+    margin-bottom: 10px;
+}
+
+.rotate-text {
+    font-size: 18px;
+
+    line-height: 1.5;
+
+    color: #666;
+
+    font-weight: bold;
+}
+
+.rotate-arrow {
+    font-size: 48px;
+
+    margin-top: 16px;
+
+    animation:
+        rotateArrow 1.5s ease-in-out infinite;
+}
+
+@keyframes rotatePhone {
+
+    0%,
+    100% {
+        transform:
+            rotate(0deg);
+    }
+
+    50% {
+        transform:
+            rotate(90deg);
+    }
+}
+
+@keyframes rotateArrow {
+
+    0%,
+    100% {
+        transform:
+            rotate(0deg);
+    }
+
+    50% {
+        transform:
+            rotate(90deg);
+    }
+}
+
+
+/* =========================================================
+   MOBILE LANDSCAPE LAYOUT
+========================================================= */
+
+@media screen and (orientation: landscape) and (max-height: 500px) {
+
+    .game {
+        padding: 10px 16px 12px;
+    }
+
+    h1 {
+        margin-top: 0;
+        margin-bottom: 2px;
+        font-size: 30px;
+    }
+
+    .top-bar {
+        margin-top: 4px;
+    }
+
+    .box-area {
+        height: 120px;
+    }
+
+    .box-instruction {
+        margin-top: 0;
+        margin-bottom: 4px;
+        font-size: 15px;
+    }
+
+    .question-title {
+        margin-bottom: 6px;
+        font-size: 17px;
+    }
+
+    .questions {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 6px;
+    }
+
+    .question-btn {
+        padding: 8px 5px;
+        font-size: 14px;
+        line-height: 1.1;
+    }
+
+    .answer {
+        height: 120px;
+        min-height: 0;
+        margin-top: 3px;
+    }
+
+    .know-btn {
+        margin-top: 5px;
+        padding: 9px 20px;
+    }
+}
+
+
+/* =========================================================
+   ONLY MOBILE + PORTRAIT
+========================================================= */
+
+@media screen and (max-width: 650px) and (orientation: portrait) {
+
+    #rotateMessage {
+        display: flex;
+    }
+
+    #gameWrapper {
+        display: none;
+    }
+
+    #screenControls {
+        display: none;
+    }
+
+    .surprise {
+        display: none !important;
+    }
+
+}
+
+</style>
+
+<link rel="stylesheet" href="../../workspace-game.css"></head>
+
+
+<body>
+
+
+<!-- =====================================================
+     BACKGROUND MUSIC
+===================================================== -->
+
+<audio
+    id="bgMusic"
+    preload="auto"
+    loop
+>
+    <source
+        src="./sounds/funny.mp3"
+        type="audio/mpeg"
+    >
+</audio>
+
+
+<!-- =====================================================
+     MOBILE ROTATE MESSAGE
+===================================================== -->
+
+<div id="rotateMessage">
+
+    <div class="rotate-icon">
+        📱
+    </div>
+
+    <div class="rotate-title">
+        Telefonu Çevir! 🔄
+    </div>
+
+    <div class="rotate-text">
+        Oyuna başlamak için<br>
+        telefonunu yatay tut.
+    </div>
+
+    <div class="rotate-arrow">
+        ↻
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     SCREEN CONTROLS
+===================================================== -->
+
+<div id="screenControls">
+
+    <button id="soundToggleBtn" type="button" aria-pressed="true">
+        🔊 Sesi Kapat
+    </button>
+
+    <button id="fullscreenBtn">
+        ⛶ Tam Ekran
+    </button>
+
+</div>
+
+
+<!-- =====================================================
+     GAME
+===================================================== -->
+
+<div id="gameWrapper">
+
+<div class="game">
+
+
+    <div
+        class="object-counter"
+        id="objectCounter"
+    >
+        🔎 Object 1 of 10
+    </div>
+
+
+    <h1>
+        🎁 Mystery Object
+    </h1>
+
+
+    <div class="top-bar">
+
+        <div class="score">
+            ⭐ Score:
+            <span id="score">0</span>
+        </div>
+
+        <div class="timer">
+            ⏱️
+            <span id="timer">0</span>
+            sec
+        </div>
+
+    </div>
+
+    <div class="object-navigation" aria-label="Object navigation">
+        <button id="previousObjectButton" type="button" onclick="navigateObject(-1)">← Previous</button>
+        <button id="nextObjectButton" type="button" onclick="navigateObject(1)">Next →</button>
+    </div>
+
+
+    <!-- =================================================
+         MYSTERY BOX
+    ================================================= -->
+
+    <div
+        class="box-area"
+        id="boxArea"
+    >
+
+        <div class="gift">
+
+            <div class="bow-left"></div>
+
+            <div class="bow-right"></div>
+
+            <div class="gift-lid"></div>
+
+            <div class="gift-ribbon-horizontal"></div>
+
+            <div class="gift-body"></div>
+
+            <div class="gift-ribbon-vertical"></div>
+
+        </div>
+
+    </div>
+
+
+    <div
+        class="box-instruction"
+        id="boxInstruction"
+    >
+        What's inside the mystery box?
+    </div>
+
+
+    <!-- =================================================
+         QUESTIONS
+    ================================================= -->
+
+    <div
+        class="question-area"
+        id="questionArea"
+    >
+
+        <div class="question-title">
+            Ask 6 questions!
+        </div>
+
+        <div
+            class="questions"
+            id="questions"
+        ></div>
+
+        <dialog class="translation-dialog" id="translationDialog" aria-labelledby="translationDialogTitle">
+            <h2 class="translation-dialog-title" id="translationDialogTitle">Türkçesi</h2>
+            <p class="translation-dialog-english" id="translationDialogEnglish"></p>
+            <p class="translation-dialog-turkish" id="translationDialogTurkish"></p>
+            <button class="translation-dialog-close" id="translationDialogClose" type="button" onclick="document.getElementById('translationDialog').close()">Kapat</button>
+        </dialog>
+
+        <button
+            class="know-btn"
+            id="knowButton"
+            onclick="showGuesses()"
+        >
+            I KNOW IT!
+        </button>
+
+    </div>
+
+
+    <!-- =================================================
+         ANSWER
+    ================================================= -->
+
+    <div class="answer">
+
+        <div id="answerText"></div>
+
+    </div>
+
+
+    <!-- =================================================
+         GUESS
+    ================================================= -->
+
+    <div
+        class="guess-area"
+        id="guessArea"
+    >
+
+        <div
+            class="guesses"
+            id="guessButtons"
+        ></div>
+
+    </div>
+
+
+    <!-- =================================================
+         RESULT
+    ================================================= -->
+
+    <div
+        class="result-area"
+        id="resultArea"
+    >
+
+        <div
+            class="result-message"
+            id="resultMessage"
+        ></div>
+
+        <div
+            class="revealed-object"
+            id="revealedObject"
+            style="display: none;"
+        >
+
+            <img
+                id="revealedImage"
+                src=""
+                alt=""
+            >
+
+            <div
+                class="object-name"
+                id="objectName"
+            ></div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         FINAL SCORE
+    ================================================= -->
+
+    <div
+        class="final-score"
+        id="finalScore"
+    ></div>
+
+
+    <!-- =================================================
+         RESTART
+    ================================================= -->
+
+    <button
+        class="restart-btn"
+        id="restartButton"
+        onclick="restartGame()"
+    >
+        🔄 RESTART GAME
+    </button>
+
+    <div class="game-signature">
+        <span class="signature-star" aria-hidden="true">✦</span>
+        <span>Created by <strong>@tunc.teacher</strong></span>
+        <span class="signature-star" aria-hidden="true">✦</span>
+    </div>
+
+
+    <!-- =================================================
+         ROUND MODAL
+    ================================================= -->
+
+    <div
+        class="round-modal"
+        id="roundModal"
+    >
+
+        <div class="round-window">
+
+            <div class="round-icon">
+                🎉
+            </div>
+
+            <div class="round-title">
+                ROUND COMPLETE!
+            </div>
+
+            <div
+                class="round-number"
+                id="roundModalNumber"
+            >
+                Round 1
+            </div>
+
+            <img
+                class="round-object-image"
+                id="roundModalImage"
+                src=""
+                alt=""
+            >
+
+            <div class="round-stats">
+
+                <div class="round-stat">
+
+                    <span>
+                        ⏱️ TIME
+                    </span>
+
+                    <strong id="roundModalTime">
+                        0 sec
+                    </strong>
+
+                </div>
+
+
+                <div class="round-stat">
+
+                    <span>
+                        ⭐ POINTS
+                    </span>
+
+                    <strong id="roundModalPoints">
+                        +20
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="round-total">
+
+                Total Score:
+
+                <strong id="roundModalTotal">
+                    20
+                </strong>
+
+            </div>
+
+
+            <button
+                class="round-next-btn"
+                onclick="nextObjectFromModal()"
+            >
+                ➡️ NEXT OBJECT!
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         START
+    ================================================= -->
+
+    <div
+        class="start-overlay"
+        id="startOverlay"
+    >
+
+        <div class="start-window">
+
+            <div class="start-icon">
+                🎁
+            </div>
+
+            <h2>
+                Mystery Object
+            </h2>
+
+            <p>
+                What's inside the mystery box?<br>
+                Ask questions and guess the object!
+            </p>
+
+            <div class="difficulty-label">Choose difficulty</div>
+            <div class="difficulty-options" role="group" aria-label="Choose difficulty">
+                <button class="difficulty-option selected" type="button" data-difficulty="easy" aria-pressed="true" onclick="chooseDifficulty('easy')">🐣 EASY</button>
+                <button class="difficulty-option" type="button" data-difficulty="normal" aria-pressed="false" onclick="chooseDifficulty('normal')">🎯 NORMAL</button>
+                <button class="difficulty-option" type="button" data-difficulty="hard" aria-pressed="false" onclick="chooseDifficulty('hard')">🔥 HARD</button>
+                <button class="difficulty-option" type="button" data-difficulty="expert" aria-pressed="false" onclick="chooseDifficulty('expert')">🧠 EXPERT</button>
+            </div>
+            <div class="difficulty-description" id="difficultyDescription">10 objects · same word cycle · 6 choices · ask up to 6 · 10 points each</div>
+
+            <button
+                class="start-button"
+                onclick="startGame()"
+            >
+                ▶️ START GAME
+            </button>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     WIFE SURPRISE
+===================================================== -->
+
+<div
+    class="surprise"
+    id="surprise"
+>
+
+    <img
+        src="./images/esimin-emoji.png"
+        alt="Surprise"
+    >
+
+</div>
+
+
+
+<script>
+
+
+/* =========================================================
+   OBJECT DATA
+========================================================= */
+
+const objects = {
+
+    apple: {
+        animal: false,
+        food: true,
+        fruit: true,
+        toy: false,
+        red: true,
+        yellow: false,
+        orange: false,
+        round: true,
+        big: false,
+        small: true,
+        move: false,
+        soft: true
+    },
+
+    dog: {
+        animal: true,
+        food: false,
+        fruit: false,
+        toy: false,
+        red: false,
+        yellow: false,
+        orange: false,
+        round: false,
+        big: false,
+        small: true,
+        move: true,
+        soft: true
+    },
+
+    car: {
+        animal: false,
+        food: false,
+        fruit: false,
+        toy: false,
+        red: true,
+        yellow: false,
+        orange: false,
+        round: false,
+        big: true,
+        small: false,
+        move: true,
+        soft: false
+    },
+
+    banana: {
+        animal: false,
+        food: true,
+        fruit: true,
+        toy: false,
+        red: false,
+        yellow: true,
+        orange: false,
+        round: false,
+        big: false,
+        small: true,
+        move: false,
+        soft: true
+    },
+
+    ball: {
+        animal: false,
+        food: false,
+        fruit: false,
+        toy: true,
+        red: false,
+        yellow: false,
+        orange: false,
+        round: true,
+        big: false,
+        small: true,
+        move: false,
+        soft: false
+    },
+
+    cat: {
+        animal: true,
+        food: false,
+        fruit: false,
+        toy: false,
+        red: false,
+        yellow: false,
+        orange: false,
+        round: false,
+        big: false,
+        small: true,
+        move: true,
+        soft: true
+    },
+
+    orange: {
+        animal: false,
+        food: true,
+        fruit: true,
+        toy: false,
+        red: false,
+        yellow: false,
+        orange: true,
+        round: true,
+        big: false,
+        small: true,
+        move: false,
+        soft: false
+    },
+
+    teddy: {
+        animal: false,
+        food: false,
+        fruit: false,
+        toy: true,
+        red: false,
+        yellow: false,
+        orange: false,
+        round: false,
+        big: false,
+        small: true,
+        move: false,
+        soft: true
+    },
+
+    fish: {
+        animal: true,
+        food: false,
+        fruit: false,
+        toy: false,
+        red: false,
+        yellow: false,
+        orange: true,
+        round: false,
+        big: false,
+        small: true,
+        move: true,
+        soft: false
+    },
+
+    pizza: {
+        animal: false,
+        food: true,
+        fruit: false,
+        toy: false,
+        red: true,
+        yellow: false,
+        orange: true,
+        round: true,
+        big: false,
+        small: true,
+        move: false,
+        soft: true
+    }
+
+};
+
+
+/* =========================================================
+   AUDIO
+========================================================= */
+
+const bgMusic =
+    document.getElementById("bgMusic");
+
+let soundEnabled = new URLSearchParams(location.search).get('muted') !== '1';
+const activeSounds = new Set();
+
+
+
+
+
+/*
+   Effect volume levels.
+
+   Background music:
+   20%
+
+   YES:
+   45%
+
+   NO:
+   60%
+
+   Everything else:
+   100%
+*/
+
+
+
+
+/* =========================================================
+   BACKGROUND MUSIC SETUP
+========================================================= */
+
+bgMusic.loop = true;
+
+bgMusic.preload = "auto";
+
+bgMusic.volume = 0.10;
+
+bgMusic.muted = false;
+
+
+/* =========================================================
+   START BACKGROUND MUSIC
+========================================================= */
+
+function startBackgroundMusic() {
+
+    bgMusic.loop = true;
+
+    bgMusic.muted = !soundEnabled;
+
+    bgMusic.volume = 0.20;
+
+
+    if (bgMusic.paused) {
+
+        const musicPromise =
+            bgMusic.play();
+
+
+        if (musicPromise !== undefined) {
+
+            musicPromise
+                .then(() => {
+
+                    console.log(
+                        "🎵 Background music started"
+                    );
+
+                })
+                .catch(error => {
+
+                    console.warn(
+                        "Background music could not start:",
+                        error
+                    );
+
+                });
+
+        }
+
+    }
+
+}
+
+
+/* =========================================================
+   PLAY SOUND EFFECT
+========================================================= */
+
+function playSound(soundName) {
+    if (!soundEnabled) return;
+    if(window.parent!==window){window.parent.postMessage({type:'lingucat:game-sound',cue:soundName},'*');return;}
+    const cues={click:'select',yes:'correct',no:'incorrect',success:'complete',correct:'correct',wrong:'incorrect'};
+    if(cues[soundName]&&window.LinguAudio)window.LinguAudio.play(cues[soundName]);
+}
+
+function toggleSound() {
+
+    soundEnabled = !soundEnabled;
+    if(window.parent!==window)window.parent.postMessage({type:'lingucat:game-audio-enabled',enabled:soundEnabled},'*');
+    else if(window.LinguAudio)window.LinguAudio.setEnabled(soundEnabled);
+    bgMusic.muted = !soundEnabled;
+
+    activeSounds.forEach(sound => {
+        sound.muted = !soundEnabled;
+    });
+
+    soundToggleBtn.textContent =
+        soundEnabled ? "🔊 Sesi Kapat" : "🔇 Sesi Aç";
+
+    soundToggleBtn.setAttribute(
+        "aria-pressed",
+        String(soundEnabled)
+    );
+
+}
+
+
+/* =========================================================
+   WRONG SOUND
+========================================================= */
+
+function playWrongSound() {
+
+    playSound("wrong");
+
+}
+
+
+/* =========================================================
+   GAME STATE
+========================================================= */
+
+let objectList =
+    Object.keys(objects);
+
+let currentObjectIndex = 0;
+
+let currentObject = "";
+
+let score = 0;
+
+let questionCount = 0;
+
+let timer = 0;
+
+let timerInterval = null;
+
+let gameStarted = false;
+
+let roundNumber = 0;
+
+let roundHistory = [];
+let lingucatRewardReported = false;
+
+let roundStartScore = 0;
+
+let difficulty = "easy";
+
+const difficultySettings = {
+    easy: { questionLimit: 6, points: 10 },
+    normal: { questionLimit: 6, points: 20 },
+    hard: { questionLimit: 4, points: 30 },
+    expert: { questionLimit: 2, points: 40 }
+};
+
+const difficultyDescriptions = {
+    easy: "10 objects · same word cycle · 6 choices · ask up to 6 · 10 points each",
+    normal: "10 objects · 6 choices · ask up to 6 · 20 points each",
+    hard: "10 objects · 6 choices · ask up to 4 · 30 points each",
+    expert: "10 objects · 6 choices · ask up to 2 · 40 points each"
+};
+
+
+/* =========================================================
+   ELEMENTS
+========================================================= */
+
+const scoreElement =
+    document.getElementById("score");
+
+const timerElement =
+    document.getElementById("timer");
+
+const objectCounter =
+    document.getElementById("objectCounter");
+
+const previousObjectButton =
+    document.getElementById("previousObjectButton");
+
+const nextObjectButton =
+    document.getElementById("nextObjectButton");
+
+const answerText =
+    document.getElementById("answerText");
+
+const questionArea =
+    document.getElementById("questionArea");
+
+const guessArea =
+    document.getElementById("guessArea");
+
+const guessButtons =
+    document.getElementById("guessButtons");
+
+const resultArea =
+    document.getElementById("resultArea");
+
+const resultMessage =
+    document.getElementById("resultMessage");
+
+const revealedObject =
+    document.getElementById("revealedObject");
+
+const revealedImage =
+    document.getElementById("revealedImage");
+
+const objectName =
+    document.getElementById("objectName");
+
+const finalScore =
+    document.getElementById("finalScore");
+
+const startOverlay =
+    document.getElementById("startOverlay");
+
+const knowButton =
+    document.getElementById("knowButton");
+
+const boxArea =
+    document.getElementById("boxArea");
+
+const boxInstruction =
+    document.getElementById("boxInstruction");
+
+const surprise =
+    document.getElementById("surprise");
+
+const restartButton =
+    document.getElementById("restartButton");
+
+const roundModal =
+    document.getElementById("roundModal");
+
+const roundModalNumber =
+    document.getElementById("roundModalNumber");
+
+const roundModalImage =
+    document.getElementById("roundModalImage");
+
+const roundModalTitle =
+    document.querySelector(".round-title");
+
+const roundModalTime =
+    document.getElementById("roundModalTime");
+
+const roundModalPoints =
+    document.getElementById("roundModalPoints");
+
+const roundModalTotal =
+    document.getElementById("roundModalTotal");
+
+
+/* =========================================================
+   SHUFFLE ARRAY
+========================================================= */
+
+function shuffleArray(array) {
+
+    for (
+        let i = array.length - 1;
+        i > 0;
+        i--
+    ) {
+
+        const j =
+            Math.floor(
+                Math.random() * (i + 1)
+            );
+
+
+        [
+            array[i],
+            array[j]
+        ] = [
+            array[j],
+            array[i]
+        ];
+
+    }
+
+    return array;
+
+}
+
+
+/* =========================================================
+   SHUFFLE OBJECTS
+========================================================= */
+
+function shuffleObjects() {
+
+    objectList =
+        Object.keys(objects);
+
+    shuffleArray(objectList);
+
+}
+
+
+/* =========================================================
+   PREPARE OBJECT
+========================================================= */
+
+function prepareObject() {
+
+    currentObject =
+        objectList[currentObjectIndex];
+
+
+    objectCounter.textContent =
+        `🔎 Object ${currentObjectIndex + 1} of 10`;
+
+    questionArea.querySelector(".question-title").textContent =
+        `6 question cards · Ask up to ${difficultySettings[difficulty].questionLimit}!`;
+
+    previousObjectButton.disabled = currentObjectIndex <= 0;
+    nextObjectButton.disabled = currentObjectIndex >= objectList.length - 1;
+
+
+    generateQuestions();
+
+    if (roundHistory.some(round => round.object === currentObject)) {
+        showCompletedObjectPreview();
+    }
+
+}
+
+
+function chooseDifficulty(level) {
+
+    if (!difficultySettings[level]) return;
+
+    difficulty = level;
+
+    document.querySelectorAll(".difficulty-option").forEach(button => {
+        const selected = button.dataset.difficulty === level;
+        button.classList.toggle("selected", selected);
+        button.setAttribute("aria-pressed", String(selected));
+    });
+
+    document.getElementById("difficultyDescription").textContent =
+        difficultyDescriptions[level];
+}
+
+
+function navigateObject(direction) {
+
+    const targetIndex = currentObjectIndex + direction;
+
+    if (targetIndex < 0 || targetIndex >= objectList.length) return;
+
+    playSound("click");
+    stopTimer();
+    currentObjectIndex = targetIndex;
+    resetRoundUI();
+    prepareObject();
+
+    if (!roundHistory.some(round => round.object === currentObject)) {
+        gameStarted = true;
+        roundStartScore = score;
+        startTimer();
+    }
+
+    requestFit();
+}
+
+
+function showCompletedObjectPreview() {
+
+    const completedRound = roundHistory.find(round => round.object === currentObject);
+
+    stopTimer();
+    gameStarted = false;
+    questionArea.style.display = "block";
+    questionArea.querySelector(".question-title").style.display = "none";
+    document.getElementById("questions").style.display = "none";
+    knowButton.style.display = "none";
+    boxArea.style.display = "none";
+    boxInstruction.style.display = "none";
+    guessArea.style.display = "none";
+    resultArea.style.display = "block";
+    resultMessage.textContent = `✅ Completed in ${completedRound.time} sec`;
+    resultMessage.className = "result-message correct";
+    revealedImage.src = `./images/${currentObject}.png`;
+    revealedImage.alt = capitalize(currentObject);
+    objectName.textContent = capitalize(currentObject);
+    revealedObject.style.display = "flex";
+}
+
+
+/* =========================================================
+   GENERATE QUESTIONS
+========================================================= */
+
+function generateQuestions() {
+
+    const questionContainer =
+        document.getElementById("questions");
+
+
+    questionContainer.innerHTML = "";
+
+
+    const questionPool = [
+
+        {
+            property: "animal",
+            text: "Is it an animal?",
+            translation: "Hayvan mı?"
+        },
+
+        {
+            property: "food",
+            text: "Is it food?",
+            translation: "Yiyecek mi?"
+        },
+
+        {
+            property: "fruit",
+            text: "Is it a fruit?",
+            translation: "Meyve mi?"
+        },
+
+        {
+            property: "toy",
+            text: "Is it a toy?",
+            translation: "Oyuncak mı?"
+        },
+
+        {
+            property: "red",
+            text: "Is it red?",
+            translation: "Kırmızı mı?"
+        },
+
+        {
+            property: "yellow",
+            text: "Is it yellow?",
+            translation: "Sarı mı?"
+        },
+
+        {
+            property: "orange",
+            text: "Is it orange?",
+            translation: "Turuncu mu?"
+        },
+
+        {
+            property: "round",
+            text: "Is it round?",
+            translation: "Yuvarlak mı?"
+        },
+
+        {
+            property: "big",
+            text: "Is it big?",
+            translation: "Büyük mü?"
+        },
+
+        {
+            property: "small",
+            text: "Is it small?",
+            translation: "Küçük mü?"
+        },
+
+        {
+            property: "move",
+            text: "Can it move?",
+            translation: "Hareket edebiliyor mu?"
+        },
+
+        {
+            property: "soft",
+            text: "Is it soft?",
+            translation: "Yumuşak mı?"
+        }
+
+    ];
+
+
+    const currentProperties =
+        objects[currentObject];
+
+
+    const yesQuestions =
+        questionPool.filter(
+            question =>
+                currentProperties[
+                    question.property
+                ] === true
+        );
+
+
+    const noQuestions =
+        questionPool.filter(
+            question =>
+                currentProperties[
+                    question.property
+                ] === false
+        );
+
+
+    shuffleArray(yesQuestions);
+
+    shuffleArray(noQuestions);
+
+
+    const questionLimit = 6;
+    const yesCount = Math.min(
+        yesQuestions.length,
+        Math.random() < 0.5 ? 2 : 3
+    );
+    const selectedQuestions = [
+        ...yesQuestions.slice(0, yesCount),
+        ...noQuestions.slice(0, questionLimit - yesCount)
+    ];
+
+    const selectedQuestionSet = new Set(selectedQuestions);
+    const remainingQuestions = questionPool.filter(question => !selectedQuestionSet.has(question));
+    shuffleArray(remainingQuestions);
+    selectedQuestions.push(
+        ...remainingQuestions.slice(0, questionLimit - selectedQuestions.length)
+    );
+
+
+    shuffleArray(
+        selectedQuestions
+    );
+
+
+    selectedQuestions.forEach(
+        question => {
+
+            const card =
+                document.createElement("div");
+
+            card.className = "question-card";
+
+            const button =
+                document.createElement("button");
+
+
+            button.className =
+                "question-btn";
+
+
+            button.textContent =
+                question.text;
+
+            card.appendChild(button);
+
+            if (question.translation) {
+                const translationButton =
+                    document.createElement("button");
+
+                translationButton.className = "translation-btn";
+                translationButton.type = "button";
+                translationButton.textContent = "TR";
+                translationButton.setAttribute("aria-label", `Türkçesini göster: ${question.text}`);
+
+                translationButton.addEventListener("click", () => {
+                    document.getElementById("translationDialogEnglish").textContent = question.text;
+                    document.getElementById("translationDialogTurkish").textContent = question.translation;
+                    document.getElementById("translationDialog").showModal();
+                });
+
+                card.appendChild(translationButton);
+            }
+
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    askQuestion(
+                        question.property,
+                        button
+                    );
+
+                }
+            );
+
+
+            questionContainer.appendChild(card);
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   TIMER
+========================================================= */
+
+function startTimer() {
+
+    stopTimer();
+
+
+    timerInterval =
+        setInterval(() => {
+
+            if (!gameStarted) return;
+
+            timer++;
+
+            timerElement.textContent =
+                timer;
+
+        }, 1000);
+
+}
+
+
+function stopTimer() {
+
+    if (timerInterval !== null) {
+
+        clearInterval(
+            timerInterval
+        );
+
+        timerInterval = null;
+
+    }
+
+}
+
+
+/* =========================================================
+   START GAME
+========================================================= */
+
+function startGame() {
+
+    /*
+       Start music and click sound
+       directly from the START GAME
+       user interaction.
+    */
+
+    startBackgroundMusic();
+
+    playSound("click");
+
+    generateQuestions();
+
+
+    startOverlay.style.display =
+        "none";
+
+
+    if (gameStarted) return;
+
+
+    gameStarted = true;
+
+
+    roundStartScore =
+        score;
+
+
+    startTimer();
+
+}
+
+
+/* =========================================================
+   ASK QUESTION
+========================================================= */
+
+function askQuestion(
+    property,
+    button
+) {
+
+    if (!gameStarted) return;
+
+    if (questionCount >= difficultySettings[difficulty].questionLimit) return;
+
+    if (button.classList.contains("used")) {
+        return;
+    }
+
+
+    questionCount++;
+
+
+    button.classList.add(
+        "used"
+    );
+
+
+    const answer =
+        objects[
+            currentObject
+        ][property];
+
+
+    answerText.className = "";
+
+    answerText.textContent = "";
+
+
+    void answerText.offsetWidth;
+
+
+    if (answer) {
+
+        playSound("yes");
+
+
+        answerText.textContent =
+            "👍 YES!";
+
+
+        answerText.className =
+            "answer-text yes";
+
+    }
+
+    else {
+
+        playSound("no");
+
+
+        answerText.textContent =
+            "❌ NO!";
+
+
+        answerText.className =
+            "answer-text no";
+
+    }
+
+
+    if (questionCount >= difficultySettings[difficulty].questionLimit) {
+
+        knowButton.textContent =
+            "MAKE YOUR GUESS!";
+
+    }
+
+}
+
+
+/* =========================================================
+   SHOW GUESSES
+========================================================= */
+
+function showGuesses() {
+
+    if (!gameStarted) return;
+
+
+    playSound("click");
+
+
+    questionArea.style.display =
+        "none";
+
+
+    guessArea.style.display =
+        "block";
+
+
+    answerText.textContent = "";
+
+    answerText.className = "";
+
+
+    resultArea.style.display =
+        "none";
+
+
+    resultMessage.textContent = "";
+
+    resultMessage.className =
+        "result-message";
+
+
+    revealedObject.style.display =
+        "none";
+
+
+    guessButtons.innerHTML = "";
+
+
+    const otherObjects = objectList.filter(
+        object => object !== currentObject
+    );
+
+    shuffleArray(otherObjects);
+
+    const guessOptions = [
+        currentObject,
+        ...otherObjects.slice(0, 5)
+    ];
+
+    shuffleArray(guessOptions);
+
+    guessOptions.forEach(
+        object => {
+
+            const button =
+                document.createElement("button");
+
+
+            button.className =
+                "guess-btn";
+
+
+            button.textContent =
+                capitalize(object);
+
+
+            button.addEventListener(
+                "click",
+                () => makeGuess(object)
+            );
+
+
+            guessButtons.appendChild(
+                button
+            );
+
+        }
+    );
+
+
+    requestFit();
+
+}
+
+
+/* =========================================================
+   MOBILE ORIENTATION CHECK
+========================================================= */
+
+function checkMobileOrientation() {
+
+    const rotateMessage =
+        document.getElementById(
+            "rotateMessage"
+        );
+
+
+    if (!rotateMessage) return;
+
+
+    const isMobile =
+        window.innerWidth <= 650;
+
+
+    const isPortrait =
+        window.innerHeight >
+        window.innerWidth;
+
+
+    if (
+        isMobile &&
+        isPortrait
+    ) {
+
+        rotateMessage.style.display =
+            "flex";
+
+    }
+
+    else {
+
+        rotateMessage.style.display =
+            "none";
+
+        requestFit();
+
+    }
+
+}
+
+
+/* =========================================================
+   WIFE SURPRISE
+========================================================= */
+
+function showWifeSurprise() {
+
+    surprise.classList.remove(
+        "show",
+        "animate"
+    );
+
+
+    void surprise.offsetWidth;
+
+
+    surprise.classList.add(
+        "show",
+        "animate"
+    );
+
+
+    setTimeout(() => {
+
+        surprise.classList.remove(
+            "show",
+            "animate"
+        );
+
+    }, 2500);
+
+}
+
+
+/* =========================================================
+   MAKE GUESS
+========================================================= */
+
+function makeGuess(guess) {
+
+    if (!gameStarted) return;
+
+
+    /* -----------------------------------------------------
+       CORRECT
+    ----------------------------------------------------- */
+
+    if (guess === currentObject) {
+
+        playSound("correct");
+
+
+        const pointsAwarded = difficultySettings[difficulty].points;
+        score += pointsAwarded;
+
+
+        scoreElement.textContent =
+            score;
+
+
+        resultMessage.textContent =
+            `Correct! +${pointsAwarded} points`;
+
+
+        resultMessage.className =
+            "result-message correct";
+
+
+        revealedImage.classList.remove(
+            "animate-object"
+        );
+
+        revealedImage.src =
+            `./images/${currentObject}.png`;
+
+
+        revealedImage.alt =
+            capitalize(currentObject);
+
+
+        objectName.textContent =
+            capitalize(currentObject);
+
+
+        revealedObject.style.display =
+            "flex";
+
+        resultArea.style.display =
+            "block";
+
+        // Restart the reveal motion every time a new object is shown.
+        void revealedImage.offsetWidth;
+
+        revealedImage.classList.add(
+            "animate-object"
+        );
+
+
+        showWifeSurprise();
+
+
+        boxArea.style.display =
+            "none";
+
+
+        boxInstruction.style.display =
+            "none";
+
+
+        guessArea.style.display =
+            "none";
+
+
+        resultArea.style.display =
+            "block";
+
+
+        stopTimer();
+
+
+        gameStarted = false;
+
+
+        const roundPoints =
+            score - roundStartScore;
+
+
+        saveRound(
+            roundPoints
+        );
+
+
+        if (
+            currentObjectIndex ===
+            objectList.length - 1
+        ) {
+
+            setTimeout(() => {
+
+                showFinalScore();
+
+            }, 900);
+
+        }
+
+        else {
+
+            showRoundModal(
+                roundPoints
+            );
+
+        }
+
+
+        return;
+
+    }
+
+
+    /* -----------------------------------------------------
+       WRONG
+    ----------------------------------------------------- */
+
+    score -= 2;
+
+
+    scoreElement.textContent =
+        score;
+
+
+    resultArea.style.display =
+        "block";
+
+
+    guessArea.style.display =
+        "block";
+
+
+    revealedObject.style.display =
+        "none";
+
+
+    resultMessage.classList.remove(
+        "wrong-shake",
+        "wrong",
+        "correct"
+    );
+
+
+    void resultMessage.offsetWidth;
+
+
+    resultMessage.textContent =
+        "Wrong! -2 points. Try again!";
+
+
+    resultMessage.classList.add(
+        "wrong",
+        "wrong-shake"
+    );
+
+
+    playWrongSound();
+
+}
+
+
+/* =========================================================
+   SAVE ROUND
+========================================================= */
+
+function saveRound(roundPoints) {
+
+    roundNumber++;
+
+
+    roundHistory.push({
+
+        round:
+            roundNumber,
+
+        time:
+            timer,
+
+        points:
+            roundPoints,
+
+        total:
+            score,
+
+        object:
+            currentObject
+
+    });
+
+}
+
+
+/* =========================================================
+   ROUND MODAL
+========================================================= */
+
+function showRoundModal(roundPoints) {
+
+    roundModalNumber.textContent =
+        `Round ${roundNumber}`;
+
+    roundModalTitle.textContent =
+        capitalize(currentObject);
+
+    roundModalImage.classList.remove(
+        "animate-object"
+    );
+
+    roundModalImage.src =
+        `./images/${currentObject}.png`;
+
+    roundModalImage.alt =
+        capitalize(currentObject);
+
+    void roundModalImage.offsetWidth;
+
+    roundModalImage.classList.add(
+        "animate-object"
+    );
+
+
+    roundModalTime.textContent =
+        `${timer} sec`;
+
+
+    roundModalPoints.textContent =
+        `${
+            roundPoints >= 0
+                ? "+"
+                : ""
+        }${roundPoints}`;
+
+
+    roundModalTotal.textContent =
+        score;
+
+
+    roundModal.classList.add(
+        "show"
+    );
+
+}
+
+
+/* =========================================================
+   NEXT OBJECT FROM MODAL
+========================================================= */
+
+function nextObjectFromModal() {
+
+    playSound("click");
+
+
+    roundModal.classList.remove(
+        "show"
+    );
+
+
+    nextObject();
+
+}
+
+
+/* =========================================================
+   RESET ROUND UI
+========================================================= */
+
+function resetRoundUI() {
+
+    questionCount = 0;
+
+
+    timer = 0;
+
+
+    timerElement.textContent =
+        "0";
+
+
+    answerText.textContent = "";
+
+    answerText.className = "";
+
+
+    questionArea.style.display =
+        "block";
+
+    questionArea.querySelector(".question-title").style.display = "";
+    document.getElementById("questions").style.display = "";
+    knowButton.style.display = "";
+
+
+    knowButton.textContent =
+        "I KNOW IT!";
+
+
+    guessArea.style.display =
+        "none";
+
+
+    guessButtons.innerHTML =
+        "";
+
+
+    resultArea.style.display =
+        "none";
+
+
+    resultMessage.textContent =
+        "";
+
+
+    resultMessage.className =
+        "result-message";
+
+
+    revealedObject.style.display =
+        "none";
+
+
+    revealedImage.src =
+        "";
+
+
+    objectName.textContent =
+        "";
+
+
+    surprise.classList.remove(
+        "show",
+        "animate"
+    );
+
+
+    finalScore.style.display =
+        "none";
+
+
+    roundModal.classList.remove(
+        "show"
+    );
+
+
+    boxArea.style.display =
+        "flex";
+
+
+    boxInstruction.style.display =
+        "block";
+
+}
+
+
+/* =========================================================
+   NEXT OBJECT
+========================================================= */
+
+function nextObject() {
+
+    stopTimer();
+
+
+    currentObjectIndex++;
+
+
+    resetRoundUI();
+
+
+    prepareObject();
+
+
+    gameStarted = true;
+
+
+    roundStartScore =
+        score;
+
+
+    startTimer();
+
+
+    requestFit();
+
+}
+
+
+/* =========================================================
+   RESET COMPLETE GAME
+========================================================= */
+
+function resetGameState() {
+    lingucatRewardReported = false;
+
+    stopTimer();
+
+
+    currentObjectIndex = 0;
+
+
+    shuffleObjects();
+
+
+    currentObject = "";
+
+
+    score = 0;
+
+
+    questionCount = 0;
+
+
+    timer = 0;
+
+
+    gameStarted = false;
+
+
+    roundNumber = 0;
+
+
+    roundHistory = [];
+
+
+    roundStartScore = 0;
+
+
+    scoreElement.textContent =
+        "0";
+
+
+    timerElement.textContent =
+        "0";
+
+
+    resetRoundUI();
+
+
+    prepareObject();
+
+}
+
+
+/* =========================================================
+   RESTART
+========================================================= */
+
+function restartGame() {
+
+    playSound("click");
+
+
+    resetGameState();
+
+
+    restartButton.textContent =
+        "🔄 RESTART GAME";
+
+
+    restartButton.onclick =
+        restartGame;
+
+
+    startOverlay.style.display =
+        "flex";
+
+
+    requestFit();
+
+}
+
+
+/* =========================================================
+   PLAY AGAIN
+========================================================= */
+
+function playAgain() {
+
+    playSound("click");
+
+
+    resetGameState();
+
+
+    restartButton.textContent =
+        "🔄 RESTART GAME";
+
+
+    restartButton.onclick =
+        restartGame;
+
+
+    startOverlay.style.display =
+        "flex";
+
+
+    requestFit();
+
+}
+
+
+/* =========================================================
+   FINAL SCORE
+========================================================= */
+
+function showFinalScore() {
+    if (!lingucatRewardReported && roundHistory.length === 10 && new Set(roundHistory.map(r => r.object)).size === 10 && window.parent !== window) {
+        lingucatRewardReported = true;
+        window.parent.postMessage({type:'lingucat:game-complete',game:'mystery-box',completed:10,score:score,difficulty:difficulty}, '*');
+    }
+
+
+    playSound("success");
+
+
+    const summary =
+        roundHistory
+            .map(round => {
+
+                const pointsText =
+                    round.points >= 0
+                        ? `+${round.points}`
+                        : `${round.points}`;
+
+
+                return `
+
+                    <div
+                        class="final-history-item">
+
+                        <span>
+                            ${round.round === 1 ? "🏆 " : ""}Round ${round.round}
+                        </span>
+
+                        <span>
+                            ⏱️ ${round.time}s
+                        </span>
+
+                        <span>
+                            ⭐ ${pointsText}
+                        </span>
+
+                    </div>
+
+                `;
+
+            })
+            .join("");
+
+
+    finalScore.innerHTML = `
+
+        <div class="final-score-title">
+
+            ${getFinalMessage()}
+
+        </div>
+
+
+        <div class="final-score-label">
+
+            🎉 You completed all 10 objects!
+
+        </div>
+
+
+        <div class="final-score-label">
+
+            Final Score
+
+        </div>
+
+
+        <div class="final-score-number">
+
+            ${score}
+
+        </div>
+
+
+        <div class="final-history">
+
+            <div class="final-history-heading">
+                <span>ROUND</span>
+                <span>TIME</span>
+                <span>SCORE</span>
+            </div>
+
+            ${summary}
+
+        </div>
+
+    `;
+
+
+    finalScore.style.display =
+        "block";
+
+
+    restartButton.textContent =
+        "🔄 PLAY AGAIN";
+
+
+    restartButton.onclick =
+        playAgain;
+
+
+    requestFit();
+
+}
+
+
+/* =========================================================
+   FINAL MESSAGE
+========================================================= */
+
+function getFinalMessage() {
+
+    if (score >= 100) {
+
+        return "🎉 GREAT JOB!";
+
+    }
+
+    else if (score >= 50) {
+
+        return "👍 GOOD JOB!";
+
+    }
+
+    else if (score >= 0) {
+
+        return "💪 KEEP TRYING!";
+
+    }
+
+    else {
+
+        return "🌟 DON'T GIVE UP!";
+
+    }
+
+}
+
+
+/* =========================================================
+   CAPITALIZE
+========================================================= */
+
+function capitalize(word) {
+
+    return word.charAt(0).toUpperCase()
+        + word.slice(1);
+
+}
+
+
+/* =========================================================
+   SCREEN FIT
+========================================================= */
+
+const gameElement =
+    document.querySelector(".game");
+
+
+const gameWrapper =
+    document.getElementById(
+        "gameWrapper"
+    );
+
+
+const fullscreenBtn =
+    document.getElementById(
+        "fullscreenBtn"
+    );
+
+const soundToggleBtn =
+    document.getElementById("soundToggleBtn");
+
+soundToggleBtn.addEventListener("click", toggleSound);
+
+
+let fitTimer = null;
+
+
+/* =========================================================
+   FIT GAME TO SCREEN
+========================================================= */
+
+function fitGameToScreen() {
+
+    if (
+        !gameElement ||
+        !gameWrapper
+    ) {
+
+        return;
+
+    }
+
+
+    gameElement.style.transform =
+        "none";
+
+
+    void gameElement.offsetWidth;
+
+
+    const naturalWidth =
+        gameElement.offsetWidth;
+
+
+    const naturalHeight =
+        gameElement.offsetHeight;
+
+
+    if (
+        naturalWidth <= 0 ||
+        naturalHeight <= 0
+    ) {
+
+        return;
+
+    }
+
+
+    const availableWidth =
+        window.innerWidth - 20;
+
+
+    const availableHeight =
+        window.innerHeight - 20;
+
+
+    const widthScale =
+        availableWidth /
+        naturalWidth;
+
+
+    const heightScale =
+        availableHeight /
+        naturalHeight;
+
+
+    let scale =
+        Math.min(
+            widthScale,
+            heightScale
+        );
+
+
+    if (
+        !Number.isFinite(scale) ||
+        scale <= 0
+    ) {
+
+        scale = 1;
+
+    }
+
+
+    gameElement.style.transform =
+        `scale(${scale})`;
+
+}
+
+
+/* =========================================================
+   REQUEST FIT
+========================================================= */
+
+function requestFit() {
+
+    clearTimeout(
+        fitTimer
+    );
+
+
+    fitTimer =
+        setTimeout(
+            fitGameToScreen,
+            50
+        );
+
+}
+
+
+/* =========================================================
+   FULLSCREEN
+========================================================= */
+
+fullscreenBtn.addEventListener(
+    "click",
+    async () => {
+
+        try {
+
+            if (
+                !document.fullscreenElement
+            ) {
+
+                await document
+                    .documentElement
+                    .requestFullscreen();
+
+
+                if (
+                    window.innerWidth <= 650 &&
+                    screen.orientation &&
+                    screen.orientation.lock
+                ) {
+
+                    try {
+
+                        await screen.orientation
+                            .lock("landscape");
+
+                    }
+
+                    catch (error) {
+
+                        console.log(
+                            "Landscape lock not supported."
+                        );
+
+                    }
+
+                }
+
+            }
+
+            else {
+
+                await document
+                    .exitFullscreen();
+
+            }
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "Fullscreen error:",
+                error
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   RESIZE
+========================================================= */
+
+window.addEventListener(
+    "resize",
+    requestFit
+);
+
+
+window.addEventListener(
+    "resize",
+    checkMobileOrientation
+);
+
+
+window.addEventListener(
+    "orientationchange",
+    () => {
+
+        setTimeout(
+            checkMobileOrientation,
+            150
+        );
+
+    }
+);
+
+
+/* =========================================================
+   FULLSCREEN CHANGE
+========================================================= */
+
+document.addEventListener(
+    "fullscreenchange",
+    () => {
+
+        setTimeout(
+            fitGameToScreen,
+            150
+        );
+
+    }
+);
+
+
+/* =========================================================
+   INITIAL SETUP
+========================================================= */
+
+shuffleObjects();
+
+
+prepareObject();
+
+
+checkMobileOrientation();
+
+
+window.addEventListener(
+    "load",
+    () => {
+
+        fitGameToScreen();
+
+
+        setTimeout(
+            fitGameToScreen,
+            100
+        );
+
+
+        setTimeout(
+            fitGameToScreen,
+            500
+        );
+
+    }
+);
+
+
+</script>
+
+
+<script>
+document.getElementById('soundToggleBtn').setAttribute('aria-pressed', String(soundEnabled));
+document.getElementById('soundToggleBtn').textContent = soundEnabled ? '🔊 Sesi Kapat' : '🔇 Sesi Aç';
+bgMusic.muted = !soundEnabled;
+document.addEventListener('keydown', function (event) {
+ if (event.key === 'Escape' && window.parent !== window) {
+  event.preventDefault(); window.parent.postMessage('lingucat:mystery-close', '*');
+ }
+});
+</script><script>
+(function(){if(window.parent===window)return;function report(){window.parent.postMessage({type:'lingucat:workspace-status',game:'mystery-box',completed:roundHistory.length,score:Number(score),started:getComputedStyle(document.getElementById('startOverlay')).display==='none'},'*');}var observer=new MutationObserver(report);['objectCounter','score','finalScore','startOverlay','roundModal'].forEach(function(id){var n=document.getElementById(id);if(n)observer.observe(n,{childList:true,subtree:true,attributes:true,attributeFilter:['style']});});report();}());
+</script></body>
+
+</html>

@@ -1,0 +1,42 @@
+{
+  "click": {
+    "archive": "CrispUI_Free_Sampler.zip",
+    "file": "CrispUI_Sampler/WAV/Buttons/pop_up_01.wav",
+    "duration": 0.37691609977324264
+  },
+  "open": {
+    "archive": "CrispUI_Free_Sampler.zip",
+    "file": "CrispUI_Sampler/WAV/Menus/menu_open.wav",
+    "duration": 0.513968253968254
+  },
+  "close": {
+    "archive": "CrispUI_Free_Sampler.zip",
+    "file": "CrispUI_Sampler/WAV/Menus/menu_close.wav",
+    "duration": 0.5022222222222222
+  },
+  "correct": {
+    "archive": "CrispUI_Free_Sampler.zip",
+    "file": "CrispUI_Sampler/WAV/Feedback/confirm_01.wav",
+    "duration": 1.4367800453514739
+  },
+  "error": {
+    "archive": "CrispUI_Free_Sampler.zip",
+    "file": "CrispUI_Sampler/WAV/Feedback/error_01.wav",
+    "duration": 0.5342403628117914
+  },
+  "xp": {
+    "archive": "CrispUI_Free_Sampler.zip",
+    "file": "CrispUI_Sampler/WAV/Pickups/coin_ping_01.wav",
+    "duration": 0.9191836734693878
+  },
+  "badge": {
+    "archive": "CrispUI_Free_Sampler.zip",
+    "file": "CrispUI_Sampler/WAV/Rewards/achievement.wav",
+    "duration": 2.1095691609977325
+  },
+  "complete": {
+    "archive": "CrispUI_Free_Sampler.zip",
+    "file": "CrispUI_Sampler/WAV/Rewards/level_up.wav",
+    "duration": 1.6414965986394559
+  }
+}

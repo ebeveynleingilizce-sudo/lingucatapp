@@ -1,0 +1,106 @@
+/* Shared question screen only; navigation, content pages and saved progress stay independent. */
+body[data-screen="experience"][data-phase="question"] .stage{display:flex;justify-content:center;align-items:center;min-height:0}
+body[data-screen="experience"][data-phase="question"] #experience .mission-panel{width:100%;max-width:1050px;height:auto;max-height:100%;min-height:0;margin:auto;padding:clamp(16px,2.7vh,30px);border:1px solid #8e78bf45;border-radius:24px;background:linear-gradient(145deg,#17233bed,#181c36f5);box-shadow:0 18px 45px #0003;overflow:auto}
+body[data-phase="question"] #questionPanel{height:auto;display:flex;flex-direction:column;gap:clamp(14px,2vh,24px);max-width:980px;margin:auto}
+#questionPanel .question-toolbar{display:grid;grid-template-columns:auto minmax(70px,1fr) auto;align-items:center;gap:8px 18px;width:100%}
+#questionPanel .question-toolbar .back-link{grid-column:1/-1;justify-self:start;min-height:28px;margin:0;padding:0 4px;font-size:12px}
+#questionPanel .question-top{display:flex;align-items:center;gap:8px;margin:0;white-space:nowrap}
+#questionPanel #questionType{display:none}
+#questionPanel #questionCount{font-size:14px;font-weight:700;color:#d7c1ff}
+#questionPanel .mission-progress{margin:0;width:100%;height:7px;background:#080f2580;border-radius:20px;overflow:hidden}
+#questionPanel #missionFill{height:100%;background:var(--violet,#a56cff);border-radius:20px}
+#questionPanel #attemptLabel{margin:0;background:#10172d;border:1px solid #8a6fb039;padding:6px 12px;white-space:nowrap;font-size:11px;color:#c4b0ec}
+#questionPanel .question-info{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;min-height:0;text-align:center}
+#questionPanel #questionPrompt{font-size:clamp(24px,3.3vh,38px);line-height:1.25;margin:0;max-width:850px;color:var(--text,#f9f6ff);overflow-wrap:anywhere}
+#questionPanel #questionHint,#questionPanel #sceneLabel,#questionPanel #queueNote{display:none}
+#questionPanel #replayBtn{width:auto;min-height:44px;padding:9px 18px;margin:0;border:1px solid #a1acc543;border-radius:14px;background:#101a31;color:#e4e8f7;gap:10px}
+#questionPanel #replayBtn b{font-size:14px;font-weight:600}
+#questionPanel #replayBtn>span:first-child{font-size:22px;color:var(--yellow,#ffc341)}
+#questionPanel .question-choices{display:block;min-height:0}
+#questionPanel #answers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:auto;gap:12px;max-height:none;margin:0;flex:none}
+#questionPanel #answers .answer-card{display:flex;align-items:center;text-align:left;min-height:68px;height:auto;max-height:none;margin:0;padding:14px 18px;gap:14px;border:1px solid #6b87b94f;border-radius:16px;background:linear-gradient(135deg,#1b2a46,#152038);font-size:clamp(15px,1.9vh,21px);line-height:1.4;color:#f5f4ff;box-shadow:0 4px 12px #0001;transition:border-color .15s,background-color .15s,transform .15s;overflow-wrap:anywhere;touch-action:manipulation}
+#questionPanel #answers .answer-card .letter{display:grid;place-items:center;width:34px;height:34px;flex-shrink:0;border-radius:10px;background:#a8b8f312;color:#c4c9eb;font-size:14px}
+#questionPanel #answers .answer-card.selected{border-color:var(--violet,#a56cff);background:linear-gradient(135deg,#50307888,#282344);box-shadow:inset 0 0 0 1px #a56cff65}
+#questionPanel #answers .answer-card.correct{border-color:#59cf9a;background:#123e36;color:#d3ffe6}
+#questionPanel #answers .answer-card.wrong{border-color:#ef8291;background:#492936;color:#ffe0e5}
+#questionPanel #answers .answer-card:disabled{opacity:1;cursor:default}
+#questionPanel button:focus-visible{outline:3px solid var(--yellow,#ffc341);outline-offset:3px}
+#questionPanel .mission-footer{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:0;margin:0;min-height:48px}
+#questionPanel #feedback{flex:1;min-height:0;margin:0;padding:10px 14px;border-radius:12px;background:#101a304f;border:1px solid #8c9fcb22;color:#bdc7df;font-size:13px;line-height:1.4;overflow-wrap:anywhere}
+#questionPanel #feedback.good{color:#9eeac1;background:#163d334f;border-color:#62d6a14f}
+#questionPanel #feedback.bad{color:#ffb4c0;background:#4a23314f;border-color:#df7c8e4f}
+#questionPanel .mission-footer #nextBtn{min-height:48px;height:auto;min-width:220px;max-width:45%;padding:12px 24px;font-size:15px;border-radius:14px;background:var(--yellow,#ffc341);color:#18223b;box-shadow:none;white-space:normal}
+#questionPanel #nextBtn:disabled{opacity:.45;cursor:default}
+#questionPanel #answers.order-answers{display:flex;flex-direction:column;gap:8px}
+#questionPanel .order-row{min-height:44px;flex:none;padding:6px 12px;margin:0;font-size:16px;line-height:1.3;gap:12px}
+#questionPanel .order-row button{min-height:40px;min-width:40px}
+@media(hover:hover){#questionPanel #answers .answer-card:not(:disabled):hover{border-color:#af8deb;transform:translateY(-1px)}}
+@media(max-height:550px) and (orientation:landscape){
+body[data-screen="experience"][data-phase="question"] #experience .mission-panel{padding:10px 18px;border-radius:16px;max-width:980px}
+body[data-phase="question"] #questionPanel{gap:8px}
+#questionPanel .question-toolbar{grid-template-columns:auto auto minmax(60px,1fr) auto;gap:8px}
+#questionPanel .question-toolbar .back-link{grid-column:auto;font-size:10px;min-height:24px}
+#questionPanel #questionCount{font-size:11px}
+#questionPanel #attemptLabel{padding:4px 8px;font-size:9px}
+#questionPanel .question-info{gap:6px}
+#questionPanel #questionPrompt{font-size:21px;line-height:1.2}
+#questionPanel #replayBtn{min-height:36px;padding:5px 14px}
+#questionPanel #replayBtn b{font-size:11px}
+#questionPanel #answers{gap:8px}
+#questionPanel #answers .answer-card{min-height:44px;padding:7px 12px;gap:9px;font-size:13px}
+#questionPanel #answers .answer-card .letter{width:27px;height:27px;font-size:11px}
+#questionPanel .mission-footer{gap:10px;min-height:40px}
+#questionPanel #feedback{font-size:10px;padding:7px 10px}
+#questionPanel .mission-footer #nextBtn{min-height:40px;font-size:12px;padding:8px 16px;min-width:180px}
+#questionPanel .order-row{min-height:36px;font-size:12px;padding:3px 8px}
+#questionPanel .order-row button{min-height:32px;height:32px;min-width:36px}
+#questionPanel #answers.order-answers{gap:5px}
+}
+@media(max-width:600px){#questionPanel #answers{grid-template-columns:1fr}#questionPanel .mission-footer{flex-direction:column;align-items:stretch;gap:10px}#questionPanel .mission-footer #nextBtn{max-width:none;width:100%}#questionPanel #feedback{width:100%}}
+/* Portrait is enabled only while answering; the rest of the app keeps its existing orientation flow. */
+@media(orientation:portrait) and (max-width:900px){body[data-screen="experience"][data-phase="question"] .app-topbar{display:flex!important}body[data-screen="experience"][data-phase="question"] .app-main{display:block!important;overflow:auto}body[data-screen="experience"][data-phase="question"] .rotate-prompt{display:none!important}body[data-screen="experience"][data-phase="question"] #experience{min-height:100%;height:auto;overflow:visible;padding:14px}body[data-screen="experience"][data-phase="question"] .stage{height:auto}body[data-screen="experience"][data-phase="question"] #experience .mission-panel{overflow:visible;padding:16px}#questionPanel .question-toolbar{gap:8px}#questionPanel #attemptLabel{font-size:9px;padding:5px}#questionPanel .mission-footer #nextBtn{min-width:0}#questionPanel .question-top{white-space:normal}}
+@media(prefers-reduced-motion:reduce){#questionPanel *,#questionPanel.question-enter{animation:none!important;transition:none!important}}
+body[data-screen="experience"][data-phase="question"] #experience>.player-meta{display:none}
+body[data-screen="experience"][data-phase="question"] #experience{grid-template-rows:auto minmax(0,1fr)}
+@media(max-height:550px) and (orientation:landscape){
+body[data-screen="experience"][data-phase="question"] .experience-top .back-link,body[data-screen="experience"][data-phase="question"] .experience-top .eyebrow{display:none}
+body[data-screen="experience"][data-phase="question"] .experience-top{min-height:32px}
+#questionPanel #replayBtn{height:36px}
+}
+@media(orientation:portrait) and (max-width:900px){
+body[data-screen="experience"][data-phase="question"]{--header-h:112px}
+body[data-screen="experience"][data-phase="question"] .app-topbar{height:112px;flex-wrap:wrap;align-content:center;padding:6px 14px;gap:3px 8px}
+body[data-screen="experience"][data-phase="question"] .app-topbar .brand{font-size:23px;flex:1}
+body[data-screen="experience"][data-phase="question"] .app-topbar .primary-nav{flex-basis:100%;order:3;justify-content:space-between;gap:6px}
+body[data-screen="experience"][data-phase="question"] .app-topbar .nav-tab{min-width:44px;min-height:44px;height:44px;padding:8px}
+body[data-screen="experience"][data-phase="question"] .nav-tab>span{display:none}
+body[data-screen="experience"][data-phase="question"] #experience .experience-top{display:flex;flex-direction:row;align-items:center;justify-content:space-between;gap:10px}
+body[data-screen="experience"][data-phase="question"] .experience-top h1{font-size:20px;line-height:1.2}
+body[data-screen="experience"][data-phase="question"] .experience-top .eyebrow{display:none}
+body[data-screen="experience"][data-phase="question"] .experience-top .xp-pill{font-size:17px;flex-shrink:0;padding:8px 12px}
+#questionPanel #questionPrompt{font-size:23px}
+#questionPanel #answers .answer-card{min-height:54px;padding:10px 14px}
+}
+/* One decorative study atmosphere shared by every story/song question type. */
+body[data-screen="experience"][data-phase="question"] #experience{
+ --activity-room-image:url('assets/activity/study-room.webp');
+ position:relative;
+ isolation:isolate;
+ background:#0c1429;
+}
+body[data-screen="experience"][data-phase="question"] #experience:before{
+ content:'';
+ position:absolute;
+ top:0;right:0;bottom:0;left:0;
+ z-index:-1;
+ pointer-events:none;
+ background-image:linear-gradient(180deg,rgba(10,17,39,.42),rgba(15,17,39,.30) 55%,rgba(9,15,32,.58)),radial-gradient(ellipse at 88% 40%,rgba(169,105,49,.16),rgba(57,33,83,.22) 65%),var(--activity-room-image);
+ background-size:cover;
+ background-position:center;
+ filter:blur(2px);
+}
+body[data-screen="experience"][data-phase="question"] #questionPanel.activity-workspace .workspace-content{
+ background:linear-gradient(145deg,rgba(20,31,53,.91),rgba(24,25,49,.94));
+ border:1px solid rgba(170,155,205,.23);
+ box-shadow:0 14px 36px rgba(3,7,20,.3);
+}

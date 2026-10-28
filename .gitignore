@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+*.before-*
+*.zip
+tests/*.png
+tests/*results.json
+assets/**/design-reference.*
+.env
+.env.*
+!.env.example
+.DS_Store
+Thumbs.db

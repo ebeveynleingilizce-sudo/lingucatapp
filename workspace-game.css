@@ -1,0 +1,51 @@
+/* Embedded Mystery Box keeps its mechanics and sizing; palette matches LinguCat. */
+body{background:#091327;color:#f0edff}.game{background:linear-gradient(145deg,#16233b,#101b31);border:1px solid #8060ba55;box-shadow:none;color:#eef0ff}
+h1,.question-title,.start-window h2,.round-title,.final-score-title{color:#e8dbff;text-shadow:none}
+.object-counter,.score-board,.timer,.question-btn,.guess-btn,.round-stat,.round-total,.difficulty-option,.translation-btn{background:#172641;color:#dbe7fa;border-color:#63548b66}
+.question-btn:hover,.guess-btn:hover,.difficulty-option:hover{background:#332755;color:#fff}.question-btn.used{opacity:.45}
+#screenControls button,.translation-dialog-close{background:#1b2642;border:1px solid #77629e66;color:#e4dbf8;box-shadow:none}
+.start-overlay{background:#091327eb!important}.start-window,.round-window,.translation-dialog{background:linear-gradient(145deg,#242345,#112039)!important;color:#f0edff;border:1px solid #a17adc77;box-shadow:0 12px 35px #0005}
+.start-window p,.difficulty-label,.difficulty-description,.round-stat span,.final-score-label,.translation-dialog-english,.game-signature{color:#b9c7e0}
+.start-button,.round-next-btn,#restartButton{background:linear-gradient(120deg,#ffe674,#ffbf35);color:#142139;border:1px solid #ffdc68;border-radius:14px;box-shadow:none}
+.difficulty-option.selected{background:#6031d4;color:#fff;border-color:#b890ff}.translation-dialog-turkish,.round-stat strong,.round-total strong,.final-score-number{color:#ffdc70}
+.round-modal{background:#050c21dd}.final-history-item{background:#172641;color:#dce6fb;border-color:#63548b66}
+
+.start-window{animation:none;opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.round-window,.animate-object{animation:none!important}}
+
+/* Mystery Box: blue clue cards, purple guesses and warm primary actions. */
+html,body{background:#101b30}
+.game{border-radius:20px;background:linear-gradient(145deg,#14233be8,#181931ed);border-color:#75649c66;box-shadow:0 8px 24px #03071540}
+h1{font-size:30px;color:#eee7ff;letter-spacing:-.5px}
+.top-bar{padding:10px 14px;border:1px solid #75649c55;border-radius:14px;background:linear-gradient(120deg,#15233b,#171b35)}
+.score,.timer{background:transparent;border:0;color:#ffda62;box-shadow:none}
+.object-counter{background:#123a3c;color:#9ceddb;border:1px solid #32bda46b;border-radius:12px}
+.object-navigation button{background:#172541;color:#d5dff5;border:1px solid #6e649966;min-height:40px;padding:8px 16px}
+.question-btn,.guess-btn{min-height:48px;border:2px solid #32b7ff;border-radius:14px;color:#f8f4ff;background:linear-gradient(130deg,#164985,#102c55);box-shadow:inset 0 0 18px #129fff18;transition:background .15s,border-color .15s,box-shadow .15s;touch-action:manipulation}
+.guess-btn{border-color:#b56af2;background:linear-gradient(130deg,#51238c,#2c1952);box-shadow:inset 0 0 18px #b653ff18}
+.question-btn:hover,.guess-btn:hover{transform:none;background:linear-gradient(130deg,#294f80,#263456);box-shadow:inset 0 0 22px #ffffff20}
+.question-btn.used{opacity:.42;filter:saturate(.55);border-color:#64b69d;background:#163d45;box-shadow:none}
+.know-btn,.know-btn:hover{min-height:44px;border:1px solid #ffdc68;border-radius:12px;background:linear-gradient(120deg,#ffe674,#ffbf35);color:#142139;transform:none;box-shadow:none}
+.translation-btn{min-height:44px;background:#222a49;color:#e1d3ff;border:1px solid #8670b566;border-radius:12px}
+.question-btn:focus-visible,.guess-btn:focus-visible,.difficulty-option:focus-visible,.know-btn:focus-visible,.object-navigation button:focus-visible,#screenControls button:focus-visible{outline:3px solid #ffe389;outline-offset:2px}
+.box-instruction{color:#c5d3ed}
+.difficulty-option{min-height:44px;border-radius:12px;transition:background .15s,border-color .15s}
+.difficulty-option.selected{background:linear-gradient(130deg,#51238c,#2c1952);border-color:#b56af2;box-shadow:inset 0 0 18px #b653ff18}
+.start-window,.round-window{border-radius:20px!important;background:linear-gradient(145deg,#14233bf5,#211b3bf5)!important}
+.round-next-btn,.start-button,#restartButton{min-height:44px;border-radius:12px;touch-action:manipulation}
+#screenControls button{min-height:44px;border-radius:12px;touch-action:manipulation}
+#screenControls button:hover{transform:none;background:#303253}
+.start-overlay{background:linear-gradient(145deg,#101a30c9,#211b3bd9)!important;backdrop-filter:blur(3px)}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
+
+/* Keep the existing fit-to-screen logic while reducing unused vertical space. */
+.game{padding:18px 26px}
+.box-area{height:150px}
+.answer{height:100px}
+#rotateMessage{background:linear-gradient(145deg,#14233b,#211b3b);color:#e8dbff}
+.rotate-text{color:#bdcce3}
+.gift{animation:none}
+.result-message.correct{color:#9cedbd}
+.result-message.wrong{color:#ff9aaf}
+
+.game-signature{background:#19243c;color:#b9c7e0;border-color:#75649c55;box-shadow:none}

@@ -1,0 +1,292 @@
+{
+  "schemaVersion": 1,
+  "id": "every-day-every-way",
+  "title": "Every Day, Every Way",
+  "level": "A1–A2 · Simple Present",
+  "description": "A beat, a daily routine, and a little grammar. Listen to this song excerpt, follow the lyrics, and play with English.",
+  "videoDuration": 73.7,
+  "expressions": [
+    "I wake up when the sun comes through.",
+    "I grab my bag, got things to do.",
+    "I play, she plays.",
+    "I do, you do, we do, they do.",
+    "He goes, she goes, now you know.",
+    "He doesn’t run, she doesn’t hide.",
+    "Do you know? Yeah, I do!",
+    "Does she know? Yes, she does too!"
+  ],
+  "questions": [
+    {
+      "id": "school",
+      "type": "multiple",
+      "prompt": "Where do the friends walk in the song?",
+      "options": [
+        "To school",
+        "To the park",
+        "To the cinema",
+        "To the station"
+      ],
+      "answer": 0,
+      "hint": "İpucu için ilgili bölümü yeniden dinle.",
+      "feedback": "Sözlerde “we walk to school” geçiyor. “To school”, okula doğru gitmeyi anlatır.",
+      "scene": {
+        "label": "Şarkıdan ipucu",
+        "start": 16.3,
+        "end": 20.9
+      }
+    },
+    {
+      "id": "guitar",
+      "type": "multiple",
+      "prompt": "What does he play when it starts to rain?",
+      "options": [
+        "The piano",
+        "The drums",
+        "The guitar",
+        "The violin"
+      ],
+      "answer": 2,
+      "hint": "İpucu için ilgili bölümü yeniden dinle.",
+      "feedback": "Şarkıda “He plays guitar when it starts to rain.” deniyor. “He” ile “plays” kullanılır.",
+      "scene": {
+        "label": "Şarkıdan ipucu",
+        "start": 23,
+        "end": 25.44
+      }
+    },
+    {
+      "id": "train",
+      "type": "boolean",
+      "prompt": "She wakes up early and catches the train.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 0,
+      "hint": "İpucu için ilgili bölümü yeniden dinle.",
+      "feedback": "İfade doğru. “She wakes up early, catches the train.” sözlerini duyuyoruz.",
+      "scene": {
+        "label": "Şarkıdan ipucu",
+        "start": 20.7,
+        "end": 23.1
+      }
+    },
+    {
+      "id": "negative-meaning",
+      "type": "boolean",
+      "prompt": "The song says that he runs and she hides.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 1,
+      "hint": "İpucu için ilgili bölümü yeniden dinle.",
+      "feedback": "İfade yanlış. “He doesn’t run, she doesn’t hide.” iki olumsuz cümledir.",
+      "scene": {
+        "label": "Şarkıdan ipucu",
+        "start": 48.9,
+        "end": 51.32
+      }
+    },
+    {
+      "id": "grab",
+      "type": "vocabulary",
+      "prompt": "In “I grab my bag”, what does “grab” mean?",
+      "options": [
+        "Take quickly",
+        "Forget completely",
+        "Put away slowly",
+        "Look at quietly"
+      ],
+      "answer": 0,
+      "hint": "İpucu için ilgili bölümü yeniden dinle.",
+      "feedback": "“Grab”, burada bir şeyi hızlıca almak anlamında kullanılıyor.",
+      "scene": {
+        "label": "Şarkıdan ipucu",
+        "start": 14.4,
+        "end": 16.4
+      }
+    },
+    {
+      "id": "cool",
+      "type": "vocabulary",
+      "prompt": "In “we keep it cool”, what does “cool” suggest?",
+      "options": [
+        "Very cold weather",
+        "A broken train",
+        "Staying calm and relaxed",
+        "A difficult exam"
+      ],
+      "answer": 2,
+      "hint": "İpucu için ilgili bölümü yeniden dinle.",
+      "feedback": "“Keep it cool”, bu bağlamda rahat ve sakin davranmayı anlatır.",
+      "scene": {
+        "label": "Şarkıdan ipucu",
+        "start": 18.5,
+        "end": 20.9
+      }
+    },
+    {
+      "id": "moving",
+      "type": "vocabulary",
+      "prompt": "In “we keep on moving through”, what does “keep on” mean?",
+      "options": [
+        "Stop suddenly",
+        "Continue",
+        "Go backwards",
+        "Forget"
+      ],
+      "answer": 1,
+      "hint": "İpucu için ilgili bölümü yeniden dinle.",
+      "feedback": "“Keep on”, bir şeyi yapmaya devam etmek anlamındadır.",
+      "scene": {
+        "label": "Şarkıdan ipucu",
+        "start": 47,
+        "end": 49
+      }
+    },
+    {
+      "id": "routine-order",
+      "type": "order",
+      "prompt": "Put these lines in the order you hear them.",
+      "options": [
+        "We talk, we laugh, we keep it cool.",
+        "I wake up when the sun comes through.",
+        "I meet my friends, we walk to school.",
+        "I grab my bag, got things to do."
+      ],
+      "answer": [
+        1,
+        3,
+        2,
+        0
+      ],
+      "hint": "İpucu için ilgili bölümü yeniden dinle.",
+      "feedback": "Sıra: uyanma, çantayı alma, arkadaşlarla okula yürüme ve sohbet etme.",
+      "scene": {
+        "label": "Şarkıdan ipucu",
+        "start": 12.1,
+        "end": 20.9
+      }
+    },
+    {
+      "id": "chorus-order",
+      "type": "order",
+      "prompt": "Rebuild the beginning of the chorus.",
+      "options": [
+        "We keep on moving through.",
+        "We do the things we do.",
+        "Every day, every way,",
+        "I don't stop, you don't stop,"
+      ],
+      "answer": [
+        2,
+        1,
+        3,
+        0
+      ],
+      "hint": "İpucu için ilgili bölümü yeniden dinle.",
+      "feedback": "Nakarat “Every day, every way” ile başlar; ardından yapılanlar, durmamak ve devam etmek gelir.",
+      "scene": {
+        "label": "Şarkıdan ipucu",
+        "start": 41.1,
+        "end": 49
+      }
+    },
+    {
+      "id": "plays",
+      "type": "grammar",
+      "prompt": "Complete the line: “I play, she ___.”",
+      "options": [
+        "play",
+        "playing",
+        "plays",
+        "to play"
+      ],
+      "answer": 2,
+      "hint": "İpucu için ilgili bölümü yeniden dinle.",
+      "feedback": "Olumlu geniş zaman cümlesinde “she” ile fiile -s eklenir: “she plays”.",
+      "scene": {
+        "label": "Şarkıdan ipucu",
+        "start": 25.4,
+        "end": 29.8
+      }
+    },
+    {
+      "id": "does",
+      "type": "grammar",
+      "prompt": "Complete the line: “I do, you do, we do, they do, but he ___.”",
+      "options": [
+        "do",
+        "does",
+        "doing",
+        "did"
+      ],
+      "answer": 1,
+      "hint": "İpucu için ilgili bölümü yeniden dinle.",
+      "feedback": "“He” ile “do” fiilinin geniş zaman biçimi “does” olur.",
+      "scene": {
+        "label": "Şarkıdan ipucu",
+        "start": 29.8,
+        "end": 34.3
+      }
+    },
+    {
+      "id": "goes",
+      "type": "grammar",
+      "prompt": "Choose the correct sentence.",
+      "options": [
+        "He go, she go.",
+        "He goes, she goes.",
+        "He going, she going.",
+        "He does goes, she does goes."
+      ],
+      "answer": 1,
+      "hint": "İpucu için ilgili bölümü yeniden dinle.",
+      "feedback": "Olumlu geniş zamanda “he” ve “she” ile “goes” kullanılır.",
+      "scene": {
+        "label": "Şarkıdan ipucu",
+        "start": 34.3,
+        "end": 39.8
+      }
+    },
+    {
+      "id": "doesnt-base",
+      "type": "grammar",
+      "prompt": "Complete the line: “He doesn’t ___, she doesn’t hide.”",
+      "options": [
+        "runs",
+        "running",
+        "run",
+        "ran"
+      ],
+      "answer": 2,
+      "hint": "İpucu için ilgili bölümü yeniden dinle.",
+      "feedback": "“Doesn’t” sonrasında ana fiil yalın kalır. Bu yüzden “doesn’t run” deriz; “doesn’t runs” demeyiz.",
+      "scene": {
+        "label": "Şarkıdan ipucu",
+        "start": 48.9,
+        "end": 53.8
+      }
+    },
+    {
+      "id": "short-answer",
+      "type": "grammar",
+      "prompt": "Complete the answer: “Does she know? Yes, she ___!”",
+      "options": [
+        "do",
+        "is",
+        "does",
+        "knows"
+      ],
+      "answer": 2,
+      "hint": "İpucu için ilgili bölümü yeniden dinle.",
+      "feedback": "“Does” ile başlayan bu sorunun olumlu kısa cevabı “Yes, she does.” olur.",
+      "scene": {
+        "label": "Şarkıdan ipucu",
+        "start": 56.15,
+        "end": 58.35
+      }
+    }
+  ]
+}
