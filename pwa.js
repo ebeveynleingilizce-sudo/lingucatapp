@@ -48,7 +48,8 @@ var update=button('updateApp','Yeni sürüm hazır · Yenile',function(){if(!reg
 var reloading=false;
 function waiting(){if(registration.waiting&&navigator.serviceWorker.controller)update.hidden=false;}
 if('serviceWorker' in navigator&&window.isSecureContext){
- navigator.serviceWorker.addEventListener('controllerchange',function(){if(update.disabled&&!reloading){reloading=true;window.location.reload();}});
+ var hadController=!!navigator.serviceWorker.controller;
+ navigator.serviceWorker.addEventListener('controllerchange',function(){var gate=document.getElementById('accountGate'),onEntry=gate&&!gate.hidden&&!gate.querySelector('input:focus,select:focus')&&!gate.querySelector('form[aria-busy=true]');if((update.disabled||hadController&&onEntry)&&!reloading){reloading=true;window.location.reload();}hadController=true;});
  navigator.serviceWorker.register('./sw.js',{updateViaCache:'none'}).then(function(r){registration=r;waiting();r.addEventListener('updatefound',function(){var w=r.installing;if(w)w.addEventListener('statechange',function(){if(w.state==='installed'){waiting();if(!navigator.serviceWorker.controller)notice('Çevrimdışı hazır. İlerlemen bu cihazda saklanır.');}});});}).catch(function(){/* Offline setup is optional; keep the local application usable. */});
 }
 window.addEventListener('offline',function(){notice('Çevrimdışısın. İlerlemen cihazında saklanmaya devam eder; videolar internet gerektirir.');});
