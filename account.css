@@ -155,3 +155,9 @@
 }
 @media(max-width:600px){.account-layout{grid-template-columns:minmax(0,1fr)}.account-minor-actions{min-width:0}.account-gate #accountGuest.account-guest-button{width:min(300px,100%)}}
 @media(max-width:600px) and (max-height:620px){.account-layout{gap:4px}.account-brand>img{height:24px;width:28px}.account-brand>div>span{font-size:26px}.account-brand p{display:none}.account-card{padding-block:9px}.account-intro{margin-bottom:6px}.account-role{margin-bottom:6px}.account-role button{min-height:36px}.account-gate .account-google{height:40px;min-height:40px}.account-gate #accountCredentials input{height:44px;min-height:44px}.account-gate #accountSubmit{height:44px;min-height:44px}}
+/* Fit against the dynamic viewport, not the area behind mobile browser bars. */
+@media(max-width:900px){
+.account-gate{height:100dvh;max-height:100dvh;overflow:hidden;padding-bottom:max(10px,env(safe-area-inset-bottom))}
+.account-gate.account-keyboard-active{overflow-y:auto;scroll-padding-block:60px 20px}
+.account-gate .account-layout{transform:none;transform-origin:center center}
+}
