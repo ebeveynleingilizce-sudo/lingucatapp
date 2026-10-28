@@ -62,3 +62,12 @@ Windows Chrome 156.0.8078.48 ve Edge 156.0.4314.42 ile yerel HTTPS testleri geç
 ## Ses indirme pencereleri düzeltmesi
 
 Açılışta indirme yöneticilerini tetikleyebilen MP3/OGG toplu önbellek indirmesi kaldırıldı. Sesler kullanıcı etkileşiminde gerektiğinde çalınır; çevrimdışı ses efektleri garanti edilmez. Güncel kabuk 113 dosya / 10,552,307 bayttır. Yerel sunucuda açık ses MIME türleri ve Content-Disposition: inline eklendi; dizin dosya listeleri kapatıldı, başlatıcı doğrudan index.html açar. Mevcut sunucu penceresi kapatılıp yeniden başlatılmalıdır. Chrome gerçek yerel Python sunucusuyla test edildi: açılışta sıfır ses isteği, sesler cache listesinde yok, kullanıcı tıklamasında ses çalıyor, sıfır tarayıcı indirmesi, doğru MIME/inline başlıkları. Sonuç: tests/audio-downloads-results.json. Harici IDM/benzeri yazılımın kendisi test edilmedi.
+
+
+## Belirgin kurulum butonu — 28 Ekim 2026
+
+Giriş ekranındaki logo alanında ve ana sayfanın sağ üstünde aynı “Uygulamayı Yükle” bileşeni gösterilir. Kurulum teklifi desteklenen tarayıcıda `beforeinstallprompt` üzerinden açılır; olay her teklif için yalnızca bir kez kullanılır. Teklif reddedildiğinde bu, yüklenmiş olarak kaydedilmez.
+
+`appinstalled`, standalone görünüm, aynı tarayıcıdaki kurulum işareti ve destekleniyorsa `getInstalledRelatedApps()` kurulumun algılanmasını sağlar. `app.webmanifest` içindeki kendisine ait `related_applications` kaydı var olan `start_url`/uygulama kimliğini değiştirmez. Kurulum yeniden mümkün olduğunda tarayıcının yeni teklifi eski yerel işareti sıfırlar. Tüm tarayıcılar için kesin ve evrensel bir “cihazda yüklü mü” sorgusu yoktur; başka tarayıcı/profildeki kurulum her zaman algılanamaz.
+
+Doğrudan kurulum penceresi sunmayan tarayıcılarda mevcut platforma uygun kurulum rehberi açılır; olmayan bir kurulum penceresi veya indirilen kurulum dosyası varmış gibi gösterilmez. Buton yalnızca giriş/ana sayfa alanındadır; oyunlara, etkinliklere ve hesap paneline taşmaz. Kurulum tamamlanınca ve uygulama kendi penceresinde açılınca gizlenir. Testler gerçek kurulum yapmadan olay akışlarını ve Chrome/Firefox görünümlerini doğrular.
