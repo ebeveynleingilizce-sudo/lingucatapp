@@ -7,9 +7,9 @@ var splash=document.getElementById('appSplash');
 function hideSplash(){if(splash)splash.parentNode.removeChild(splash);splash=null;}
 if(document.readyState==='complete')hideSplash();else window.addEventListener('load',hideSplash);
 setTimeout(hideSplash,2500);
-var displayMode=window.matchMedia('(display-mode: standalone)'),installKey='lingucat.pwa.installed',helpReturn=null;
+var displayMode=window.matchMedia('(display-mode: standalone)'),installKey='lingucat.pwa.installed:/lingucatapp/',helpReturn=null;
 function rememberedInstall(){try{return localStorage.getItem(installKey)==='1';}catch(e){return false;}}
-var installed=displayMode.matches||navigator.standalone===true||rememberedInstall(),nativeInstallSupported='onbeforeinstallprompt' in window;
+var installed=displayMode.matches||navigator.standalone===true,nativeInstallSupported='onbeforeinstallprompt' in window;
 function rememberInstalled(value){installed=value;try{if(value)localStorage.setItem(installKey,'1');else localStorage.removeItem(installKey);}catch(e){}renderInstall();}
 var promo=document.createElement('button');promo.id='installPromo';promo.type='button';promo.className='pwa-install-promo';promo.hidden=true;
 promo.setAttribute('aria-label','LinguCat uygulamasını yükle');
@@ -35,7 +35,7 @@ window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();if(
 window.addEventListener('appinstalled',function(){deferred=null;rememberInstalled(true);});
 function displayChanged(){if(displayMode.matches)rememberInstalled(true);else renderInstall();}
 if(displayMode.addEventListener)displayMode.addEventListener('change',displayChanged);else if(displayMode.addListener)displayMode.addListener(displayChanged);
-window.addEventListener('storage',function(e){if(e.key===installKey){installed=rememberedInstall();renderInstall();}});
+window.addEventListener('storage',function(e){if(e.key===installKey){if(!rememberedInstall())installed=false;renderInstall();}});
 if(navigator.getInstalledRelatedApps)navigator.getInstalledRelatedApps().then(function(apps){var manifest=new URL('app.webmanifest',location.href).href,id=new URL('/lingucatapp/',location.origin).href;if(apps.some(function(app){return app.platform==='webapp'&&(app.id===id||app.url&&new URL(app.url,location.href).href===manifest);})){rememberInstalled(true);}}).catch(function(){});
 var help=document.createElement('dialog');help.id='pwaHelp';help.setAttribute('aria-labelledby','pwaHelpTitle');
 help.innerHTML='<h2 id="pwaHelpTitle">LinguCat uygulama rehberi</h2><p><b>Windows Chrome / Edge ve Pardus Chromium:</b> Tarayıcı kurulum sunarsa adres çubuğundaki yükleme simgesini veya ayarlardaki LinguCat’i Yükle seçeneğini kullan.</p><p><b>Android Chrome:</b> Tarayıcı menüsünden Uygulamayı yükle / Ana ekrana ekle seçeneğini kullan.</p><p><b>iPhone / iPad Safari:</b> Paylaş → Ana Ekrana Ekle yolunu izle; sunulursa Web Uygulaması Olarak Aç seçeneğini etkinleştir.</p><p><b>Pardus Firefox:</b> Tarayıcıda devam et. Tam ekran için F11; çıkmak için tekrar F11. Uygulama içi tam ekran düğmesini de kullanabilirsin.</p><p>İlk çevrimiçi açılış ve “Çevrimdışı hazır” bildirimi sonrasında arayüz, kelimeler ve uygun etkinlikler çevrimdışı açılır. Ses efektleri uygulamaya dahildir ve çevrimdışı çalışır. Videolar indirilmez; izleme kilidi olan etkinlikler videoyu önceden tamamlamayı gerektirir. İlerleme bu cihazın tarayıcısında saklanır; site verilerini silmek kayıtları siler.</p><button type="button" class="outline">Kapat</button>';
