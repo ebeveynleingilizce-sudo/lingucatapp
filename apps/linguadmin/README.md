@@ -18,3 +18,6 @@ Kök `engine.js`, ortak içerik şeması ve gerçek LinguCat sayfası önizlemed
 Yayın kataloğu 800 KB / 200 kayıtla sınırlıdır. Her açılış tek kamu kataloğu okuması yapar; canlı dinleyici yoktur. Medya talep üzerine yüklenir. Dış HTTPS bağlantısının CORS/oynatma izinleri kaynağa bağlıdır. Sınıf atama seçenekleri mevcut sekiz HTML etkinliği ve mini oyunları korur; yeni içerikler öğrenci kataloglarında kendi kimliğiyle açılır.
 
 Testler: `tests/cms-*.test.cjs`. Emülatör testleri demo-lingucat projesini kullanır; gerçek kullanıcılarda test kaydı oluşturmaz.
+
+## Kurulabilir uygulama
+LinguAdmin kendi app.webmanifest, simgeleri ve /apps/linguadmin/ kapsamındaki service worker ile ayrı kurulabilir. Üst çubuktaki LinguAdmin’i Yükle düğmesi kurulumu başlatır; uygulama modunda gizlenir. Firefox/iOS gibi ortamlarda uygun kurulum yönergesi gösterilir. Önbellek yalnız sabit giriş/arayüz dosyalarını içerir; oturum, taslak, API yanıtı veya medya dosyaları önbelleğe alınmaz. Çevrimdışı açılış yönetici yetkisi sağlamaz; giriş, kayıt ve yayınlama internet gerektirir. npm run build:admin paket ve PWA sürümünü birlikte üretir.
