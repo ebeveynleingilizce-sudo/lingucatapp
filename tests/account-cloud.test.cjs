@@ -4,11 +4,12 @@ const adminRequire=require('node:module').createRequire(require.resolve('../func
 async function account(prefix){const email=prefix+'-'+Date.now()+'-'+Math.random().toString(36).slice(2)+'@example.test',password='Only-Emulator-123!';const r=await fetch('http://127.0.0.1:9099/identitytoolkit.googleapis.com/v1/accounts:signUp?key=demo-key',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,password,returnSecureToken:true})});const d=await r.json();assert(d.localId);return {...await login(email,password),uid:d.localId,email,password};}
 async function login(email,password){const r=await fetch('http://127.0.0.1:9099/identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=demo-key',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,password,returnSecureToken:true})});return r.json();}
 async function api(user,action,data={}){const r=await fetch('http://127.0.0.1:5001/demo-lingucat/europe-west1/cloudApi',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+user.idToken},body:JSON.stringify({data:{...data,action}})});return r.json();}
-test('secure account, approval, classroom, shared progress and deletion lifecycle',{timeout:120000},async()=>{
+test('secure account, direct teacher registration, classroom, shared progress and deletion lifecycle',{timeout:120000},async()=>{
  const teacher=await account('teacher'),student=await account('student'),outsider=await account('outsider');
  for(const [u,role]of [[teacher,'teacher'],[student,'student'],[outsider,'teacher']]){const p=await api(u,'profile',{displayName:'Test '+role,requestedRole:role,grade:4,avatar:'lili',noticeAccepted:true,role:'admin'});assert.equal(p.result.created,true);}
- assert.equal((await api(teacher,'dashboard')).result.role,'student');assert.equal((await api(teacher,'createClass',{name:'Test Sınıf',grade:4})).error.status,'PERMISSION_DENIED');
- await db.doc('userRoles/'+teacher.uid).set({role:'teacher'});await db.doc('userRoles/'+outsider.uid).set({role:'teacher'});
+ assert.equal((await api(teacher,'dashboard')).result.role,'teacher');assert.equal((await api(teacher,'joinClass',{code:'INVALID'})).error.status,'PERMISSION_DENIED');
+ assert.equal((await api(student,'profile',{displayName:'Fake',requestedRole:'teacher',avatar:'lili',noticeAccepted:true})).result.created,false);assert.equal((await api(student,'dashboard',{role:'teacher',requestedRole:'teacher'})).result.role,'student');
+ await db.doc('userRoles/'+teacher.uid).delete();await db.doc('users/'+teacher.uid).update({teacherStatus:'pending'});assert.equal((await api(teacher,'dashboard')).result.role,'teacher');assert.equal((await db.doc('users/'+teacher.uid).get()).data().teacherStatus,undefined);
  const cl=(await api(teacher,'createClass',{name:'Test Sınıf',grade:4})).result;assert(cl.id&&cl.code);
  assert.equal((await api(student,'joinClass',{code:'INVALID'})).result.error,'Sınıf kodu bulunamadı.');assert.equal((await api(student,'joinClass',{code:cl.code})).result.joined,true);assert.equal((await api(student,'joinClass',{code:cl.code})).result.joined,true);
  assert.equal((await api(teacher,'report',{classId:cl.id})).result.students.length,1);assert.equal((await api(outsider,'report',{classId:cl.id})).error.status,'PERMISSION_DENIED');
@@ -20,5 +21,5 @@ test('secure account, approval, classroom, shared progress and deletion lifecycl
  assert.equal((await api(student,'createClass',{name:'Sahte',grade:4})).error.status,'PERMISSION_DENIED');
  await api(teacher,'removeMember',{classId:cl.id,uid:student.uid});assert.equal((await api(teacher,'report',{classId:cl.id})).result.students.length,0);assert.equal((await api(student,'dashboard')).result.stats.xp,150);
  assert.equal((await api(student,'deleteAccount')).result.deleted,true);assert.equal((await db.doc('userStats/'+student.uid).get()).exists,false);assert.equal((await db.collection('progress/'+student.uid+'/activities').get()).size,0);
- console.log('Verified: teacher approval, secure joins, assignments, reports, XP dedupe, second-device sync, independent progress, emulator-only account deletion.');
+ console.log('Verified: direct teacher registration and migration, secure joins, assignments, reports, XP dedupe, second-device sync, independent progress, emulator-only account deletion.');
 });
