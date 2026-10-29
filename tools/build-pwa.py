@@ -27,7 +27,7 @@ self.addEventListener('fetch',function(e){
  var path=u.pathname.slice(base.pathname.length);
  // Videos, 3D binaries, remote services always use the network. Small cached audio may return a full 200 response to Range requests.
  if(/\\.(mp4|webm|mov|wasm|pck)$/i.test(path))return;
- if(e.request.mode==='navigate'&&(path===''||path==='index.html')){e.respondWith(caches.open(CACHE).then(function(c){return c.match('index.html');}));return;}
+ if(e.request.mode==='navigate'&&(path===''||path==='index.html')){e.respondWith(caches.open(CACHE).then(function(c){return c.match('index.html').then(function(r){return r||fetch(e.request);});}));return;}
  if(SHELL.indexOf(path)<0)return;
  e.respondWith(caches.open(CACHE).then(function(c){return c.match(path).then(function(r){if(!r)return fetch(e.request);var range=e.request.headers.get('range');if(!range)return r;return r.arrayBuffer().then(function(data){var m=/^bytes=(\\d*)-(\\d*)$/.exec(range);if(!m)return new Response(data,{status:200,headers:r.headers});var start=m[1]?Number(m[1]):Math.max(0,data.byteLength-Number(m[2])),end=m[1]?(m[2]?Math.min(Number(m[2]),data.byteLength-1):data.byteLength-1):data.byteLength-1;if(start>end||start>=data.byteLength)return new Response(null,{status:416,headers:{'Content-Range':'bytes */'+data.byteLength}});var headers=new Headers(r.headers);headers.set('Content-Range','bytes '+start+'-'+end+'/'+data.byteLength);headers.set('Content-Length',String(end-start+1));headers.set('Accept-Ranges','bytes');return new Response(data.slice(start,end+1),{status:206,headers:headers});});});}));
 });
