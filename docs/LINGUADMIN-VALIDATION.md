@@ -19,3 +19,6 @@ Logo gezinmesi: yetkili oturumda logo aynı sayfa içindeki yönetim ana ekranı
 
 ## İç içe PWA kurulumu düzeltmesi
 Kurulu LinguCat/Test Arena uygulamalarının GitHub origin kapsamı iç PWA’nın native kurulum istemini bastırabiliyor. LinguAdmin için yeni `linguadmin-818758464845` Hosting sitesi oluşturuldu; önceki `lingucat-app` Hosting kökü değiştirilmedi. Yeni origin’de canlı Chrome manifest/kurulabilirlik ve gerçek önizleme dosyaları doğrulandı. Google Auth yetkili domain listesine yalnız yeni site eklendi; mevcut domain’ler korundu. Kaynak: https://web.dev/articles/building-multiple-pwas-on-the-same-domain
+
+## Sınıf ve CEFR seçimleri
+Çoklu sınıf ve CEFR seçimi, geriye uyumlu tek grade/serbest level okuması, A/B/C → Kolay/Orta/Zor dönüşümü ve metadata değişikliğinin motor level alanını koruması birim testlerinden geçti. Chrome ve Firefox’ta öğrenci sınıfına göre görünürlük, öğrenci zorluk düğmeleri, öğretmen CEFR/sınıf düğmeleri ve 1920/1366/844 genişliklerinde kullanılabilir kart alanı doğrulandı. Yönetici emülatör UI testinde çoklu seçim ve taslak kaydı; bulut yaşam döngüsü testinde yayınlanan grades/cefrLevels alanları doğrulandı. Öğretmen paneli kütüphanesi ayrıca CEFR ve sınıf seçimiyle test edildi.

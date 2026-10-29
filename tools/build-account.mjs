@@ -18,4 +18,5 @@ for(const content of ['the-mysterious-student','every-day-every-way']){const c=J
 await writeFile('functions/catalog/words.json',JSON.stringify([...new Set(wordKeys)]));
 
 await copyFile('packages/shared-content/schema.js','functions/cms-schema.cjs');
-{const path='functions/cms-schema.cjs';await writeFile(path,(await readFile(path,'utf8')).replaceAll("require('../../engine.js')","require('./engine.cjs')"));}
+{const path='functions/cms-schema.cjs';await writeFile(path,(await readFile(path,'utf8')).replaceAll("require('../../engine.js')","require('./engine.cjs')").replaceAll("require('./audience.js')","require('./audience.cjs')"));}
+await copyFile('packages/shared-content/audience.js','functions/audience.cjs');
