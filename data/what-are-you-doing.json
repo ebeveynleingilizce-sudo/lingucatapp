@@ -2,16 +2,16 @@
   "id": "what-are-you-doing",
   "kind": "song",
   "title": "What Are You Doing?",
-  "description": "Şarkıyı dinle; dans etme, şarkı söyleme, okuma, yazma ve zıplama ifadeleriyle şu anda yapılanları anlat.",
+  "description": "Present Continuous Tense (Şimdiki Zaman): Şarkıyla şu anda yapılan eylemleri anlatmayı, soru sormayı ve kısa cevaplar vermeyi öğren.",
   "grade": 0,
-  "unit": "Present Continuous",
+  "unit": "Present Continuous Tense",
   "tags": [
     "present continuous",
     "actions",
     "listening"
   ],
   "difficulty": "easy",
-  "cover": "assets/song-cover.jpg",
+  "cover": "assets/what-are-you-doing-cover.png",
   "source": "https://firebasestorage.googleapis.com/v0/b/lingucat-app.firebasestorage.app/o/media%2Fwhat-are-you-doing-video%2Flyrics-1080p.mp4?alt=media",
   "links": [
     "what-are-you-doing-video"
@@ -282,7 +282,8 @@
   },
   "grades": [],
   "cefrLevels": [
-    "A1"
+    "A1",
+    "A2"
   ],
   "module": "songs",
   "lyrics": "[Intro – Spoken, funky beat]\r\n\r\nHey! Look around!\r\nWhat's everybody doing now?\r\n\r\n[Verse 1 – Rhythmic, playful]\r\n\r\nI'm dancing, dancing!\r\nShe's singing, singing!\r\nHe's reading, reading!\r\nWe're jumping, jumping!\r\n\r\nLook at me, look at you!\r\nWhat are we doing?\r\nWe're dancing too!\r\n\r\n[Pre-Chorus – Call and response]\r\n\r\nWhat am I doing?\r\nI'm dancing!\r\n\r\nWhat is she doing?\r\nShe's singing!\r\n\r\nWhat is he doing?\r\nHe's reading!\r\n\r\nEverybody, move with me!\r\n\r\n[Chorus – Catchy, repetitive]\r\n\r\nWhat are you doing?\r\nI'm dancing, dancing!\r\n\r\nWhat is she doing?\r\nShe's singing, singing!\r\n\r\nWhat are they doing?\r\nThey're jumping, jumping!\r\n\r\nRight here, right now,\r\nEverybody's moving!\r\n\r\n[Verse 2 – Playful questions]\r\n\r\nAre you dancing?\r\n(Yes, I am!)\r\n\r\nAre you reading?\r\n(No, I'm not!)\r\n\r\nIs he writing?\r\n(Yes, he is!)\r\n\r\nIs she singing?\r\n(Yes, she is!)\r\n\r\nAre they jumping?\r\n(Yes, they are!)\r\n\r\nLook around!\r\nWhat are you doing now?\r\n\r\n[Chorus – Repeat the same melody]\r\n\r\nWhat are you doing?\r\nI'm dancing, dancing!\r\n\r\nWhat is she doing?\r\nShe's singing, singing!\r\n\r\nWhat are they doing?\r\nThey're jumping, jumping!\r\n\r\nRight here, right now,\r\nEverybody's moving!\r\n\r\n[Bridge – Rhythmic breakdown, one action at a time]\r\n\r\nI am dancing!\r\nShe is singing!\r\nHe is reading!\r\nYou are writing!\r\nThey are jumping!\r\n\r\nDance! Dance!\r\nSing! Sing!\r\nRead! Read!\r\nWrite! Write!\r\nJump! Jump!\r\n\r\n[Final Chorus – Full energy]\r\n\r\nWhat are you doing?\r\nI'm dancing, dancing!\r\n\r\nWhat is she doing?\r\nShe's singing, singing!\r\n\r\nWhat are they doing?\r\nThey're jumping, jumping!\r\n\r\nRight here, right now,\r\nEverybody's moving!\r\n\r\n[Outro – Short funky ending]\r\n\r\nWhat are you doing?\r\nI'm learning English!\r\n\r\nRight here, right now!"
