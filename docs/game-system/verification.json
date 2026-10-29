@@ -54,5 +54,26 @@
     "h5p-memory": "runtime dependencies missing",
     "heg-phaser": "license conflict, localhost API, remote assets"
   },
-  "productionDeployed": false
+  "productionDeployed": true,
+  "deployment": {
+    "adminUrl": "https://linguadmin-818758464845.web.app/apps/linguadmin/",
+    "functions": [
+      "cloudApi",
+      "adminApi",
+      "publicCatalog"
+    ],
+    "date": "2026-10-29",
+    "productionAccountWritesTested": false,
+    "adminRelease": "8edc3df84495fd6c",
+    "liveChecks": [
+      "student guest memory open/close",
+      "admin same-origin memory preview",
+      "new release manifests and engine/schema assets",
+      "public catalog read",
+      "unauthenticated scoring rejected"
+    ],
+    "studentUrl": "https://ebeveynleingilizce-sudo.github.io/lingucatapp/",
+    "sourceCommit": "7045b54",
+    "studentRelease": "577893ebcb5293af"
+  }
 }
