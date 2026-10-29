@@ -3,7 +3,7 @@ const {getFirestore,FieldValue}=require('firebase-admin/firestore');
 const {onCall,HttpsError}=require('firebase-functions/v2/https');
 const S=require('./cms-schema.cjs');
 const db=getFirestore(),stamp=()=>FieldValue.serverTimestamp();
-const cors=['https://ebeveynleingilizce-sudo.github.io','https://lingucat-app.web.app',/^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/];
+const cors=['https://linguadmin-818758464845.web.app','https://linguadmin-818758464845.firebaseapp.com','https://ebeveynleingilizce-sudo.github.io','https://lingucat-app.web.app',/^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/];
 function admin(r){if(!r.auth)throw new HttpsError('unauthenticated','Önce giriş yap.');if(r.auth.token.admin!==true)throw new HttpsError('permission-denied','Bu hesap LinguAdmin için yetkilendirilmemiş.');return r.auth.uid}
 function plain(doc){const d=doc.data();return {id:doc.id,...d,updatedAt:d.updatedAt?.toDate?.().toISOString()||null}}
 async function list(){const s=await db.collection('cmsItems').orderBy('updatedAt','desc').limit(200).get();return s.docs.map(plain)}

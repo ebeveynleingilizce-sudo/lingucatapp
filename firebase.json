@@ -34,5 +34,51 @@
   },
   "storage": {
     "rules": "storage.rules"
+  },
+  "hosting": {
+    "site": "linguadmin-818758464845",
+    "public": ".firebase/linguadmin-public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "redirects": [
+      {
+        "source": "/",
+        "destination": "/apps/linguadmin/",
+        "type": 302
+      },
+      {
+        "source": "/assets/:name.mp4",
+        "destination": "https://ebeveynleingilizce-sudo.github.io/lingucatapp/assets/:name.mp4",
+        "type": 302
+      },
+      {
+        "source": "/games/:path*",
+        "destination": "https://ebeveynleingilizce-sudo.github.io/lingucatapp/games/:path",
+        "type": 302
+      }
+    ],
+    "headers": [
+      {
+        "source": "/apps/linguadmin/sw.js",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "no-cache"
+          }
+        ]
+      },
+      {
+        "source": "/apps/linguadmin/app.webmanifest",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "no-cache"
+          }
+        ]
+      }
+    ]
   }
 }

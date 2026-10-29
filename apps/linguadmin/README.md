@@ -21,3 +21,8 @@ Testler: `tests/cms-*.test.cjs`. Emülatör testleri demo-lingucat projesini kul
 
 ## Kurulabilir uygulama
 LinguAdmin kendi app.webmanifest, simgeleri ve /apps/linguadmin/ kapsamındaki service worker ile ayrı kurulabilir. Üst çubuktaki Uygulamayı İndir düğmesi kurulumu başlatır; tarayıcıda görünür kalır ve uygulama modunda gizlenir. Önceki kurulum kaydı tarayıcıdaki düğmeyi gizlemez. Firefox/iOS gibi ortamlarda uygun kurulum yönergesi gösterilir. Önbellek yalnız sabit giriş/arayüz dosyalarını içerir; oturum, taslak, API yanıtı veya medya dosyaları önbelleğe alınmaz. Çevrimdışı açılış yönetici yetkisi sağlamaz; giriş, kayıt ve yayınlama internet gerektirir. npm run build:admin paket ve PWA sürümünü birlikte üretir.
+
+## Ayrı kurulum adresi
+Üretim adresi: https://linguadmin-818758464845.web.app/ (yalnız LinguAdmin’e ait Hosting sitesi). GitHub Pages yönetim bağlantısı bu adrese yönlendirilir; LinguCat öğrenci adresi ve mevcut Firebase Hosting sitesi değişmez. Farklı origin, kurulu dış PWA’nın iç PWA kurulumunu bastırması sorununu önler. Google girişi için bu sitenin web.app ve firebaseapp.com alanları yetkilidir; yönetim API’si yalnız tanımlı origin’leri kabul eder.
+
+`node tools/package-admin-hosting.mjs` gerçek LinguCat önizleme dosyalarını `.firebase/linguadmin-public` içine hazırlar; `firebase deploy --only hosting --project lingucat-app` yalnız `linguadmin-818758464845` sitesini günceller. Medya/oyun dosyaları mevcut GitHub kaynağından alınır. Önizleme sayfası ayrı öğrenci PWA’sı kurmaz. Eski GitHub origin’indeki yerel Studio içeriğini kurtarmak için eski admin adresine `?local-export=1` eklenerek yönlendirme atlanabilir; buradan buluta taslak aktarılabilir veya JSON dışa aktarılabilir.
