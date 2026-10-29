@@ -18,5 +18,9 @@ for(const content of ['the-mysterious-student','every-day-every-way']){const c=J
 await writeFile('functions/catalog/words.json',JSON.stringify([...new Set(wordKeys)]));
 
 await copyFile('packages/shared-content/schema.js','functions/cms-schema.cjs');
-{const path='functions/cms-schema.cjs';await writeFile(path,(await readFile(path,'utf8')).replaceAll("require('../../engine.js')","require('./engine.cjs')").replaceAll("require('./audience.js')","require('./audience.cjs')"));}
+{const path='functions/cms-schema.cjs';await writeFile(path,(await readFile(path,'utf8')).replaceAll("require('../../engine.js')","require('./engine.cjs')").replaceAll("require('./audience.js')","require('./audience.cjs')").replaceAll("require('../game-kit/schema.js')","require('./game-schema.cjs')"));}
 await copyFile('packages/shared-content/audience.js','functions/audience.cjs');
+
+await copyFile("packages/game-kit/schema.js","functions/game-schema.cjs");
+await writeFile("functions/game-results.cjs",(await readFile("packages/game-kit/results.js","utf8")).replaceAll("require('./schema.js')","require('./game-schema.cjs')"));
+await copyFile("data/game-packs/starter.json","functions/game-catalog.json");

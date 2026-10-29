@@ -1,6 +1,6 @@
 // Package the real LinguCat runtime for same-origin admin previews, without a second student PWA.
 import {execFileSync} from 'node:child_process';
-import {readFile,mkdir,writeFile,copyFile} from 'node:fs/promises';
+import {readFile,mkdir,writeFile,copyFile,readdir} from 'node:fs/promises';
 import path from 'node:path';
 const root=process.cwd(),target=path.resolve(root,'.firebase/linguadmin-public');
 if(target!==path.join(root,'.firebase','linguadmin-public'))throw Error('Unexpected hosting target');
@@ -10,5 +10,8 @@ const files=tracked.filter(p=>/^apps\/linguadmin\//.test(p)&&!p.includes('/src/'
 if(!files.includes('apps/linguadmin/canonical.js'))files.push('apps/linguadmin/canonical.js');
 if(!files.includes('packages/shared-content/audience.js'))files.push('packages/shared-content/audience.js');
 if(!files.includes('audience-ui.js'))files.push('audience-ui.js');
+async function addGameFiles(dir){for(const item of await readdir(dir,{withFileTypes:true})){const file=dir+'/'+item.name;if(item.isDirectory())await addGameFiles(file);else if(!files.includes(file))files.push(file);}}
+for(const dir of ['packages/game-kit','games/modular','data/game-packs'])await addGameFiles(dir);
+for(const file of ['game-manager.js','game-catalog.js','game-catalog-data.js','game-system.css','game-studio.css'])if(!files.includes(file))files.push(file);
 for(const file of files){const output=path.join(target,file);await mkdir(path.dirname(output),{recursive:true});if(file==='index.html'){let html=await readFile(file,'utf8');html=html.replace(/<link rel="manifest"[^>]*>/g,'').replace('<script src="pwa.js"></script>','').replace(/<div id="appSplash"[\s\S]*?<\/div>/,'');await writeFile(output,html);}else await copyFile(file,output);}
 console.log('LinguAdmin hosting package:',files.length,'files. No account data or server files.');

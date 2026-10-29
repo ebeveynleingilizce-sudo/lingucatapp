@@ -1,0 +1,52 @@
+[
+  {
+    "archive": "memory-master.zip",
+    "sha256": "e71699a9d2dd1ff3324b907ba06472c24509fbcabbe9426c41d3caa68805e490",
+    "files": 28,
+    "uncompressedBytes": 2023865,
+    "rootLicenseFiles": [
+      "memory-master/LICENSE"
+    ]
+  },
+  {
+    "archive": "h5p-memory-game-master.zip",
+    "sha256": "148911a2b1b9de5cdc87adf5b893970410137116866789cd15c29d092f51a0f8",
+    "files": 77,
+    "uncompressedBytes": 341319,
+    "rootLicenseFiles": []
+  },
+  {
+    "archive": "word-search-game-master.zip",
+    "sha256": "b8fdf946b220ae6e0e7e6036707534f5d1385cc1083eb668454b0dbb550a6631",
+    "files": 18,
+    "uncompressedBytes": 51432,
+    "rootLicenseFiles": [
+      "word-search-game-master/LICENSE"
+    ]
+  },
+  {
+    "archive": "hangman-main.zip",
+    "sha256": "f0bb63e4f76074bf31bea5a4dd55a6cec1d0487e9a1d4e8e132ff5a65d52022c",
+    "files": 20,
+    "uncompressedBytes": 647224,
+    "rootLicenseFiles": [
+      "hangman-main/LICENSE"
+    ]
+  },
+  {
+    "archive": "HEG-Phaser-Game-main.zip",
+    "sha256": "32aea737194518ac46384edb20b45076543f487a1f1b5e51b9ac55ebbab2e5c6",
+    "files": 1953,
+    "uncompressedBytes": 24010499,
+    "rootLicenseFiles": []
+  },
+  {
+    "archive": "opengames-dev.github.io-main.zip",
+    "sha256": "4954d961edcd563b2c529a2af8108759ead20f0adbcdd975b7916f9ff6790dc6",
+    "files": 50,
+    "uncompressedBytes": 272240,
+    "rootLicenseFiles": [
+      "opengames-dev.github.io-main/LICENSE"
+    ]
+  }
+]
