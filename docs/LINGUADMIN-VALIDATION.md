@@ -14,3 +14,5 @@ Storage kuralları 29.10.2026 tarihinde kullanıcı onayıyla canlıya uyguland�
 
 ## LinguAdmin PWA
 Chrome ve Edge normal tarayıcı profillerinde manifest ve kurulabilirlik kontrolleri hatasız geçti. Ayrı uygulama kimliği/kapsamı, kurulum istemi, vazgeçme, yardım penceresi, kurulum sonrası düğmenin gizlenmesi, dört ekran boyutu ve çevrimdışı sabit kabuk açılışı doğrulandı. Önbellekte Firebase/API/taslak verisi bulunmadığı kontrol edildi. Firefox kurulum yönergesi geçti.
+
+Logo gezinmesi: yetkili oturumda logo aynı sayfa içindeki yönetim ana ekranını açar; URL, oturum ve sayfa belleği korunur, giriş ekranı açılmaz. PWA düğmesi önceki kurulum işaretine rağmen tarayıcıda görünürdür; uygulama modunda gizlenir. Logo emülatör UI testi ve Chrome/Edge/Firefox PWA kontrolleriyle doğrulandı.
