@@ -1,0 +1,17 @@
+rules_version = '2';
+service firebase.storage {
+ match /b/{bucket}/o {
+  function admin() { return request.auth != null && request.auth.token.get('admin', false) == true; }
+  match /media/{id}/{file} {
+   allow read: if admin() || (firestore.exists(/databases/(default)/documents/publicMedia/$(id)) && firestore.get(/databases/(default)/documents/publicMedia/$(id)).data.path == 'media/' + id + '/' + file);
+   // Files are immutable. Publishing/archiving controls public access; no client deletion.
+   allow create: if resource == null && admin() && file.matches('[a-zA-Z0-9_.-]+') && (
+    (request.resource.contentType.matches('image/(png|jpeg|webp)') && request.resource.size <= 8*1024*1024) ||
+    (request.resource.contentType.matches('audio/(mpeg|ogg|wav|mp4)') && request.resource.size <= 30*1024*1024) ||
+    (request.resource.contentType.matches('video/(mp4|webm)') && request.resource.size <= 200*1024*1024) ||
+    (request.resource.contentType == 'application/pdf' && request.resource.size <= 20*1024*1024));
+   allow update, delete: if false;
+  }
+  match /{all=**} { allow read, write: if false; }
+ }
+}

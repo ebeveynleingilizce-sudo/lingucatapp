@@ -1,0 +1,13 @@
+# LinguAdmin doğrulama raporu
+
+- Paylaşılan şema: altı soru tipi, cevap aralığı, güvenli URL, tema alanları ve medya sınırları geçti.
+- Auth / Firestore / Functions emülatörleri: admin girişi, normal kullanıcı reddi, taslak izolasyonu, yayın, sürüm geri yükleme, eşzamanlı düzenleme çatışması, bağlantılı içerikte arşiv engeli ve bağımsız içerik XP doğrulaması geçti.
+- Öğrenci/öğretmen bulut yaşam döngüsü: sınıf oluşturma, güvenli katılım, ödev, rapor, doğru kullanıcı izolasyonu, tekrar XP engeli, ikinci cihaz eşitleme ve emülatör hesabı silme geçti.
+- Chrome UI: yönetici girişi; video taslağı oluşturma; soru düzenleme; gerçek LinguCat oynatıcı/soru/banner önizlemesi; normal kullanıcıda admin ekranı reddi; 1920, 1366, 768 ve 390 genişliklerinde yatay taşma kontrolü geçti.
+- Chrome + Firefox: yayınlanmış yeni içerik kataloğu, gerçek oynatıcı, tekrarlanan gezinmede varsayılan içerik kimliğinin korunması ve Studio araçlarının yokluğu geçti.
+- Firestore kuralları: admin dahil doğrudan CMS/rol/yayın yazımı reddedildi; eski öğrenci veri kuralları değişmedi ve testleri geçti.
+- Storage kuralları emülatörü: normal kullanıcı yükleyemiyor; admin desteklenmeyen tür yükleyemiyor; özel taslak okunamıyor; yalnız tam yayınlanan dosya yolu anonim okunuyor; aynı kaydın altındaki diğer taslak kapalı; dosya üzerine yazılamıyor.
+- Önceki misafir/paylaş davranışları Chrome + Firefox’ta geçti. İçe aktarılan oyunların dört ekranda tam ekran/geri dönüş testi geçti (Godot motoru bu testte taklit edildi).
+
+## Canlıya geçişte kalan koşullar
+Storage kurallarının uygulanması kullanıcı onayını bekler. Bu sırada gerçek dosya yükleme kapalıdır, HTTPS URL kaynağı kullanılabilir. `cmntunc@gmail.com` Firebase Auth’ta bulunamadı; yeni hesap oluşturulmalı veya mevcut doğru e-posta verilmelidir. Yönetici atama aracı hazırdır. Bu koşullar test başarısı veya tamamlanmış canlı yönetici erişimi olarak sunulmaz.

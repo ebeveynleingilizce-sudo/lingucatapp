@@ -5,6 +5,7 @@ import {firebaseConfig,deployment} from './firebase-config.js';
 import {$,node,btn,field,confirmDialog,privacy,createGate,errorMessage} from './account-ui.js';
 import {progressBridge} from './account-progress.js';
 import {createPanel} from './account-panel.js';
+if(!window.LinguPreview){
 const emulator=['localhost','127.0.0.1'].includes(location.hostname)&&new URLSearchParams(location.search).get('account-emulator')==='1';
 const app=initializeApp(emulator?{...firebaseConfig,projectId:'demo-lingucat',apiKey:'demo-key',authDomain:'localhost'}:firebaseConfig),auth=getAuth(app),functions=getFunctions(app,deployment.region),A=window.LinguTabAPI;
 if(emulator){connectAuthEmulator(auth,'http://127.0.0.1:9099',{disableWarnings:true});connectFunctionsEmulator(functions,'127.0.0.1',5001);}
@@ -50,7 +51,9 @@ if(store.get('lingucat.analyticsConsent',false)===true)configureAnalytics(true);
 if(deployment.appCheckSiteKey)import('firebase/app-check').then(({initializeAppCheck,ReCaptchaEnterpriseProvider})=>initializeAppCheck(app,{provider:new ReCaptchaEnterpriseProvider(deployment.appCheckSiteKey),isTokenAutoRefreshEnabled:true})).catch(()=>syncStatus('Cihaz doğrulaması kurulamadı.'));
 const accountButton=btn('Hesabım',()=>current?panel.show():showGate(),'account-nav-button');accountButton.id='accountNav';document.querySelector('.header-actions').prepend(accountButton);
 document.addEventListener('click',e=>{if(current&&e.target.closest('[data-route=profile]'))panel.show();});
-document.addEventListener('click',e=>{if(e.target.closest('#teacherBtn')&&dashboard?.role!=='teacher'){e.preventDefault();e.stopImmediatePropagation();if(current)panel.show();else showGate();}},true);
+
 onAuthStateChanged(auth,async user=>{current=user;try{if(formIntent)return;if(user){if(scope(user.uid))return;role=sessionStorage.getItem('lingucat.account.requestedRole')==='teacher'?'teacher':'student';if(!ready){showGate();status('Firebase hesap kurulumu bekliyor. Bulut kayıtları hazır değil.');return;}await bridge.flush();const data=await refresh();if(!data.user){showGate();setRole(role);setMode('profile');$('accountName').value=user.displayName||'';return;}bridge.hydrate(data);hideGate();sessionStorage.removeItem('lingucat.account.message');if(data.role==='teacher'||new URLSearchParams(location.search).has('class'))panel.show();}else{if(scope(null))return;if(guest()){hideGate();guestIdentity();syncStatus('');}else showGate();}}catch(e){const cached=user&&store.get('lingucat.account.dashboard.'+user.uid);if(cached?.user&&window.LinguAccountScope===user.uid){dashboard=cached;hideGate();syncStatus('Çevrimdışı hesap · Bulut bağlantısı bekleniyor.');}else{showGate();status(errorMessage(e));}}});
 window.LinguAccount={open:()=>{if(current){panel.show();}else showGate();},refresh:()=>action(refresh),get user(){return current?{uid:current.uid,verified:current.emailVerified}:null;}};
 if(!guest())showGate();else hideGate();
+
+}

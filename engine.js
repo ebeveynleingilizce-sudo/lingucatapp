@@ -22,6 +22,7 @@ function validate(raw){
    if(!Array.isArray(v.answer)||v.answer.length!==q.options.length)throw Error('Sıralama cevabı bütün olayları içermeli.');
    q.answer=v.answer.slice();q.answer.forEach(function(n,i){if(n%1||n<0||n>=q.options.length||q.answer.indexOf(n)!==i)throw Error('Doğru sırada her olay numarası bir kez kullanılmalı.');});
   }else{if(v.answer%1||v.answer<0||v.answer>=q.options.length||typeof v.answer!=='number')throw Error('Geçerli bir doğru seçenek seçin.');q.answer=v.answer;}
+  ['image','audio'].forEach(function(key){if(v[key]){if(typeof v[key]!=='string'||v[key].length>2000||!((root.LinguPreview&&/^blob:/.test(v[key]))||/^https:\/\//i.test(v[key])||/^assets\/[a-zA-Z0-9_./ -]+$/.test(v[key])&&!v[key].includes('..')))throw Error('Geçersiz soru medyası.');q[key]=v[key];}});
   s.questions.push(q);
  });return s;
 }

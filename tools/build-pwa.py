@@ -10,6 +10,7 @@ files+=sorted(x for x in (root/'assets').rglob('*') if x.is_file() and x.suffix 
 files+=sorted(x for x in (root/'assets/home').glob('*.png') if x not in files and 'design-reference' not in x.name)
 files+=sorted(x for x in (root/'games/mystery-box').rglob('*') if x.is_file() and x.suffix in ('.html','.png') and x.stat().st_size<500000)
 files+=sorted((root/'data').glob('*.json')) if (root/'data').exists() else []
+files += [root/'packages/shared-content/schema.js',root/'packages/shared-ui/appearance.js']
 files=list(dict.fromkeys(files))
 paths=[x.relative_to(root).as_posix() for x in files]
 version=hashlib.sha256(Path(__file__).read_bytes()+b''.join(str(x.relative_to(root)).encode()+x.read_bytes() for x in files)).hexdigest()[:16]

@@ -17,3 +17,6 @@ functions/node_modules/
 *-debug.log
 *-debug.*.log
 coverage/
+
+cms-*-run.log
+cms-test-run.log

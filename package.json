@@ -5,8 +5,15 @@
   "scripts": {
     "build": "node tools/build-account.mjs && python tools/build-pwa.py",
     "test:account": "node --test tests/account-core.test.cjs",
-    "test:rules": "firebase emulators:exec --only firestore --project demo-lingucat \"node --test tests/firestore-rules.test.cjs\""
+    "test:rules": "firebase emulators:exec --only firestore --project demo-lingucat \"node --test tests/firestore-rules.test.cjs\"",
+    "build:admin": "node tools/build-admin.mjs",
+    "dev:admin": "python -m http.server 8790"
   },
-  "dependencies": {"firebase": "13.1.0"},
-  "devDependencies": {"esbuild": "0.28.2", "@firebase/rules-unit-testing": "6.0.0"}
+  "dependencies": {
+    "firebase": "13.1.0"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.2",
+    "@firebase/rules-unit-testing": "6.0.0"
+  }
 }

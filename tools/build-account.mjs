@@ -16,3 +16,6 @@ const units=vm.runInNewContext(unitsSource);
 const wordKeys=units.flatMap(u=>u.words.map(w=>u.id+':'+w[0]));
 for(const content of ['the-mysterious-student','every-day-every-way']){const c=JSON.parse(await readFile('data/'+content+'.json','utf8'));wordKeys.push(...c.expressions.map(x=>'expressions:'+x));}
 await writeFile('functions/catalog/words.json',JSON.stringify([...new Set(wordKeys)]));
+
+await copyFile('packages/shared-content/schema.js','functions/cms-schema.cjs');
+{const path='functions/cms-schema.cjs';await writeFile(path,(await readFile(path,'utf8')).replaceAll("require('../../engine.js')","require('./engine.cjs')"));}
