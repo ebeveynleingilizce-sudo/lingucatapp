@@ -21,4 +21,4 @@ Godot Mystery Box ve English Battle Arena oyunlarının soru paketleri HTML moto
 ## Yayın
 npm run dev:admin → yerel kök sunucu ve /apps/linguadmin/.
 npm run build:admin → bağımsız admin bundle. npm run build → öğrenci bundle/PWA.
-GitHub Pages kökünde LinguCat, /apps/linguadmin/ adresinde LinguAdmin çalışır. Yönetici kaynakları öğrenci PWA önbelleğine alınmaz. Firebase işlevleri ve kuralları ayrı dağıtılır. Storage kuralları için kullanıcı onayı beklenir.
+GitHub Pages kökünde LinguCat, /apps/linguadmin/ adresinde LinguAdmin çalışır. Yönetici kaynakları öğrenci PWA önbelleğine alınmaz. Firebase işlevleri ve kuralları ayrı dağıtılır. Storage kuralları 29.10.2026 tarihli kullanıcı onayıyla uygulandı; yükleme etkinleştirildi.
