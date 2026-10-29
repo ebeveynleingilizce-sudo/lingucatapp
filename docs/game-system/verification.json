@@ -1,0 +1,58 @@
+{
+  "date": "2026-10-29",
+  "implementation": "existing LinguCat + LinguAdmin",
+  "engines": [
+    "memory",
+    "word-search",
+    "hangman",
+    "labyrinth"
+  ],
+  "starterGames": 5,
+  "contentPacks": 2,
+  "tests": {
+    "pureAndExistingRegression": 18,
+    "rewardEngineRegression": 10,
+    "chromeGameCompletion": "passed",
+    "firefoxGameCompletion": "passed",
+    "studioDraftPublishPreviewArchive": "passed",
+    "emulatedServerScoring": "passed",
+    "studentOneBatchPerRoundAndReplayZeroXP": "passed",
+    "lazyEngineAndOfflineReload": "passed",
+    "pauseResumeRestartDestroyAndPreviewIsolation": "passed",
+    "responsiveAndFilters": "passed"
+  },
+  "viewports": [
+    [
+      1920,
+      1080
+    ],
+    [
+      1366,
+      768
+    ],
+    [
+      844,
+      390
+    ],
+    [
+      667,
+      375
+    ],
+    [
+      390,
+      844
+    ]
+  ],
+  "notTested": [
+    "Pardus operating system",
+    "physical smart board",
+    "physical Android/iOS devices",
+    "legacy Firefox",
+    "vocabulary audio content (none supplied)"
+  ],
+  "blockedEngines": {
+    "h5p-memory": "runtime dependencies missing",
+    "heg-phaser": "license conflict, localhost API, remote assets"
+  },
+  "productionDeployed": false
+}

@@ -55,9 +55,14 @@
         "type": 302
       },
       {
-        "source": "/games/:path*",
-        "destination": "https://ebeveynleingilizce-sudo.github.io/lingucatapp/games/:path",
-        "type": 302
+        "type": 302,
+        "destination": "https://ebeveynleingilizce-sudo.github.io/lingucatapp/games/battle-arena/:path",
+        "source": "/games/battle-arena/:path*"
+      },
+      {
+        "type": 302,
+        "destination": "https://ebeveynleingilizce-sudo.github.io/lingucatapp/games/mystery-box/:path",
+        "source": "/games/mystery-box/:path*"
       }
     ],
     "headers": [
