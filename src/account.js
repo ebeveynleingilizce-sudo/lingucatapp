@@ -12,7 +12,7 @@ if(emulator){connectAuthEmulator(auth,'http://127.0.0.1:9099',{disableWarnings:t
 let persistenceError=null;const persistentSession=setPersistence(auth,browserLocalPersistence).catch(error=>{persistenceError=error;});
 auth.languageCode='tr';
 const ready=deployment.backendReady||emulator,call=httpsCallable(functions,'cloudApi',{timeout:30000});
-let current=null,dashboard=null,role='student',mode='login',busy=false,formIntent=false,analyticsInstance=null;
+let current=null,dashboard=null,role='student',mode='login',busy=false,formIntent=false,analyticsInstance=null,restoredHome=false;
 const store={get(key,f=null){try{return JSON.parse(localStorage.getItem(key))??f;}catch{return f;}},set(key,v){try{localStorage.setItem(key,JSON.stringify(v));}catch{syncStatus('Bu tarayıcı çevrimdışı kayıt tutamıyor.');}}};
 const guest=()=>sessionStorage.getItem('lingucat.account.guest')==='1';
 sessionStorage.removeItem('lingucat.account.message');
@@ -24,7 +24,9 @@ function hideGate(){gate.hidden=true;document.documentElement.classList.remove('
 function scope(uid){if(uid)localStorage.setItem('lingucat.account.uid',uid);else localStorage.removeItem('lingucat.account.uid');if(window.LinguAccountScope!==uid){location.reload();return true;}return false;}
 async function api(action,data={}){if(!ready)throw Error('Hesap sunucusu henüz etkinleştirilmedi. Çevrimdışı keşif yapabilirsin.');try{return (await call({...data,action})).data;}catch(e){e.message=errorMessage(e);throw e;}}
 async function action(fn){try{syncStatus('İşlem yapılıyor…');await fn();syncStatus('');}catch(e){syncStatus(errorMessage(e));}}
-async function refresh(){if(!current||!ready)return;dashboard=await api('dashboard');store.set('lingucat.account.dashboard.'+current.uid,dashboard);if(dashboard.user){const chip=document.querySelector('.profile-chip');chip.setAttribute('aria-label','Hesabım: '+dashboard.user.displayName);chip.querySelector('span').firstChild.textContent=dashboard.user.displayName.split(' ')[0];$('hubProgress').textContent=(dashboard.stats?.xp||0)+' XP';}if(window.LinguAudience)window.LinguAudience.setContext({role:dashboard.role,grade:dashboard.user?.grade});panel.refresh();return dashboard;}
+function presentDashboard(data){dashboard=data;if(dashboard.user){const chip=document.querySelector('.profile-chip');chip.setAttribute('aria-label','Hesabım: '+dashboard.user.displayName);chip.querySelector('span').firstChild.textContent=dashboard.user.displayName.split(' ')[0];$('hubProgress').textContent=(dashboard.stats?.xp||0)+' XP';}if(window.LinguAudience)window.LinguAudience.setContext({role:dashboard.role,grade:dashboard.user?.grade});panel.refresh();}
+function restoreCachedAccount(uid){const cached=uid&&store.get('lingucat.account.dashboard.'+uid);if(!cached?.user||window.LinguAccountScope!==uid)return false;presentDashboard(cached);hideGate();return true;}
+async function refresh(){if(!current||!ready)return;const uid=current.uid,data=await api('dashboard');if(current?.uid!==uid)return data;store.set('lingucat.account.dashboard.'+uid,data);presentDashboard(data);return data;}
 const bridge=progressBridge({api,store,current:()=>current,ready,A,status:syncStatus,refresh});
 const panel=createPanel({current:()=>current,data:()=>dashboard,api,refresh,action,logout,reauthenticate,analytics:configureAnalytics,store});
 
@@ -53,8 +55,10 @@ if(deployment.appCheckSiteKey)import('firebase/app-check').then(({initializeAppC
 const accountButton=btn('Hesabım',()=>current?panel.show():showGate(),'account-nav-button');accountButton.id='accountNav';document.querySelector('.header-actions').prepend(accountButton);
 document.addEventListener('click',e=>{if(current&&e.target.closest('[data-route=profile]'))panel.show();});
 
-onAuthStateChanged(auth,async user=>{current=user;try{if(formIntent)return;if(user){if(scope(user.uid))return;role=sessionStorage.getItem('lingucat.account.requestedRole')==='teacher'?'teacher':'student';if(!ready){showGate();status('Firebase hesap kurulumu bekliyor. Bulut kayıtları hazır değil.');return;}await bridge.flush();const data=await refresh();if(!data.user){showGate();setRole(role);setMode('profile');$('accountName').value=user.displayName||'';return;}bridge.hydrate(data);hideGate();sessionStorage.removeItem('lingucat.account.message');A.home();}else{if(scope(null))return;if(guest()){hideGate();guestIdentity();syncStatus('');}else showGate();}}catch(e){const cached=user&&store.get('lingucat.account.dashboard.'+user.uid);if(cached?.user&&window.LinguAccountScope===user.uid){dashboard=cached;if(window.LinguAudience)window.LinguAudience.setContext({role:cached.role,grade:cached.user.grade});hideGate();A.home();syncStatus('Çevrimdışı hesap · Bulut bağlantısı bekleniyor.');}else{showGate();status(errorMessage(e));}}});
+onAuthStateChanged(auth,async user=>{current=user;try{if(formIntent)return;if(user){if(scope(user.uid))return;role=sessionStorage.getItem('lingucat.account.requestedRole')==='teacher'?'teacher':'student';if(!ready){showGate();status('Firebase hesap kurulumu bekliyor. Bulut kayıtları hazır değil.');return;}restoreCachedAccount(user.uid);hideGate();if(!restoredHome){restoredHome=true;A.home();}await bridge.flush();if(current?.uid!==user.uid)return;const data=await refresh();if(current?.uid!==user.uid)return;if(!data.user){showGate();setRole(role);setMode('profile');$('accountName').value=user.displayName||'';return;}bridge.hydrate(data);hideGate();sessionStorage.removeItem('lingucat.account.message');}else{if(scope(null))return;if(guest()){hideGate();guestIdentity();syncStatus('');}else showGate();}}catch(e){if(current?.uid!==user?.uid)return;const cached=user&&store.get('lingucat.account.dashboard.'+user.uid);if(cached?.user&&window.LinguAccountScope===user.uid){presentDashboard(cached);hideGate();syncStatus('Çevrimdışı hesap · Bulut bağlantısı bekleniyor.');}else{showGate();status(errorMessage(e));}}});
 window.LinguAccount={open:()=>{if(current){panel.show();}else showGate();},refresh:()=>action(refresh),get user(){return current?{uid:current.uid,verified:current.emailVerified}:null;}};
-if(!guest())showGate();else hideGate();
+// Wait for Firebase's restored auth state before offering a login form.
+// Cached identity opens only the local account shell; cloud operations still require auth.
+gate.hidden=true;if(guest())hideGate();else if(restoreCachedAccount(window.LinguAccountScope)){restoredHome=true;A.home();}
 
 }
