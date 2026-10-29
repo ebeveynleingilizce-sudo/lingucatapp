@@ -28,13 +28,6 @@
       "purpose": "maskable"
     }
   ],
-  "id": "./",
-  "related_applications": [
-    {
-      "platform": "webapp",
-      "url": "./app.webmanifest",
-      "id": "https://ebeveynleingilizce-sudo.github.io/lingucatapp/index.html"
-    }
-  ],
+  "id": "/lingucatapp/",
   "prefer_related_applications": false
 }
