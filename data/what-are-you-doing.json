@@ -1,0 +1,289 @@
+{
+  "id": "what-are-you-doing",
+  "kind": "song",
+  "title": "What Are You Doing?",
+  "description": "Şarkıyı dinle; dans etme, şarkı söyleme, okuma, yazma ve zıplama ifadeleriyle şu anda yapılanları anlat.",
+  "grade": 0,
+  "unit": "Present Continuous",
+  "tags": [
+    "present continuous",
+    "actions",
+    "listening"
+  ],
+  "difficulty": "easy",
+  "cover": "assets/song-cover.jpg",
+  "source": "https://firebasestorage.googleapis.com/v0/b/lingucat-app.firebasestorage.app/o/media%2Fwhat-are-you-doing-video%2Flyrics-1080p.mp4?alt=media",
+  "links": [
+    "what-are-you-doing-video"
+  ],
+  "order": 0,
+  "payload": {
+    "schemaVersion": 1,
+    "id": "what-are-you-doing",
+    "title": "What Are You Doing?",
+    "level": "A1 · Present Continuous",
+    "description": "Şarkıyı dinle; dans etme, şarkı söyleme, okuma, yazma ve zıplama ifadeleriyle şu anda yapılanları anlat.",
+    "videoDuration": 150.466,
+    "expressions": [
+      "What are you doing?",
+      "I'm dancing.",
+      "She's singing.",
+      "He's reading.",
+      "They're jumping.",
+      "You are writing.",
+      "Yes, I am.",
+      "No, I'm not.",
+      "I'm learning English."
+    ],
+    "questions": [
+      {
+        "id": "she-action",
+        "type": "multiple",
+        "prompt": "What is she doing in the song?",
+        "hint": "İlgili bölümü tekrar dinle.",
+        "scene": {
+          "label": "Şarkıdan ipucu",
+          "start": 33.76,
+          "end": 37.16
+        },
+        "feedback": "Şarkıda “She’s singing!” deniyor: Şarkı söylüyor.",
+        "options": [
+          "She is reading.",
+          "She is singing.",
+          "She is writing.",
+          "She is sleeping."
+        ],
+        "answer": 1
+      },
+      {
+        "id": "he-action",
+        "type": "multiple",
+        "prompt": "What is he doing in the first verse?",
+        "hint": "İlgili bölümü tekrar dinle.",
+        "scene": {
+          "label": "Şarkıdan ipucu",
+          "start": 16.7,
+          "end": 17.96
+        },
+        "feedback": "İlk kıtada “He’s reading!” duyuluyor: Kitap okuyor.",
+        "options": [
+          "He is dancing.",
+          "He is jumping.",
+          "He is reading.",
+          "He is running."
+        ],
+        "answer": 2
+      },
+      {
+        "id": "they-action",
+        "type": "multiple",
+        "prompt": "What are they doing in the chorus?",
+        "hint": "İlgili bölümü tekrar dinle.",
+        "scene": {
+          "label": "Şarkıdan ipucu",
+          "start": 52.96,
+          "end": 56.16
+        },
+        "feedback": "“They’re jumping!” ifadesi zıpladıklarını anlatır.",
+        "options": [
+          "They are jumping.",
+          "They are sleeping.",
+          "They are eating.",
+          "They are writing."
+        ],
+        "answer": 0
+      },
+      {
+        "id": "dancing-meaning",
+        "type": "vocabulary",
+        "prompt": "What does “dancing” mean?",
+        "hint": "İlgili bölümü tekrar dinle.",
+        "scene": {
+          "label": "Şarkıdan ipucu",
+          "start": 12.7,
+          "end": 14.12
+        },
+        "feedback": "“Dancing”, dans etmek anlamındadır.",
+        "options": [
+          "Uyumak",
+          "Okumak",
+          "Yazmak",
+          "Dans etmek"
+        ],
+        "answer": 3
+      },
+      {
+        "id": "reading-meaning",
+        "type": "vocabulary",
+        "prompt": "What does “reading” mean?",
+        "hint": "İlgili bölümü tekrar dinle.",
+        "scene": {
+          "label": "Şarkıdan ipucu",
+          "start": 16.7,
+          "end": 17.96
+        },
+        "feedback": "“Reading”, okumak anlamındadır.",
+        "options": [
+          "Zıplamak",
+          "Okumak",
+          "Koşmak",
+          "Şarkı söylemek"
+        ],
+        "answer": 1
+      },
+      {
+        "id": "right-now",
+        "type": "vocabulary",
+        "prompt": "What does “right here, right now” mean?",
+        "hint": "İlgili bölümü tekrar dinle.",
+        "scene": {
+          "label": "Şarkıdan ipucu",
+          "start": 56.8,
+          "end": 61.44
+        },
+        "feedback": "“Right here, right now”, tam burada ve şu anda demektir.",
+        "options": [
+          "Dün okulda",
+          "Yarın evde",
+          "Tam burada, şu anda",
+          "Her sabah"
+        ],
+        "answer": 2
+      },
+      {
+        "id": "verse-order",
+        "type": "order",
+        "prompt": "Put the actions in the order you hear them.",
+        "hint": "İlgili bölümü tekrar dinle.",
+        "scene": {
+          "label": "Şarkıdan ipucu",
+          "start": 12.7,
+          "end": 20.02
+        },
+        "feedback": "Sıra: I’m dancing → She’s singing → He’s reading → We’re jumping.",
+        "options": [
+          "He's reading.",
+          "We're jumping.",
+          "I'm dancing.",
+          "She's singing."
+        ],
+        "answer": [
+          2,
+          3,
+          0,
+          1
+        ]
+      },
+      {
+        "id": "chorus-order",
+        "type": "order",
+        "prompt": "Put the chorus lines in order.",
+        "hint": "İlgili bölümü tekrar dinle.",
+        "scene": {
+          "label": "Şarkıdan ipucu",
+          "start": 45.46,
+          "end": 56.16
+        },
+        "feedback": "Nakaratta önce “you”, sonra “she”, ardından “they” için soru ve cevap gelir.",
+        "options": [
+          "They're jumping, jumping!",
+          "What are you doing?",
+          "What are they doing?",
+          "I'm dancing, dancing!",
+          "What is she doing?",
+          "She's singing, singing!"
+        ],
+        "answer": [
+          1,
+          3,
+          4,
+          5,
+          2,
+          0
+        ]
+      },
+      {
+        "id": "i-am",
+        "type": "grammar",
+        "prompt": "Complete: “I ___ dancing.”",
+        "hint": "İlgili bölümü tekrar dinle.",
+        "scene": {
+          "label": "Şarkıdan ipucu",
+          "start": 29.62,
+          "end": 33.24
+        },
+        "feedback": "“I” ile “am” kullanılır: I am dancing.",
+        "options": [
+          "is",
+          "are",
+          "am",
+          "be"
+        ],
+        "answer": 2
+      },
+      {
+        "id": "she-is",
+        "type": "grammar",
+        "prompt": "Complete: “What ___ she doing?”",
+        "hint": "İlgili bölümü tekrar dinle.",
+        "scene": {
+          "label": "Şarkıdan ipucu",
+          "start": 33.76,
+          "end": 37.16
+        },
+        "feedback": "“She” ile “is” kullanılır: What is she doing?",
+        "options": [
+          "are",
+          "is",
+          "am",
+          "do"
+        ],
+        "answer": 1
+      },
+      {
+        "id": "they-are",
+        "type": "grammar",
+        "prompt": "Complete: “They ___ jumping.”",
+        "hint": "İlgili bölümü tekrar dinle.",
+        "scene": {
+          "label": "Şarkıdan ipucu",
+          "start": 52.96,
+          "end": 56.16
+        },
+        "feedback": "“They” ile “are” kullanılır: They are jumping.",
+        "options": [
+          "is",
+          "am",
+          "be",
+          "are"
+        ],
+        "answer": 3
+      },
+      {
+        "id": "short-no",
+        "type": "grammar",
+        "prompt": "In the song: “Are you reading?” — “No, ___!”",
+        "hint": "İlgili bölümü tekrar dinle.",
+        "scene": {
+          "label": "Şarkıdan ipucu",
+          "start": 66.52,
+          "end": 68.38
+        },
+        "feedback": "“Are you ...?” sorusuna olumsuz kısa cevap: No, I’m not.",
+        "options": [
+          "I'm not",
+          "I don't",
+          "he isn't",
+          "they aren't"
+        ],
+        "answer": 0
+      }
+    ]
+  },
+  "grades": [],
+  "cefrLevels": [
+    "A1"
+  ],
+  "module": "songs",
+  "lyrics": "[Intro – Spoken, funky beat]\r\n\r\nHey! Look around!\r\nWhat's everybody doing now?\r\n\r\n[Verse 1 – Rhythmic, playful]\r\n\r\nI'm dancing, dancing!\r\nShe's singing, singing!\r\nHe's reading, reading!\r\nWe're jumping, jumping!\r\n\r\nLook at me, look at you!\r\nWhat are we doing?\r\nWe're dancing too!\r\n\r\n[Pre-Chorus – Call and response]\r\n\r\nWhat am I doing?\r\nI'm dancing!\r\n\r\nWhat is she doing?\r\nShe's singing!\r\n\r\nWhat is he doing?\r\nHe's reading!\r\n\r\nEverybody, move with me!\r\n\r\n[Chorus – Catchy, repetitive]\r\n\r\nWhat are you doing?\r\nI'm dancing, dancing!\r\n\r\nWhat is she doing?\r\nShe's singing, singing!\r\n\r\nWhat are they doing?\r\nThey're jumping, jumping!\r\n\r\nRight here, right now,\r\nEverybody's moving!\r\n\r\n[Verse 2 – Playful questions]\r\n\r\nAre you dancing?\r\n(Yes, I am!)\r\n\r\nAre you reading?\r\n(No, I'm not!)\r\n\r\nIs he writing?\r\n(Yes, he is!)\r\n\r\nIs she singing?\r\n(Yes, she is!)\r\n\r\nAre they jumping?\r\n(Yes, they are!)\r\n\r\nLook around!\r\nWhat are you doing now?\r\n\r\n[Chorus – Repeat the same melody]\r\n\r\nWhat are you doing?\r\nI'm dancing, dancing!\r\n\r\nWhat is she doing?\r\nShe's singing, singing!\r\n\r\nWhat are they doing?\r\nThey're jumping, jumping!\r\n\r\nRight here, right now,\r\nEverybody's moving!\r\n\r\n[Bridge – Rhythmic breakdown, one action at a time]\r\n\r\nI am dancing!\r\nShe is singing!\r\nHe is reading!\r\nYou are writing!\r\nThey are jumping!\r\n\r\nDance! Dance!\r\nSing! Sing!\r\nRead! Read!\r\nWrite! Write!\r\nJump! Jump!\r\n\r\n[Final Chorus – Full energy]\r\n\r\nWhat are you doing?\r\nI'm dancing, dancing!\r\n\r\nWhat is she doing?\r\nShe's singing, singing!\r\n\r\nWhat are they doing?\r\nThey're jumping, jumping!\r\n\r\nRight here, right now,\r\nEverybody's moving!\r\n\r\n[Outro – Short funky ending]\r\n\r\nWhat are you doing?\r\nI'm learning English!\r\n\r\nRight here, right now!"
+}
