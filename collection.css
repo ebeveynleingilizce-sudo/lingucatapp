@@ -81,3 +81,55 @@
 .collection-screen .collection-play{width:35px;height:35px}
 @media(max-height:500px) and (orientation:landscape){.tab-screen.collection-screen{grid-template-rows:61px 44px minmax(0,1fr) 26px;padding-bottom:4px}.collection-screen .tab-banner-copy{padding:6px 0 3px;gap:3px}.collection-screen .collection-title{font-size:25px;gap:10px}.collection-title-icon{width:25px;height:25px}.collection-screen .collection-description{font-size:10px}.collection-screen .collection-search{height:32px}.collection-screen .collection-filters .filter-chip{height:30px;min-height:30px;padding:0 12px}.collection-screen .tab-banner:before,.collection-screen .tab-banner:after{bottom:-44px}.collection-screen .collection-grid{grid-template-rows:minmax(0,1fr);grid-gap:9px}.collection-screen .collection-card .collection-copy{padding:7px 9px;gap:4px}.collection-screen .collection-card-title{font-size:12px}.collection-screen .collection-play{width:27px;height:27px}}
 @media(max-width:700px){.collection-screen .collection-search{min-width:145px;flex-basis:31%}.collection-screen .collection-title{font-size:24px}.collection-screen .collection-filters .filter-chip{padding:0 10px}.collection-screen .collection-tools{gap:8px}}
+/* One compact navigation system for content catalogs and word lists. */
+.tab-screen.collection-screen.has-list-navigation{grid-template-rows:88px 58px minmax(0,1fr) var(--list-nav-height,56px)}
+.tab-screen.collection-screen.has-audience.has-list-navigation{grid-template-rows:minmax(110px,23fr) 52px auto minmax(0,65fr) var(--list-nav-height,56px)}
+.collection-screen .list-navigation{position:relative;display:grid;grid-template-columns:minmax(84px,1fr) minmax(46px,80px) minmax(170px,1.5fr);align-items:center;gap:12px;padding:7px 0 0;min-width:0;min-height:0;isolation:isolate}
+.collection-screen .list-navigation[hidden]{display:none!important}
+.collection-screen .list-nav-button{min-height:44px;height:44px;min-width:0;max-width:100%;padding:6px 18px;border-radius:15px;font:inherit;font-size:clamp(11px,1.1vw,15px);font-weight:700;line-height:1.2;color:#f7f5ff;cursor:pointer;transition:background .16s,box-shadow .16s,transform .16s;border:1px solid #7b64bf;background:#14203a}
+.collection-screen .list-nav-previous{justify-self:start;min-width:105px;color:#d1c9e9}
+.collection-screen .list-nav-next{justify-self:end;width:min(100%,330px);background:linear-gradient(120deg,#7133ed,#913ff7 65%,#5c3fdc);border-color:#b18aff;box-shadow:0 0 16px #8b4ef136}
+.collection-screen .list-nav-button:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 0 17px #a273f660}
+.collection-screen .list-nav-button:active:not(:disabled){transform:translateY(0)}
+.collection-screen .list-nav-button:focus-visible{outline:3px solid #63e1df;outline-offset:2px}
+.collection-screen .list-nav-button:disabled{opacity:.45;cursor:default;box-shadow:none;background:#14203a;border-color:#5b6483}
+.list-nav-status{display:grid;justify-items:center;gap:6px;min-width:0;color:#eee9ff;font-weight:700;font-variant-numeric:tabular-nums}
+.list-nav-count{font-size:13px;white-space:nowrap;line-height:1.2}
+.list-nav-track{display:block;height:5px;width:100%;max-width:80px;overflow:hidden;border-radius:10px;background:#34425e}
+.list-nav-fill{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,#54d9d8,#a05afb)}
+.list-swipe-area{touch-action:pan-y pinch-zoom}.list-swiping,.list-swiping *{user-select:none;-webkit-user-select:none}
+.list-swipe-hint{position:absolute;left:50%;bottom:calc(100% + 6px);transform:translateX(-50%);padding:7px 12px;border-radius:12px;color:#e9e3ff;background:#172344f5;border:1px solid #8d68ca;font-size:11px;white-space:nowrap;pointer-events:none;box-shadow:0 3px 12px #0005}
+.collection-screen .collection-card,.collection-screen .unit-card{cursor:pointer}
+@media(hover:hover){.collection-screen .collection-card:hover,.collection-screen .unit-card:hover{border-color:#b18aff}}
+@media(max-height:560px) and (orientation:landscape){.tab-screen.collection-screen.has-list-navigation{--list-nav-size:48px;grid-template-rows:61px 44px minmax(0,1fr) var(--list-nav-height,48px)}.tab-screen.collection-screen.has-audience.has-list-navigation{grid-template-rows:65px 40px auto minmax(0,1fr) var(--list-nav-height,48px)}.collection-screen .list-navigation{padding-top:3px;gap:8px}.collection-screen .list-nav-button{padding:4px 12px;font-size:11px;border-radius:12px}.list-nav-count{font-size:11px}.list-nav-status{gap:4px}}
+@media(max-width:600px){.collection-screen .list-navigation{grid-template-columns:78px 45px minmax(0,1fr);gap:7px}.collection-screen .list-nav-previous{min-width:0;width:100%}.collection-screen .list-nav-button{padding:5px 8px;font-size:11px}.list-nav-count{font-size:12px}}
+@media(prefers-reduced-motion:reduce){.collection-screen .list-nav-button{transition:none}.collection-screen .list-nav-button:hover:not(:disabled){transform:none}}
+/* Portrait access is limited to lists; players and game workspaces keep their layouts. */
+@media(orientation:portrait) and (max-width:900px){
+body[data-screen=catalog],body[data-screen=words]{--header-h:56px}
+body[data-screen=catalog] .app-topbar,body[data-screen=words] .app-topbar{display:flex!important;height:56px;gap:5px;padding:0 8px}
+body[data-screen=catalog] .app-main,body[data-screen=words] .app-main{display:block!important}
+body[data-screen=catalog] #rotatePrompt,body[data-screen=words] #rotatePrompt{display:none!important}
+body:is([data-screen=catalog],[data-screen=words]) .brand>span{display:none}
+body:is([data-screen=catalog],[data-screen=words]) .brand-lili{width:28px;height:36px}
+body:is([data-screen=catalog],[data-screen=words]) .primary-nav{flex:1;gap:0;justify-content:space-evenly;min-width:0}
+body:is([data-screen=catalog],[data-screen=words]) .primary-nav .nav-tab{min-width:40px;min-height:44px;padding:0 6px;gap:0}
+body:is([data-screen=catalog],[data-screen=words]) .nav-tab>span{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+body:is([data-screen=catalog],[data-screen=words]) .header-actions>:not(#settingsToggle):not(#fullscreenBtn){display:none}
+body:is([data-screen=catalog],[data-screen=words]) .header-actions .icon-button{width:34px;min-width:34px;height:44px}
+.tab-screen.collection-screen.has-list-navigation{grid-template-rows:70px 90px minmax(0,1fr) var(--list-nav-height,56px)}
+.tab-screen.collection-screen.has-audience.has-list-navigation{grid-template-rows:70px 90px auto minmax(0,1fr) var(--list-nav-height,56px)}
+.collection-screen .collection-grid{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(3,minmax(0,1fr));gap:8px}
+.collection-screen .collection-tools{flex-wrap:wrap;align-content:center;gap:6px}
+.collection-screen .collection-search{flex:1 1 60%;min-width:0;height:36px}
+.collection-screen .collection-sort{height:36px;max-width:105px}
+.collection-screen .collection-filters{order:3;flex-basis:100%;overflow-x:auto;flex-wrap:nowrap;max-width:100%}
+.collection-screen .collection-filters .filter-chip{min-height:36px;height:36px;flex-shrink:0}
+.collection-screen .collection-card .collection-copy{padding:6px 8px;gap:4px}
+.collection-screen .collection-card-title{font-size:12px}.collection-screen .collection-tags small{font-size:9px}
+.collection-screen .collection-play{width:27px;height:27px}.collection-screen .collection-bottom{min-height:27px}
+.collection-screen.has-audience .audience-filters{flex-wrap:nowrap;overflow-x:auto;max-width:100%;gap:6px}
+.collection-screen.has-audience .audience-filters>*{flex-shrink:0}
+.collection-screen.has-audience .audience-options button{min-height:36px;padding:5px 8px;font-size:11px}
+.collection-screen .modular-game-filters{flex-wrap:nowrap;overflow-x:auto;max-width:100%}
+}
